@@ -39,11 +39,26 @@ function Bf(){
 
             <header>
                 <div className={cx('content')}>
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
+
+                    <div className={cx('header_logo')}>
+                        <img src="https://www.svgrepo.com/show/176733/road-road.svg" alt="logo"/>
+                    </div>
+
+                    <div className={cx('header_input')}>
+                        <input type="text"/>
+                    </div>
+
+
+                    <div className={cx('header_btnArea')}>
+                        <button>Экзамен, как в 10-ке</button>
+                        <button>Марафон</button>
+                    </div>
+
+                    <div className={cx('header_User')}>
+                        <div className={cx('header_User_Name')}>User13</div>
+                        <img width='41px' src="https://images.icon-icons.com/10/PNG/256/user_person_customer_man_1532.png" alt="Photo"/>
+                    </div>
+
                 </div>
             </header>
 

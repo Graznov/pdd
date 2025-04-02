@@ -47,21 +47,59 @@
     header,
     footer{
         background: var(--color-w-btn);
-        height: 100px;
+        /*height: 100px;*/
         position: absolute;
     }
 
     header{
         top: 0;
         width: 100%;
+
+        .content{
+            display: flex;
+            justify-content: space-between;
+            align-self: center;
+            padding: 10px 0px;
+
+            .header_logo{
+                img{
+                    width: 70px;
+                }
+            }
+
+            .header_input{
+                display: flex;
+                align-self: center;
+                input{
+                    font-size: 23px;
+                    padding: 5px;
+                }
+            }
+            .header_btnArea{
+                display: flex;
+                align-self: center;
+                gap: 10px;
+                button{
+                    padding: 3px 10px;
+                }
+            }
+            .header_User{
+                display: flex;
+                /*justify-content: space-between;*/
+                align-self: center;
+                gap: 13px;
+            }
+        }
+
     }
+
     footer{
         bottom: 0;
         width: 100%;
     }
 
     main{
-        padding: 100px 0px 100px 0px;
+        padding: 100px 0px 0px 0px;
     }
 
 
