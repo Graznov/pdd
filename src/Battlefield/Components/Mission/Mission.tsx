@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './mission.module.css';
+import Variant from "./Variant/Variant.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -7,10 +8,7 @@ export interface props {
         image: string;
         question: string;
         ticket_category: string;
-        answers: ({ answer_text: string; is_correct: boolean } | { answer_text: string; is_correct: boolean } | {
-            answer_text: string;
-            is_correct: boolean
-        })[];
+        answers: object[];
         correct_answer: string;
         topic: string[];
         id: string;
@@ -40,11 +38,21 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
 
             <div className={cx('mission_question')}>{question}</div>
-            <div>{JSON.stringify(answers)}</div>
-            <div>{correct_answer}</div>
-            <div>{answer_tip}</div>
-            <div>{JSON.stringify(topic)}</div>
-            <div>{id}</div>
+
+            <div className={cx('mission_answerArea')}>
+                {
+                    answers.map((answer) => (
+                        <Variant
+                            key={answer.answer_text}
+                            text={answer.answer_text}/>
+                    ))
+                }
+            </div>
+
+            {/*<div>{correct_answer}</div>*/}
+            {/*<div>{answer_tip}</div>*/}
+            {/*<div>{JSON.stringify(topic)}</div>*/}
+            {/*<div>{id}</div>*/}
         </div>
     )
 }

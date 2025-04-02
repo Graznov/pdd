@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
-import Mission, {props} from "./Mission/Mission.tsx";
+import Mission, {props} from "./Components/Mission/Mission.tsx";
 
 const cx = classNames.bind(styles);
 
