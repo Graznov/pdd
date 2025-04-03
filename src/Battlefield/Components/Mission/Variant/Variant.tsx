@@ -3,12 +3,20 @@ import styles from './variant.module.css';
 
 const cx = classNames.bind(styles);
 
-function Variant({text}) {
+interface IProps {
+    text: string,
+    onClick?: () => void,
+    key:string,
+
+}
+
+function Variant({text, onClick}:IProps) {
 
     return(
 
         <button
-            // key={text}
+            key={text}
+            onClick={onClick}
             className={cx('btn_answer')}>
             {text}
         </button>

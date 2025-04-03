@@ -41,7 +41,7 @@ function Bf(){
                 <div className={cx('content')}>
 
                     <div className={cx('header_logo')}>
-                        <img src="https://www.svgrepo.com/show/176733/road-road.svg" alt="logo"/>
+                        <img src="public/logo.svg" alt="logo"/>
                     </div>
 
                     <div className={cx('header_input')}>

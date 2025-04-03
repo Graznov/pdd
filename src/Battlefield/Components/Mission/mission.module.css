@@ -41,6 +41,29 @@
     font-family: "Roboto Light", sans-serif;
     color: var(--color);
 
+    .mission_responseWind{
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        margin: -150px -250px;
+        background: var(--color-primary);
+        padding: 16px;
+        font-size: 2vw;
+        border-radius: 10px;
+        .mission_responseWind_correct{
+            text-align: right;
+            font-size: 2.5vw;
+            font-weight: 600;
+        }
+    }
+    .mission_responseWind_visible{
+        display: flex;
+        flex-direction: column;
+        gap: 21px;
+    }
+
     .mission_title{
         font-size: 27px;
         text-align: right;
@@ -54,12 +77,16 @@
             width: 100%;
             /*margin: 10px auto;*/
         }
+        .mission_img_text{
+            text-align: right;
+        }
     }
 
 
     .mission_question{
         font-size: 25px;
-        border-left: 2px solid red;
+        font-weight: 600;
+        /*border-left: 2px solid red;*/
         padding: 10px;
         /*font-family: "Roboto Light", sans-serif;*/
     }
@@ -68,9 +95,12 @@
         display: flex;
         flex-direction: column;
 
-        button{
+        .answer_Btn_0,
+        .answer_Btn_1,
+        .answer_Btn_2,
+        .answer_Btn_3,
+        .answer_Btn_4{
             color: var(--color);
-
             border: none;
             background: none;
             padding: 15px;
@@ -78,15 +108,32 @@
             font-size: 21px;
             cursor: pointer;
         }
-        button:hover{
-            background-color: var(--color-w-btn);
-            color: white;
+        /*.answer_Btn:hover{*/
+        /*    background-color: var(--color-w-btn);*/
+        /*    color: white;*/
+        /*}*/
+
+        .answer_Btn_Green_0,
+        .answer_Btn_Green_1,
+        .answer_Btn_Green_2,
+        .answer_Btn_Green_3,
+        .answer_Btn_Green_4{
+            color: green;
+        }
+        .answer_Btn_Red_0,
+        .answer_Btn_Red_1,
+        .answer_Btn_Red_2,
+        .answer_Btn_Red_3,
+        .answer_Btn_Red_4{
+            color: red;
         }
 
-        button:active{
-            background-color: var(--color-w-btn_hover);
-            color: #dadad7;
-        }
+
+
+        /*button:active{*/
+        /*    background-color: var(--color-w-btn_hover);*/
+        /*    color: #dadad7;*/
+        /*}*/
     }
 
 }
