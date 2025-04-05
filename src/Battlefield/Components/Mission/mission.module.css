@@ -52,6 +52,11 @@
         padding: 16px;
         font-size: 2vw;
         border-radius: 10px;
+        .mission_responseWind_topic{
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
         .mission_responseWind_correct{
             text-align: right;
             font-size: 2.5vw;
@@ -98,8 +103,9 @@
         .answer_Btn_0,
         .answer_Btn_1,
         .answer_Btn_2,
-        .answer_Btn_3,
-        .answer_Btn_4{
+        .answer_Btn_3{
+            transition: background-color 0.3s ease;
+
             color: var(--color);
             border: none;
             background: none;
@@ -113,18 +119,10 @@
         /*    color: white;*/
         /*}*/
 
-        .answer_Btn_Green_0,
-        .answer_Btn_Green_1,
-        .answer_Btn_Green_2,
-        .answer_Btn_Green_3,
-        .answer_Btn_Green_4{
+        .answer_Btn_Green{
             color: green;
         }
-        .answer_Btn_Red_0,
-        .answer_Btn_Red_1,
-        .answer_Btn_Red_2,
-        .answer_Btn_Red_3,
-        .answer_Btn_Red_4{
+        .answer_Btn_Red{
             color: red;
         }
 
