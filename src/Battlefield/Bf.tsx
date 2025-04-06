@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
 import Mission, {props} from "./Components/Mission/Mission.tsx";
+import {Outlet} from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -63,6 +64,9 @@ function Bf(){
             </header>
 
             <main>
+
+                {/*<Outlet/>*/}
+
                 <div className={cx('content')}>
                     <Mission
                         title={temp.title}
