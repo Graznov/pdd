@@ -4,7 +4,7 @@ import {useState} from "react";
 
 const cx = classNames.bind(styles);
 
-export interface props {
+export interface props_mission {
         image: string;
         question: string;
         ticket_category: string;
@@ -18,7 +18,7 @@ export interface props {
     }
 
 
-function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: props) {
+function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: props_mission) {
 
 
     const pathToImg = image.substr(1)

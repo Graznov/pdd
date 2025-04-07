@@ -7,7 +7,7 @@ import React from 'react';
 import {Provider} from "react-redux";
 import Bf from "./Battlefield/Bf.tsx";
 import {store} from "./store/store.ts";
-import Mission from "./Battlefield/Components/Mission/Mission.tsx";
+import Allquestions from "./Battlefield/Allquestions/Allquestions.tsx";
 
 const router = createBrowserRouter([
     {
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
             {
                 path:"/allquestions",
                 // index,
-                element: <Mission/>
+                element: <Allquestions/>
             },
             // {
             //     path:"/login",
@@ -29,10 +29,6 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
-  //   <App />
-  // </StrictMode>,
-
     <React.StrictMode>
         <Provider store={store}>
             <RouterProvider router={router}/>
