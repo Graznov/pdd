@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './mission.module.css';
 import {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
+import {setArrAllQwest} from "../../../store/defSlice.ts";
 
 const cx = classNames.bind(styles);
 
@@ -12,20 +14,27 @@ export interface props_mission {
         correct_answer: string;
         topic: string[];
         id: string;
-        title: string;
-        ticket_number: string;
+        title?: string;
+        ticket_number?: string;
         answer_tip: string
     }
 
 
 function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: props_mission) {
 
+    const dispatch = useAppDispatch()
+
+    const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
 
     const pathToImg = image.substr(1)
 
     const [answersStatus, setAnswersStatus] = useState<{ [key: number]: 'green' | 'red' | null }>({});
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
+
+        ////////////////
+        dispatch(setArrAllQwest({isCorrect:isCorrect,activeQwest:activeQwest}))
+
         setAnswersStatus({
             ...answersStatus,
             [index]: isCorrect ? 'green' : 'red',

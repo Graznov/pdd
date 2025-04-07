@@ -1,0 +1,40 @@
+
+.all_questions{
+
+
+    .all_questions_numbers{
+
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        /*overflow;*/
+
+        button{
+            width: 25px;
+            height: 25px;
+            border: 1px solid red;
+            /*padding: 5px;*/
+            font-size: 10px;
+
+            cursor: pointer;
+            background: none;
+
+        }
+
+        .all_questions_numbers_qwest_red{
+            background-color: red;
+        }
+        .all_questions_numbers_qwest_green{
+            background-color: green;
+        }
+        .all_questions_numbers_qwest_yellow{
+            background-color: yellow;
+        }
+
+        button:hover{
+            background: yellow;
+        }
+    }
+
+}
+

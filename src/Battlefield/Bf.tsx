@@ -68,24 +68,27 @@ function Bf(){
             </header>
 
             <main>
+                <div className={cx('content')}>
+                    <Outlet/>
+                </div>
 
-                <Outlet/>
 
-                {/*<div className={cx('content')}>*/}
-                {/*    <Mission*/}
-                {/*        title={temp.title}*/}
-                {/*        ticket_category={temp.ticket_category}*/}
-                {/*        ticket_number={temp.ticket_number}*/}
-                {/*        image={temp.image}*/}
-                {/*        question={temp.question}*/}
-                {/*        answers={temp.answers}*/}
-                {/*        correct_answer={temp.correct_answer}*/}
-                {/*        answer_tip={temp.answer_tip}*/}
-                {/*        topic={temp.topic}*/}
-                {/*        id={temp.id}*/}
-                {/*    />*/}
 
-                {/*</div>*/}
+                    {/*<div className={cx('content')}>*/}
+                    {/*    <Mission*/}
+                    {/*        title={temp.title}*/}
+                    {/*        ticket_category={temp.ticket_category}*/}
+                    {/*        ticket_number={temp.ticket_number}*/}
+                    {/*        image={temp.image}*/}
+                    {/*        question={temp.question}*/}
+                    {/*        answers={temp.answers}*/}
+                    {/*        correct_answer={temp.correct_answer}*/}
+                    {/*        answer_tip={temp.answer_tip}*/}
+                    {/*        topic={temp.topic}*/}
+                    {/*        id={temp.id}*/}
+                    {/*    />*/}
+
+                    {/*</div>*/}
             </main>
 
             {/*<footer>*/}
