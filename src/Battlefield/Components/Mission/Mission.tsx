@@ -7,20 +7,6 @@ import {props_mission} from "../../../store/interface.ts";
 
 const cx = classNames.bind(styles);
 
-// export interface props_mission {
-//         image: string;
-//         question: string;
-//         ticket_category: string;
-//         answers: { answer_text: string, "is_correct": boolean }[];
-//         correct_answer: string;
-//         topic: string[];
-//         id: string;
-//         title?: string;
-//         ticket_number?: string;
-//         answer_tip: string
-//     }
-
-
 function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: props_mission) {
 
     const dispatch = useAppDispatch()
@@ -41,17 +27,18 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             [index]: isCorrect ? 'green' : 'red',
         });
 
-        setTimeout(() => {
-            setAnswersStatus(prev => ({
-                ...prev,
-                [index]: null,
-            }));
-        }, 1000);
+        // setTimeout(() => {
+        //     setAnswersStatus(prev => ({
+        //         ...prev,
+        //         [index]: null,
+        //     }));
+        // }, 1000);
     };
     const [responseWind, setResponseWind] = useState(false);
 
     return (
-        <div className={cx('mission')}>
+        <div
+            className={cx('mission')}>
 
             <div
                 className={cx('mission_responseWind', {

@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {allQwestArr} from "./allQwestArr.ts";
 import {props_mission} from "./interface.ts";
 
-export interface Cube {number:number, status:'red'|'green'|'none'}
+// export interface Cube {number:number, status:'red'|'green'|'none'}
 
 interface State {
     arrAllQwest : Cube[],

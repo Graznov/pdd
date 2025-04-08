@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import * as All from "../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch} from "../store/hooks.ts";
 import {setSearchArrQuest} from "../store/defSlice.ts";
@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 
 function Bf(){
 
+    const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
 
@@ -27,6 +28,7 @@ function Bf(){
         setVallueSearch(e.target.value)
 
         if(e.target.value.length > 5){
+            navigate("/search")
             const searchText = e.target.value
             console.log(searchText)
 

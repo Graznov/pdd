@@ -5,20 +5,23 @@
     .all_questions_numbers{
 
         display: flex;
-        flex-wrap: wrap;
+        /*flex-wrap: wrap;*/
+        /*display: inline;*/
+        /*height: 41px;*/
+        overflow: auto;
         width: 100%;
         /*overflow;*/
 
-        button{
-            width: 25px;
-            height: 25px;
-            border: 1px solid red;
-            /*padding: 5px;*/
-            font-size: 10px;
-
+        .all_questions_numbers_qwest{
+            margin-right: 3px;
+            width: 39px;
+            height: 29px;
+            border: 2px solid silver;
+            border-radius: 5px;
+            /*text-align: left;*/
+            font-size: 15px;
             cursor: pointer;
             background: none;
-
         }
 
         .all_questions_numbers_qwest_red{
@@ -32,7 +35,7 @@
         }
 
         button:hover{
-            background: yellow;
+            /*background: yellow;*/
         }
     }
 

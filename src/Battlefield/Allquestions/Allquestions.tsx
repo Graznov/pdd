@@ -43,8 +43,10 @@ function Allquestions(){
             </div>
 
             <Mission
+
                 // key={elem.id+elem.topic}
                 // title={allQwest[qwestNumber].title}
+                disabled={true}
                 ticket_category={allQwest[activeQwest].ticket_category}
                 ticket_number={`Вопрос ${activeQwest}`}
                 image={allQwest[activeQwest].image}
