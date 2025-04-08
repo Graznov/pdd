@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import Bf from "./Battlefield/Bf.tsx";
 import {store} from "./store/store.ts";
 import Allquestions from "./Battlefield/Allquestions/Allquestions.tsx";
+import Search from "./Battlefield/Search/Search.tsx";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
                 path:"/allquestions",
                 // index,
                 element: <Allquestions/>
+            },
+            {
+                path:"/search",
+                // index,
+                element: <Search/>
             },
             // {
             //     path:"/login",

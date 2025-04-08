@@ -1,16 +1,21 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {allQwestArr} from "./allQwestArr.ts";
+import {props_mission} from "./interface.ts";
 
 export interface Cube {number:number, status:'red'|'green'|'none'}
 
 interface State {
     arrAllQwest : Cube[],
     activeQwest : number
+    searchArrQuest : props_mission[]
+    searchText:string
 }
 
 const initialState:State = {
     arrAllQwest: allQwestArr,
-    activeQwest:1
+    activeQwest:1,
+    searchArrQuest:[],
+    searchText:''
 }
 
 const defSlice = createSlice({
@@ -33,6 +38,15 @@ const defSlice = createSlice({
             } else{
                 state.arrAllQwest[action.payload.activeQwest-1].status='red'
             }
+        },
+
+        setSearchText(state,action){
+            state.searchText = action.payload
+        },
+
+        setSearchArrQuest(state, action){
+            console.log(action.payload)
+            state.searchArrQuest = action.payload
         }
 
     }
@@ -41,8 +55,9 @@ const defSlice = createSlice({
 
 export const {
     setArrAllQwest,
-    setActiveQwest
-
+    setActiveQwest,
+    setSearchArrQuest,
+    setSearchText
 
 } = defSlice.actions;
 export default defSlice.reducer

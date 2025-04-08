@@ -2,40 +2,42 @@ import classNames from 'classnames/bind';
 import styles from './bf.module.css';
 import {NavLink, Outlet} from "react-router-dom";
 import * as All from "../../pdd_russia/questions/A_B/All/all.json"
+import {useAppDispatch} from "../store/hooks.ts";
+import {setSearchArrQuest, setSearchText} from "../store/defSlice.ts";
+import {props_mission} from "../store/interface.ts";
 
 const cx = classNames.bind(styles);
 
-// const temp:props =   {
-//     "title": "Вопрос 3",
-//     "ticket_number": "Билет 1",
-//     "ticket_category": "A,B",
-//     "image": "./images/A_B/5fa33b65fe52f38ad87c4b5226c5d3ba.jpg",
-//     "question": "Можно ли Вам остановиться в указанном месте для посадки пассажира?",
-//     "answers": [
-//         {
-//             "answer_text": "Можно",
-//             "is_correct": true
-//         },
-//         {
-//             "answer_text": "Можно, если Вы управляете такси",
-//             "is_correct": false
-//         },
-//         {
-//             "answer_text": "Нельзя",
-//             "is_correct": false
-//         }
-//     ],
-//     "correct_answer": "Правильный ответ: 1",
-//     "answer_tip": "Знак 3.28 «Стоянка запрещена» не запрещает производить остановку. В указанном месте Вам совершить остановку можно.(«Дорожные знаки»)",
-//     "topic": [
-//         "Дорожные знаки"
-//     ],
-//     "id": "7d6121c8ec64a113baa6047a457e9c10"
-// }
 
 function Bf(){
+    const dispatch = useAppDispatch()
 
+    const allQuest = All.default
 
+    const enterTextSearch = (e) => {
+        if(e.target.value.length > 5){
+            const searchText = e.target.value
+            console.log(searchText)
+
+            let searchArr:props_mission[] = []
+
+            allQuest.forEach((elem)=>{
+                if(elem.question.toLowerCase().includes(searchText.toLowerCase())) {
+                    searchArr.push(elem)
+                }
+            })
+            searchArr.forEach((el,ind)=>{
+                for(let j= ind+1; j<searchArr.length; j++){
+                    if(el.id === searchArr[j].id){
+                        searchArr.splice(j, 1)
+                    }
+                }
+            })
+
+            dispatch(setSearchArrQuest(searchArr))
+        }
+
+    }
 
     return (
         <div className={cx('container')}>
@@ -50,13 +52,15 @@ function Bf(){
                     </NavLink>
 
                     <div className={cx('header_input')}>
-                        <input type="text"/>
+                        <input
+                            onChange={enterTextSearch}
+                            type="text"/>
                     </div>
 
 
                     <div className={cx('header_btnArea')}>
-                        <NavLink to={'/allquestions'}>Экзамен, как в 10-ке</NavLink>
-                        <NavLink to={''}>Марафон</NavLink>
+                        <NavLink to={''}>Экзамен, как в 10-ке</NavLink>
+                        <NavLink to={'/allquestions'}>Марафон</NavLink>
                     </div>
 
                     <div className={cx('header_User')}>

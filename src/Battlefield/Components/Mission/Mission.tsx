@@ -3,21 +3,22 @@ import styles from './mission.module.css';
 import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {setArrAllQwest} from "../../../store/defSlice.ts";
+import {props_mission} from "../../../store/interface.ts";
 
 const cx = classNames.bind(styles);
 
-export interface props_mission {
-        image: string;
-        question: string;
-        ticket_category: string;
-        answers: { answer_text: string, "is_correct": boolean }[];
-        correct_answer: string;
-        topic: string[];
-        id: string;
-        title?: string;
-        ticket_number?: string;
-        answer_tip: string
-    }
+// export interface props_mission {
+//         image: string;
+//         question: string;
+//         ticket_category: string;
+//         answers: { answer_text: string, "is_correct": boolean }[];
+//         correct_answer: string;
+//         topic: string[];
+//         id: string;
+//         title?: string;
+//         ticket_number?: string;
+//         answer_tip: string
+//     }
 
 
 function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: props_mission) {

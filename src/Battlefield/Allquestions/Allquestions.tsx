@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import styles from './allquestions.module.css';
 import Mission, { props_mission} from "../Components/Mission/Mission.tsx";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
-import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setActiveQwest} from "../../store/defSlice.ts";
 
@@ -17,7 +16,6 @@ function Allquestions(){
 
     const allQwest:props_mission[] = All.default
 
-    // const [qwestNumber, setQwestNumber] = useState(0);
 
     return(
 
@@ -57,24 +55,6 @@ function Allquestions(){
                 topic={allQwest[activeQwest].topic}
                 id={allQwest[activeQwest].id}
             />
-
-            {/*{*/}
-            {/*    allQwest.map((elem:props_mission) => (*/}
-            {/*            <Mission*/}
-            {/*                // key={elem.id+elem.topic}*/}
-            {/*                title={elem.title}*/}
-            {/*                ticket_category={elem.ticket_category}*/}
-            {/*                ticket_number={elem.ticket_number}*/}
-            {/*                image={elem.image}*/}
-            {/*                question={elem.question}*/}
-            {/*                answers={elem.answers}*/}
-            {/*                correct_answer={elem.correct_answer}*/}
-            {/*                answer_tip={elem.answer_tip}*/}
-            {/*                topic={elem.topic}*/}
-            {/*                id={elem.id}*/}
-            {/*            />*/}
-            {/*    ))*/}
-            {/*}*/}
 
         </div>
     )

@@ -1,0 +1,26 @@
+.searchContainer{
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    margin: 10px auto;
+    font-family: "Roboto Light",sans-serif;
+    border: 1px solid red;
+    padding: 10px;
+
+    .searchContainer_question{
+        font-size: large;
+    }
+    img{
+        width: 90%;
+        margin: 0 auto;
+    }
+    .searchContainer_question_correct{
+
+    }
+    .searchContainer_question_text{
+        font-size: 2.5rem;
+        color: green;
+    }
+}
