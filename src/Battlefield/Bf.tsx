@@ -3,18 +3,29 @@ import styles from './bf.module.css';
 import {NavLink, Outlet} from "react-router-dom";
 import * as All from "../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch} from "../store/hooks.ts";
-import {setSearchArrQuest, setSearchText} from "../store/defSlice.ts";
+import {setSearchArrQuest} from "../store/defSlice.ts";
 import {props_mission} from "../store/interface.ts";
+import {useState} from "react";
+
+import { ReactComponent as CloseSVG } from "../../public/close.svg";
+
 
 const cx = classNames.bind(styles);
 
 
 function Bf(){
+
+
     const dispatch = useAppDispatch()
 
     const allQuest = All.default
 
+    const [vallueSearch, setVallueSearch] = useState('')
+
     const enterTextSearch = (e) => {
+
+        setVallueSearch(e.target.value)
+
         if(e.target.value.length > 5){
             const searchText = e.target.value
             console.log(searchText)
@@ -35,6 +46,8 @@ function Bf(){
             })
 
             dispatch(setSearchArrQuest(searchArr))
+        } else {
+            dispatch(setSearchArrQuest([]))
         }
 
     }
@@ -53,8 +66,17 @@ function Bf(){
 
                     <div className={cx('header_input')}>
                         <input
+                            value={vallueSearch}
                             onChange={enterTextSearch}
                             type="text"/>
+                        <button
+                            onClick={()=> {
+                                setVallueSearch('')
+                                dispatch(setSearchArrQuest([]))
+
+                            }}>
+                            {/*<CloseSVG/>*/}
+                        </button>
                     </div>
 
 
@@ -75,24 +97,6 @@ function Bf(){
                 <div className={cx('content')}>
                     <Outlet/>
                 </div>
-
-
-
-                    {/*<div className={cx('content')}>*/}
-                    {/*    <Mission*/}
-                    {/*        title={temp.title}*/}
-                    {/*        ticket_category={temp.ticket_category}*/}
-                    {/*        ticket_number={temp.ticket_number}*/}
-                    {/*        image={temp.image}*/}
-                    {/*        question={temp.question}*/}
-                    {/*        answers={temp.answers}*/}
-                    {/*        correct_answer={temp.correct_answer}*/}
-                    {/*        answer_tip={temp.answer_tip}*/}
-                    {/*        topic={temp.topic}*/}
-                    {/*        id={temp.id}*/}
-                    {/*    />*/}
-
-                    {/*</div>*/}
             </main>
 
             {/*<footer>*/}
