@@ -9,6 +9,7 @@ export interface props_mission {
     title?: string;
     ticket_number?: string;
     answer_tip: string;
+    // activeQwest:number
     // disabled:boolean
 }
 

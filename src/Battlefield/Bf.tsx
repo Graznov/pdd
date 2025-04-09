@@ -7,7 +7,7 @@ import {setSearchArrQuest} from "../store/defSlice.ts";
 import {props_mission} from "../store/interface.ts";
 import {useState} from "react";
 
-import { ReactComponent as CloseSVG } from "../../public/close.svg";
+// import { ReactComponent as CloseSVG } from "../../public/close.svg";
 
 
 const cx = classNames.bind(styles);
@@ -77,7 +77,7 @@ function Bf(){
                                 dispatch(setSearchArrQuest([]))
 
                             }}>
-                            {/*<CloseSVG/>*/}
+                            {/*<CloseSVG/>*/}X
                         </button>
                     </div>
 

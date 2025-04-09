@@ -14,6 +14,7 @@ function Allquestions(){
     const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
 
 
+    console.log(activeQwest)
     const allQwest:props_mission[] = All.default
 
 
@@ -26,6 +27,7 @@ function Allquestions(){
                 {
                     list.map((e) => (
                             <button
+                                key={e.number}
                                 className={cx('all_questions_numbers_qwest',{
                                     'all_questions_numbers_qwest_red': e.status === 'red',
                                     'all_questions_numbers_qwest_green': e.status === 'green',
@@ -46,7 +48,8 @@ function Allquestions(){
 
                 // key={elem.id+elem.topic}
                 // title={allQwest[qwestNumber].title}
-                disabled={true}
+                // disabled={true}
+                activeQwest={activeQwest}
                 ticket_category={allQwest[activeQwest].ticket_category}
                 ticket_number={`Вопрос ${activeQwest}`}
                 image={allQwest[activeQwest].image}
