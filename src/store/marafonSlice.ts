@@ -5,13 +5,15 @@ import {quest} from "./interface.ts";
 export interface marafonState {
     activeQuest:number,
     listQuests:quest[],
+    green:number,
+    red:number,
 }
-
-
 
 const initialState:marafonState = {
     activeQuest:0,
-    listQuests:[]
+    listQuests:[],
+    green:0,
+    red:0
 }
 
 const marafonSlice = createSlice({
@@ -24,9 +26,17 @@ const marafonSlice = createSlice({
         setActiveQwest(state, action){
             state.activeQuest = action.payload
         },
+
         setActiveQwestPlus(state){
+
             state.activeQuest++
-            console.log("%c" + `marafonSlice.ts\nactiveQuest: ${state.activeQuest}`, "color:orange;font-size:17px;");
+            nextQuest()
+            function nextQuest(){
+                if (state.listQuests[state.activeQuest].response){
+                    state.activeQuest++
+                    nextQuest()
+                }
+            }
         },
 
         setListQuest(state, action){
@@ -34,9 +44,14 @@ const marafonSlice = createSlice({
         },
 
         pushAnswerQuest(state, action){
-            console.log("%c" + `marafonSlice.ts\naction.payload: ${action.payload}\nactiveQuest: ${state.activeQuest}`, "color:orange;font-size:17px;");
+            (action.payload) ? state.green++ : state.red++
+
+            console.log("%c" + `marafonSlice.ts\naction.payload: ${action.payload}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}`
+                , "color:orange;font-size:17px;");
             state.listQuests[state.activeQuest].response = true
             state.listQuests[state.activeQuest].status = (action.payload)?'green':'red'
+
+
         }
 
 

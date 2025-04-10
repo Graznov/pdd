@@ -1,11 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './allquestions.module.css';
-import Mission, { props_mission } from "../Components/Mission/Mission.tsx";
+import Mission from "../Components/Mission/Mission.tsx";
+import {props_mission, quest} from "../../store/interface.ts";
+
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-// import {ArrAllQwest, setActiveQwest} from "../../store/searchSlice.ts";
-import {useEffect} from "react";
+
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
+// import {ReactComponent as Slash} from "../../../public/slash.svg";
 
 const cx = classNames.bind(styles);
 
@@ -17,15 +19,15 @@ function Allquestions(){
 
     const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
     const list = useAppSelector(state => state.marafonSlice.listQuests);
+    const red = useAppSelector(state => state.marafonSlice.red);
+    const green = useAppSelector(state => state.marafonSlice.green);
 
     if (list.length === 0) {
         const allQwest:props_mission[] = All.default.sort(function(){
             return Math.random() - 0.5;
         });
 
-        // console.log(allQwest[13])
-
-        const listNumbersQuest = allQwest.reduce((res, elem, ind)=>{
+        const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
 
             res.push({
                 ...elem,
@@ -40,10 +42,9 @@ function Allquestions(){
         dispatch(setListQuest(listNumbersQuest))
     }
 
-
-    console.log("%c" + `Allquestions.tsx\nlist: ${list[activeQwest]}`, "color:tomato;font-size:17px;");
-    // console.log(list[activeQwest]);
-
+    console.log("%c"
+        + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
+        "color:tomato;font-size:17px;");
 
     return(
 
@@ -70,14 +71,19 @@ function Allquestions(){
 
             </div>
 
-            <Mission
+            <div className={cx('all_questions_counter')}>
+                <div className={cx('all_questions_counter_red')}>{red}</div>
+                <div className={cx('all_questions_counter_slash')}>/</div>
+                {/*<Slash/>*/}
+                <div className={cx('all_questions_counter_green')}>{green}</div>
+            </div>
 
-                // key={elem.id+elem.topic}
-                // title={allQwest[qwestNumber].title}
-                // disabled={true}
-                activeQwest={activeQwest}
+            <Mission
+                status={list[activeQwest].status}
+                number={list[activeQwest].number}
+                response={list[activeQwest].response}
                 ticket_category={list[activeQwest].ticket_category}
-                ticket_number={`Вопрос ${activeQwest}`}
+                ticket_number={`Вопрос ${activeQwest+1}`}
                 image={list[activeQwest].image}
                 question={list[activeQwest].question}
                 answers={list[activeQwest].answers}

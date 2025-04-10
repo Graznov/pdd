@@ -1,14 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './mission.module.css';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-// import {addResponsToAllQwest, setArrAllQwest} from "../../../store/searchSlice.ts";
-import {props_mission, quest} from "../../../store/interface.ts";
-import {pushAnswerQuest, setActiveQwest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
+import {quest} from "../../../store/interface.ts";
+import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 
 const cx = classNames.bind(styles);
 
-function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: quest) {
+function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic, response}: quest) {
 
     const dispatch = useAppDispatch()
 
@@ -30,7 +29,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}`, "color:#559D4CFF;font-size:17px;");
 
-
+        setResponseWind(false)
         setAnswersStatus({
             ...answersStatus,
             [index]: isCorrect ? 'green' : 'red',
@@ -56,12 +55,13 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         }, 1000);
     };
 
-
     const [responseWind, setResponseWind] = useState(false);
 
     return (
         <div
-            className={cx('mission')}>
+            className={cx('mission',{
+                'mission_inposible':response,
+            })}>
 
             <div
                 className={cx('mission_responseWind', {

@@ -135,3 +135,8 @@
     }
 
 }
+
+.mission_inposible *{
+    opacity: 0.79;
+    pointer-events:none;
+}

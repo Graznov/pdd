@@ -1,5 +1,25 @@
 
 .all_questions{
+    position: relative;
+
+    .all_questions_counter{
+        position: absolute;
+        /*top:0;*/
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-size: 25px;
+        .all_questions_counter_red{
+            color: red;
+        }
+        .all_questions_counter_slash{
+            font-size: 33px;
+        }
+        .all_questions_counter_green{
+            color: green;
+        }
+    }
 
 
     .all_questions_numbers{
@@ -10,12 +30,11 @@
         /*height: 41px;*/
         overflow: auto;
         width: 100%;
-        /*overflow;*/
 
         .all_questions_numbers_qwest{
             margin-right: 3px;
-            width: 39px;
-            height: 29px;
+            /*width: 39px;*/
+            /*height: 29px;*/
             border: 2px solid silver;
             border-radius: 5px;
             /*text-align: left;*/
@@ -33,7 +52,9 @@
         }
         .all_questions_numbers_qwest_yellow{
             border: 2px solid orange;
-        ;
+            /*font-size: 55px;*/
+            /*padding: 35px;*/
+            font-weight: 800;
         }
 
         button:hover{
