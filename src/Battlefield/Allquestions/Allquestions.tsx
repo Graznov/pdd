@@ -5,30 +5,45 @@ import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 // import {ArrAllQwest, setActiveQwest} from "../../store/searchSlice.ts";
 import {useEffect} from "react";
+import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
 
 const cx = classNames.bind(styles);
 
 function Allquestions(){
+
+
     const dispatch = useAppDispatch()
 
 
+    const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
+    const list = useAppSelector(state => state.marafonSlice.listQuests);
 
-    const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
+    if (list.length === 0) {
+        const allQwest:props_mission[] = All.default.sort(function(){
+            return Math.random() - 0.5;
+        });
 
-    const list = useAppSelector(state => state.defSlice.arrAllQwest);
+        // console.log(allQwest[13])
+
+        const listNumbersQuest = allQwest.reduce((res, elem, ind)=>{
+
+            res.push({
+                ...elem,
+                number: ind,
+                response: false,
+                status: 'none'
+            })
+
+            return res
+        },[])
+
+        dispatch(setListQuest(listNumbersQuest))
+    }
 
 
-    console.log(activeQwest)
-    const allQwest:props_mission[] = All.default
+    console.log("%c" + `Allquestions.tsx\nlist: ${list[activeQwest]}`, "color:tomato;font-size:17px;");
+    // console.log(list[activeQwest]);
 
-    const listNumbersQuest = allQwest.reduce((res, elem, ind)=>{
-
-        res.push({number: ind+1, id: elem.id, response: null, status: 'none'})
-
-        return res
-    },[])
-
-    // dispatch(ArrAllQwest(listNumbersQuest))
 
     return(
 
@@ -37,7 +52,7 @@ function Allquestions(){
             <div className={cx('all_questions_numbers')}>
 
                 {
-                    listNumbersQuest.map((e) => (
+                    list.map((e) => (
                             <button
                                 key={e.number}
                                 className={cx('all_questions_numbers_qwest',{
@@ -46,10 +61,9 @@ function Allquestions(){
                                     'all_questions_numbers_qwest_yellow': e.number === activeQwest,
                                 })}
                                 onClick={()=> {
-                                    // setQwestNumber(e.number)
-                                    // dispatch(setActiveQwest(e.number))
+                                    dispatch(setActiveQwest(e.number))
                                 }}>
-                                {e.number}
+                                {e.number+1}
                             </button>
                         ))
                 }
@@ -62,15 +76,15 @@ function Allquestions(){
                 // title={allQwest[qwestNumber].title}
                 // disabled={true}
                 activeQwest={activeQwest}
-                ticket_category={allQwest[activeQwest].ticket_category}
+                ticket_category={list[activeQwest].ticket_category}
                 ticket_number={`Вопрос ${activeQwest}`}
-                image={allQwest[activeQwest].image}
-                question={allQwest[activeQwest].question}
-                answers={allQwest[activeQwest].answers}
-                correct_answer={allQwest[activeQwest].correct_answer}
-                answer_tip={allQwest[activeQwest].answer_tip}
-                topic={allQwest[activeQwest].topic}
-                id={allQwest[activeQwest].id}
+                image={list[activeQwest].image}
+                question={list[activeQwest].question}
+                answers={list[activeQwest].answers}
+                correct_answer={list[activeQwest].correct_answer}
+                answer_tip={list[activeQwest].answer_tip}
+                topic={list[activeQwest].topic}
+                id={list[activeQwest].id}
             />
 
         </div>

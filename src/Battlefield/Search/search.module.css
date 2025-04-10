@@ -1,4 +1,6 @@
 .search_content{
     height: 85vh;
     overflow-y: scroll;
+
+    /*color: #559d4c;*/
 }

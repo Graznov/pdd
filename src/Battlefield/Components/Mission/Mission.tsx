@@ -1,27 +1,34 @@
 import classNames from 'classnames/bind';
 import styles from './mission.module.css';
 import {useEffect, useState} from "react";
-import {useAppDispatch} from "../../../store/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 // import {addResponsToAllQwest, setArrAllQwest} from "../../../store/searchSlice.ts";
-import {props_mission} from "../../../store/interface.ts";
+import {props_mission, quest} from "../../../store/interface.ts";
+import {pushAnswerQuest, setActiveQwest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 
 const cx = classNames.bind(styles);
 
-function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: props_mission) {
+function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic}: quest) {
 
     const dispatch = useAppDispatch()
 
-    // const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
+    const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
+    const list = useAppSelector(state => state.marafonSlice.listQuests);
+
+
 
     const pathToImg = image.substr(1)
 
     const [answersStatus, setAnswersStatus] = useState<{ [key: number]: 'green' | 'red' | null }>({});
 
+    console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}`, "color:#559D4CFF;font-size:17px;");
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
         ////////////////
         // dispatch(setArrAllQwest({isCorrect:isCorrect,activeQwest:activeQwest}))
+
+        console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}`, "color:#559D4CFF;font-size:17px;");
 
 
         setAnswersStatus({
@@ -29,16 +36,23 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             [index]: isCorrect ? 'green' : 'red',
         });
 
+
+
+        dispatch(pushAnswerQuest(isCorrect))
+
+
         // const resp = answersStatus[0]
 
 
         // dispatch(addResponsToAllQwest({number: activeQwest, id: id, response: index, status: (isCorrect ? 'green' : 'red')}))
 
         setTimeout(() => {
-            setAnswersStatus(prev => ({
-                ...prev,
-                [index]: null,
-            }));
+            // setAnswersStatus(prev => ({
+            //     ...prev,
+            //     [index]: null,
+            // }));
+
+            dispatch(setActiveQwestPlus())
         }, 1000);
     };
 
@@ -84,9 +98,15 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 {
                     answers.map((answer, index:number) => (
                         <button
+                            disabled={list[activeQwest].response}
                             className={cx(`answer_Btn_${index}`,{
-                                'answer_Btn_Green': answersStatus[index] === 'green',
-                                'answer_Btn_Red': answersStatus[index] === 'red',
+                                'answer_Btn_Green': answersStatus[index] && list[activeQwest].status === 'green',
+                                'answer_Btn_Red': answersStatus[index] && list[activeQwest].status === 'red',
+
+                                // 'answer_Btn_Green': list[activeQwest].status === 'green',
+                                // 'answer_Btn_Red': list[activeQwest].status === 'red',
+
+
                             })}
                             key={answer.answer_text}
                             onClick={()=> handleAnswerClick(index, answer.is_correct)
@@ -95,6 +115,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         </button>
                     ))
                 }
+
+
 
             </div>
 
