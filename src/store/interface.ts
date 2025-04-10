@@ -15,6 +15,12 @@ export interface props_mission {
 
 export interface Cube {
     number:number,
+    id:string,
     response:number|null,
     status:'red'|'green'|'none'
+}
+
+export interface searcheState {
+    searchArrQuest : props_mission[]
+    searchText:string
 }

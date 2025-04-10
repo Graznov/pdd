@@ -1,22 +1,34 @@
 import classNames from 'classnames/bind';
 import styles from './allquestions.module.css';
-import Mission, { props_mission} from "../Components/Mission/Mission.tsx";
+import Mission, { props_mission } from "../Components/Mission/Mission.tsx";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {setActiveQwest} from "../../store/defSlice.ts";
+// import {ArrAllQwest, setActiveQwest} from "../../store/searchSlice.ts";
+import {useEffect} from "react";
 
 const cx = classNames.bind(styles);
 
 function Allquestions(){
     const dispatch = useAppDispatch()
 
-    const list = useAppSelector(state => state.defSlice.arrAllQwest);
+
+
     const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
+
+    const list = useAppSelector(state => state.defSlice.arrAllQwest);
 
 
     console.log(activeQwest)
     const allQwest:props_mission[] = All.default
 
+    const listNumbersQuest = allQwest.reduce((res, elem, ind)=>{
+
+        res.push({number: ind+1, id: elem.id, response: null, status: 'none'})
+
+        return res
+    },[])
+
+    // dispatch(ArrAllQwest(listNumbersQuest))
 
     return(
 
@@ -25,7 +37,7 @@ function Allquestions(){
             <div className={cx('all_questions_numbers')}>
 
                 {
-                    list.map((e) => (
+                    listNumbersQuest.map((e) => (
                             <button
                                 key={e.number}
                                 className={cx('all_questions_numbers_qwest',{
@@ -35,7 +47,7 @@ function Allquestions(){
                                 })}
                                 onClick={()=> {
                                     // setQwestNumber(e.number)
-                                    dispatch(setActiveQwest(e.number))
+                                    // dispatch(setActiveQwest(e.number))
                                 }}>
                                 {e.number}
                             </button>

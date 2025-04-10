@@ -3,7 +3,7 @@ import styles from './bf.module.css';
 import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import * as All from "../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch} from "../store/hooks.ts";
-import {setSearchArrQuest} from "../store/defSlice.ts";
+import {setSearchArrQuest} from "../store/searchSlice.ts";
 import {props_mission} from "../store/interface.ts";
 import {useState} from "react";
 
@@ -19,8 +19,6 @@ function Bf(){
 
     const dispatch = useAppDispatch()
 
-    const allQuest = All.default
-
     const [vallueSearch, setVallueSearch] = useState('')
 
     const enterTextSearch = (e) => {
@@ -30,15 +28,16 @@ function Bf(){
         if(e.target.value.length > 5){
             navigate("/search")
             const searchText = e.target.value
-            console.log(searchText)
+            // console.log(searchText)
 
-            let searchArr:props_mission[] = []
+            const searchArr:props_mission[] = []
 
-            allQuest.forEach((elem)=>{
+            All.default.forEach((elem:props_mission)=>{
                 if(elem.question.toLowerCase().includes(searchText.toLowerCase())) {
                     searchArr.push(elem)
                 }
             })
+
             searchArr.forEach((el,ind)=>{
                 for(let j= ind+1; j<searchArr.length; j++){
                     if(el.id === searchArr[j].id){

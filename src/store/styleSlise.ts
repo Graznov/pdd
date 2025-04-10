@@ -16,7 +16,7 @@ const styleSlice = createSlice({
         //     state.visibleAddTask=action.payload
         // },
 
-        // ...Routes...
+        // ...Redusers:...
     }
 
 })

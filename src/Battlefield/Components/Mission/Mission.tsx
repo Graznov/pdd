@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './mission.module.css';
 import {useEffect, useState} from "react";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-import {addResponsToAllQwest, setArrAllQwest} from "../../../store/defSlice.ts";
+import {useAppDispatch} from "../../../store/hooks.ts";
+// import {addResponsToAllQwest, setArrAllQwest} from "../../../store/searchSlice.ts";
 import {props_mission} from "../../../store/interface.ts";
 
 const cx = classNames.bind(styles);
@@ -11,23 +11,17 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const dispatch = useAppDispatch()
 
-    const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
-
-
-    console.log(activeQwest)
+    // const activeQwest = useAppSelector(state => state.defSlice.activeQwest)
 
     const pathToImg = image.substr(1)
 
     const [answersStatus, setAnswersStatus] = useState<{ [key: number]: 'green' | 'red' | null }>({});
 
 
-
-
-    // console.log(resp)
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
         ////////////////
-        dispatch(setArrAllQwest({isCorrect:isCorrect,activeQwest:activeQwest}))
+        // dispatch(setArrAllQwest({isCorrect:isCorrect,activeQwest:activeQwest}))
 
 
         setAnswersStatus({
@@ -38,7 +32,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         // const resp = answersStatus[0]
 
 
-        dispatch(addResponsToAllQwest({number: activeQwest, response: index, status: (isCorrect ? 'green' : 'red')}))
+        // dispatch(addResponsToAllQwest({number: activeQwest, id: id, response: index, status: (isCorrect ? 'green' : 'red')}))
 
         setTimeout(() => {
             setAnswersStatus(prev => ({
