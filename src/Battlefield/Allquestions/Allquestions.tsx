@@ -2,12 +2,12 @@ import classNames from 'classnames/bind';
 import styles from './allquestions.module.css';
 import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
-
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
-// import {ReactComponent as Slash} from "../../../public/slash.svg";
+// import Slash from '/public/slash.svg?react'
+
+
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +33,8 @@ function Allquestions(){
                 ...elem,
                 number: ind,
                 response: false,
-                status: 'none'
+                status: 'none',
+                yourResponse:null
             })
 
             return res
@@ -73,12 +74,14 @@ function Allquestions(){
 
             <div className={cx('all_questions_counter')}>
                 <div className={cx('all_questions_counter_red')}>{red}</div>
-                <div className={cx('all_questions_counter_slash')}>/</div>
-                {/*<Slash/>*/}
+                <div className={cx('all_questions_counter_slash')}>
+                    {/*<Slash/>*/}/
+                </div>
                 <div className={cx('all_questions_counter_green')}>{green}</div>
             </div>
 
             <Mission
+                yourResponse={list[activeQwest].yourResponse}
                 status={list[activeQwest].status}
                 number={list[activeQwest].number}
                 response={list[activeQwest].response}

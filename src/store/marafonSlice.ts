@@ -44,13 +44,19 @@ const marafonSlice = createSlice({
         },
 
         pushAnswerQuest(state, action){
-            (action.payload) ? state.green++ : state.red++
+            if(action.payload.isCorrect) {
+                state.green++
+            } else {
+                state.red++
+            }
 
-            console.log("%c" + `marafonSlice.ts\naction.payload: ${action.payload}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}`
-                , "color:orange;font-size:17px;");
             state.listQuests[state.activeQuest].response = true
-            state.listQuests[state.activeQuest].status = (action.payload)?'green':'red'
+            state.listQuests[state.activeQuest].yourResponse = action.payload.index
 
+            state.listQuests[state.activeQuest].status = (action.payload.isCorrect)?'green':'red'
+            console.log("%c" +
+                `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
+                "color:orange;font-size:17px;");
 
         }
 
@@ -60,12 +66,9 @@ const marafonSlice = createSlice({
 })
 
 export const {
-    // styleVisibleAddTask,
     setActiveQwest,
     setActiveQwestPlus,
     setListQuest,
     pushAnswerQuest
-
-
 } = marafonSlice.actions;
 export default marafonSlice.reducer

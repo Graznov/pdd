@@ -1,4 +1,3 @@
-import {marafonState} from "./marafonSlice.ts";
 
 export interface props_mission {
     image: string;
@@ -17,6 +16,7 @@ export interface quest {
     number: number,
     response: boolean,
     status: 'red'|'green'|'none',
+    yourResponse:number|null,
     image: string;
     question: string;
     ticket_category: string;
@@ -41,11 +41,11 @@ export interface searcheState {
     searchText:string
 }
 
-interface user {
-    userName: string,
-    userEmail: string,
-    userPassword: string,
-    selectedQuestions: string[],
-    marafon: marafonState,
-    errorQuestions: string[]
-}
+// interface user {
+//     userName: string,
+//     userEmail: string,
+//     userPassword: string,
+//     selectedQuestions: string[],
+//     marafon: marafonState,
+//     errorQuestions: string[]
+// }
