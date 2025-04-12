@@ -6,12 +6,9 @@ import {useAppDispatch} from "../store/hooks.ts";
 import {setSearchArrQuest} from "../store/searchSlice.ts";
 import {props_mission} from "../store/interface.ts";
 import {useState} from "react";
-
-// import { ReactComponent as CloseSVG } from "../../public/close.svg";
-
+import Close from '/public/close.svg?react'
 
 const cx = classNames.bind(styles);
-
 
 function Bf(){
 
@@ -74,9 +71,8 @@ function Bf(){
                             onClick={()=> {
                                 setVallueSearch('')
                                 dispatch(setSearchArrQuest([]))
-
                             }}>
-                            {/*<CloseSVG/>*/}X
+                            <Close fill={'#3c3836'} width={'43px'} height={'43px'}/>
                         </button>
                     </div>
 

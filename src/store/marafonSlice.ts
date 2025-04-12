@@ -32,6 +32,7 @@ const marafonSlice = createSlice({
             state.activeQuest++
             nextQuest()
             function nextQuest(){
+                if (state.activeQuest===800) state.activeQuest=0
                 if (state.listQuests[state.activeQuest].response){
                     state.activeQuest++
                     nextQuest()

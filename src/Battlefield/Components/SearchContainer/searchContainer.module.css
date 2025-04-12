@@ -6,8 +6,11 @@
     width: 80%;
     margin: 10px auto;
     font-family: "Roboto Light",sans-serif;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
 
     .searchContainer_question{
         font-size: large;

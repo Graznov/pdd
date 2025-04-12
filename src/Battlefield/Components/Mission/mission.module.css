@@ -33,6 +33,38 @@
     --color-gray-font: gray;
 }
 
+.mission_responseWind{
+    font-family: "Roboto Light", sans-serif;
+    color: var(--color);
+    z-index: 10;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    max-width: 700px;
+    margin: 0 -350px;
+    background: var(--color-primary);
+    padding: 16px;
+    font-size: 2vw;
+    border-radius: 10px;
+    .mission_responseWind_topic{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+    .mission_responseWind_correct{
+        text-align: right;
+        font-size: 2.5vw;
+        font-weight: 600;
+    }
+}
+.mission_responseWind_visible{
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+
+}
+
 .mission{
     position: relative;
     /*background: red;*/
@@ -42,33 +74,33 @@
     font-family: "Roboto Light", sans-serif;
     color: var(--color);
 
-    .mission_responseWind{
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 500px;
-        margin: -150px -250px;
-        background: var(--color-primary);
-        padding: 16px;
-        font-size: 2vw;
-        border-radius: 10px;
-        .mission_responseWind_topic{
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-        .mission_responseWind_correct{
-            text-align: right;
-            font-size: 2.5vw;
-            font-weight: 600;
-        }
-    }
-    .mission_responseWind_visible{
-        display: flex;
-        flex-direction: column;
-        gap: 21px;
-    }
+    /*.mission_responseWind{*/
+    /*    display: none;*/
+    /*    position: absolute;*/
+    /*    top: 0;*/
+    /*    left: 50%;*/
+    /*    max-width: 700px;*/
+    /*    margin: -100px -350px;*/
+    /*    background: var(--color-primary);*/
+    /*    padding: 16px;*/
+    /*    font-size: 2vw;*/
+    /*    border-radius: 10px;*/
+    /*    .mission_responseWind_topic{*/
+    /*        display: flex;*/
+    /*        flex-direction: column;*/
+    /*        gap: 7px;*/
+    /*    }*/
+    /*    .mission_responseWind_correct{*/
+    /*        text-align: right;*/
+    /*        font-size: 2.5vw;*/
+    /*        font-weight: 600;*/
+    /*    }*/
+    /*}*/
+    /*.mission_responseWind_visible{*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    gap: 21px;*/
+    /*}*/
 
 
 
@@ -79,12 +111,16 @@
         justify-content: flex-end;
         align-items: center;
 
-        .mission_selected{
+        .mission_selected,
+        .mission_img_text{
             background: none;
             border: none;
             cursor: pointer;
             fill: none;
-            stroke: black;
+            stroke: silver;
+        }
+        .mission_img_text{
+            fill: silver;
         }
 
         .mission_selected_actice{
