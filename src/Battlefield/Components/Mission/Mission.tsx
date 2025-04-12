@@ -4,6 +4,10 @@ import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
+// import {ReactComponent as Star} from "/src/assets/star.svg";
+import {ReactComponent as Star} from "/src/assets/star.svg";
+
+
 
 const cx = classNames.bind(styles);
 
@@ -62,6 +66,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             className={cx('mission',{
                 'mission_inposible':response,
             })}>
+
+            <button>
+                {/*<img src="../../../../public/star.svg" alt="star"/>*/}
+                <Star/>
+                {/*<Slash/>*/}
+            </button>
 
             <div
                 className={cx('mission_responseWind', {

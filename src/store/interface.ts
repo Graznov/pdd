@@ -1,3 +1,5 @@
+import {marafonState} from "./marafonSlice.ts";
+
 export interface props_mission {
     image: string;
     question: string;
@@ -37,4 +39,13 @@ export interface Cube {
 export interface searcheState {
     searchArrQuest : props_mission[]
     searchText:string
+}
+
+interface user {
+    userName: string,
+    userEmail: string,
+    userPassword: string,
+    selectedQuestions: string[],
+    marafon: marafonState,
+    errorQuestions: string[]
 }
