@@ -1,14 +1,14 @@
-import './App.css'
-import Bf from "./Battlefield/Bf.tsx";
+// import './App.css'
+// import Bf from "./Battlefield/Bf.tsx";
+//
+//
+// function App() {
+//
+//   return (
+//     <>
+//       <Bf/>
+//     </>
+//   )
+// }
 
-
-function App() {
-
-  return (
-    <>
-      <Bf/>
-    </>
-  )
-}
-
-export default App
+// export default App

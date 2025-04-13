@@ -4,8 +4,8 @@ import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
-import Star from '/public/star.svg?react'
-import Question from '/public/question.svg?react'
+import Star from '/src/assets/star.svg?react'
+import Question from '/src/assets/question.svg?react'
 
 
 const cx = classNames.bind(styles);

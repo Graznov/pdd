@@ -9,6 +9,7 @@ import Bf from "./Battlefield/Bf.tsx";
 import {store} from "./store/store.ts";
 import Allquestions from "./Battlefield/Allquestions/Allquestions.tsx";
 import Search from "./Battlefield/Search/Search.tsx";
+import Exam from "./Battlefield/Exam/Exam.tsx";
 
 const router = createBrowserRouter([
     {
@@ -26,10 +27,10 @@ const router = createBrowserRouter([
                 // index,
                 element: <Search/>
             },
-            // {
-            //     path:"/login",
-            //     element: <LogInWind/>
-            // },
+            {
+                path:"/exam",
+                element: <Exam/>
+            },
         ]
     }
 ]);

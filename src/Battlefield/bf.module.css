@@ -73,12 +73,16 @@
                 align-items: center;
 
                 input{
+
+                    /*background-color: #076578;*/
+                    background-color: inherit;
                     font-size: 23px;
                     padding-left: 5px;
                     padding-right: 43px;
                     height: 41px;
-                    border-radius: 5px;
                     border: none;
+                    border-bottom: 2px solid var(--color-secondary-bg);
+                    color: var(--color-secondary-bg);
                 }
                 input:focus {
                     outline-width: 0;

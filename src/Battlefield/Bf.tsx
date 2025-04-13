@@ -6,7 +6,7 @@ import {useAppDispatch} from "../store/hooks.ts";
 import {setSearchArrQuest} from "../store/searchSlice.ts";
 import {props_mission} from "../store/interface.ts";
 import {useState} from "react";
-import Close from '/public/close.svg?react'
+import Close from '/src/assets/close.svg?react'
 
 const cx = classNames.bind(styles);
 
@@ -59,7 +59,7 @@ function Bf(){
                     <NavLink
                         className={cx('header_logo')}
                         to={'/'}>
-                        <img src="public/logo.svg" alt="logo"/>
+                        <img src="/src/assets/logo.svg" alt="logo"/>
                     </NavLink>
 
                     <div className={cx('header_input')}>
@@ -78,7 +78,7 @@ function Bf(){
 
 
                     <div className={cx('header_btnArea')}>
-                        <NavLink to={''}>Экзамен, как в 10-ке</NavLink>
+                        <NavLink to={'/exam'}>Экзамен, как в 10-ке</NavLink>
                         <NavLink to={'/allquestions'}>Марафон</NavLink>
                     </div>
 

@@ -5,9 +5,6 @@ import {props_mission, quest} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
-// import Slash from '/public/slash.svg?react'
-
-
 
 const cx = classNames.bind(styles);
 
