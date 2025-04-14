@@ -31,49 +31,49 @@ function Exam(){
                 <div className={cx('exam_tickets_btnArea',{
                     'exam_tickets_btnArea_visible' : ticketsAreaBtn
                 })}>
-                    <button>Билет 1</button>
-                    <button>Билет 2</button>
-                    <button>Билет 3</button>
-                    <button>Билет 4</button>
-                    <button>Билет 5</button>
-                    <button>Билет 6</button>
-                    <button>Билет 7</button>
-                    <button>Билет 8</button>
-                    <button>Билет 9</button>
-                    <button>Билет 10</button>
-                    <button>Билет 11</button>
-                    <button>Билет 12</button>
-                    <button>Билет 13</button>
-                    <button>Билет 14</button>
-                    <button>Билет 15</button>
-                    <button>Билет 16</button>
-                    <button>Билет 17</button>
-                    <button>Билет 18</button>
-                    <button>Билет 19</button>
-                    <button>Билет 20</button>
-                    <button>Билет 21</button>
-                    <button>Билет 22</button>
-                    <button>Билет 23</button>
-                    <button>Билет 24</button>
-                    <button>Билет 25</button>
-                    <button>Билет 26</button>
-                    <button>Билет 27</button>
-                    <button>Билет 28</button>
-                    <button>Билет 29</button>
-                    <button>Билет 30</button>
-                    <button>Билет 31</button>
-                    <button>Билет 32</button>
-                    <button>Билет 33</button>
-                    <button>Билет 34</button>
-                    <button>Билет 35</button>
-                    <button>Билет 36</button>
-                    <button>Билет 37</button>
-                    <button>Билет 38</button>
-                    <button>Билет 39</button>
-                    <button>Билет 40</button>
+
+                    {/*<button>Билет 2</button>*/}
+                    {/*<button>Билет 3</button>*/}
+                    {/*<button>Билет 4</button>*/}
+                    {/*<button>Билет 5</button>*/}
+                    {/*<button>Билет 6</button>*/}
+                    {/*<button>Билет 7</button>*/}
+                    {/*<button>Билет 8</button>*/}
+                    {/*<button>Билет 9</button>*/}
+                    {/*<button>Билет 10</button>*/}
+                    {/*<button>Билет 11</button>*/}
+                    {/*<button>Билет 12</button>*/}
+                    {/*<button>Билет 13</button>*/}
+                    {/*<button>Билет 14</button>*/}
+                    {/*<button>Билет 15</button>*/}
+                    {/*<button>Билет 16</button>*/}
+                    {/*<button>Билет 17</button>*/}
+                    {/*<button>Билет 18</button>*/}
+                    {/*<button>Билет 19</button>*/}
+                    {/*<button>Билет 20</button>*/}
+                    {/*<button>Билет 21</button>*/}
+                    {/*<button>Билет 22</button>*/}
+                    {/*<button>Билет 23</button>*/}
+                    {/*<button>Билет 24</button>*/}
+                    {/*<button>Билет 25</button>*/}
+                    {/*<button>Билет 26</button>*/}
+                    {/*<button>Билет 27</button>*/}
+                    {/*<button>Билет 28</button>*/}
+                    {/*<button>Билет 29</button>*/}
+                    {/*<button>Билет 30</button>*/}
+                    {/*<button>Билет 31</button>*/}
+                    {/*<button>Билет 32</button>*/}
+                    {/*<button>Билет 33</button>*/}
+                    {/*<button>Билет 34</button>*/}
+                    {/*<button>Билет 35</button>*/}
+                    {/*<button>Билет 36</button>*/}
+                    {/*<button>Билет 37</button>*/}
+                    {/*<button>Билет 38</button>*/}
+                    {/*<button>Билет 39</button>*/}
+                    {/*<button>Билет 40</button>*/}
                 </div>
 
-                lkdncjs
+
 
             </div>
 

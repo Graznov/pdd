@@ -40,8 +40,8 @@
 
         .exam_tickets_btnArea{
             display: none;
-            position: absolute;
-            top: 10px;
+            /*position: absolute;*/
+            /*top: 10px;*/
         }
         .exam_tickets_btnArea_visible{
             display: block;
