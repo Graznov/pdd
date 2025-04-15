@@ -5,6 +5,7 @@ import {props_mission, quest} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
+import {setWind} from "../../store/styleSlise.ts";
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,7 @@ function Allquestions(){
     const red = useAppSelector(state => state.marafonSlice.red);
     const green = useAppSelector(state => state.marafonSlice.green);
 
+    dispatch(setWind('marafon'))
     if (list.length === 0) {
         const allQwest:props_mission[] = All.default.sort(function(){
             return Math.random() - 0.5;

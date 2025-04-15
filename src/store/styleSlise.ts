@@ -1,11 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 export interface StyleState {
-
+    wind:'exam'|'marafon'|null
 }
 
 const initialState:StyleState = {
-
+    wind:null
 }
 
 const styleSlice = createSlice({
@@ -15,6 +15,9 @@ const styleSlice = createSlice({
         // styleVisibleAddTask (state, action)  {
         //     state.visibleAddTask=action.payload
         // },
+        setWind(state, action){
+            state.wind = action.payload
+        }
 
         // ...Redusers:...
     }
@@ -23,6 +26,7 @@ const styleSlice = createSlice({
 
 export const {
     // styleVisibleAddTask,
+    setWind
 
 
 } = styleSlice.actions;

@@ -34,6 +34,21 @@
 
 .exam{
 
+    .exam-nesdal{
+        display: none;
+    }
+    .exam-nesdal--visible{
+        display: block;
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        top: 50%;
+        left: 50%;
+        margin: -100px -100px;
+        background-color: red;
+        color: white;
+    }
+
     .exam_tickets{
         /*position: relative;*/
 

@@ -6,6 +6,7 @@ import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
+import {examPushAnswerQuest, setExamActiveQuest, setExamActiveQuestPlus} from "../../../store/examSlice.ts";
 
 
 const cx = classNames.bind(styles);
@@ -14,8 +15,13 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const dispatch = useAppDispatch()
 
-    const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
-    const list = useAppSelector(state => state.marafonSlice.listQuests);
+    const wind = useAppSelector(state => state.styleSlice.wind)
+    // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
+    const activeQwest = (wind==='exam')?useAppSelector(state => state.examSlice.examActiveQuest):useAppSelector(state => state.marafonSlice.activeQuest);
+
+    // const list = useAppSelector(state => state.marafonSlice.listQuests);
+    const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
+
 
     const pathToImg = image.substr(1)
 
@@ -23,12 +29,20 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
-        dispatch(pushAnswerQuest({isCorrect,index}))
+        if(wind==='exam'){
+            dispatch(examPushAnswerQuest({isCorrect,index}))
+        } else if (wind==='marafon'){
+            dispatch(pushAnswerQuest({isCorrect,index}))
+        }
 
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}\nlist[activeQuest]: ${list[activeQwest].yourResponse}`, "color:#559D4CFF;font-size:17px;");
 
         setTimeout(() => {
-            dispatch(setActiveQwestPlus())
+            if(wind==='exam'){
+                dispatch(setExamActiveQuestPlus())
+            } else if (wind==='marafon'){
+                dispatch(setActiveQwestPlus())
+            }
         }, 1000);
     };
 
@@ -90,8 +104,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
                 <div className={cx('mission_img')}>
                     <img
-                        src={`pdd_russia${pathToImg}`}
-                        alt={`${pathToImg}`}/>
+                        src={`/pdd_russia${pathToImg}`}
+                        alt={`pdd_russia${pathToImg}`}/>
                 </div>
 
 
