@@ -56,11 +56,11 @@ function Bf(){
             <header>
                 <div className={cx('content')}>
 
-                    <NavLink
-                        className={cx('header_logo')}
-                        to={'/'}>
-                        <img src="/src/assets/logo.svg" alt="logo"/>
-                    </NavLink>
+                    {/*<NavLink*/}
+                    {/*    className={cx('header_logo')}*/}
+                    {/*    to={'/'}>*/}
+                    {/*    <img src="/src/assets/logo.svg" alt="logo"/>*/}
+                    {/*</NavLink>*/}
 
                     <div className={cx('header_input')}>
                         <input
@@ -84,7 +84,7 @@ function Bf(){
 
                     <div className={cx('header_User')}>
                         <div className={cx('header_User_Name')}>User13</div>
-                        <img width='41px' src="https://images.icon-icons.com/10/PNG/256/user_person_customer_man_1532.png" alt="Photo"/>
+                        {/*<img width='41px' src="https://images.icon-icons.com/10/PNG/256/user_person_customer_man_1532.png" alt="Photo"/>*/}
                     </div>
 
                 </div>

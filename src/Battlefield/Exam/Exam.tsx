@@ -1,10 +1,9 @@
 import classNames from 'classnames/bind';
 import styles from './exam.module.css';
-import Mission from "../Components/Mission/Mission.tsx";
 import * as examList from "../../../pdd_russia/questions/A_B/tickets/allTickets.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {useState} from "react";
-import {props_mission, quest} from "../../store/interface.ts";
+import {quest} from "../../store/interface.ts";
 import {setExamList} from "../../store/examSlice.ts";
 import {Outlet, useNavigate} from "react-router-dom";
 import {setWind} from "../../store/styleSlise.ts";
@@ -30,13 +29,13 @@ function Exam(){
 
     const allExamQwest = examList.default
 
-    function setTicket (e) {
+    function setTicket (e:number) {
 
         console.log("%c"
             + `Exam.tsx\n${e}`,
             "color:yellow;font-size:17px;");
 
-        const examTicket:quest[] = allExamQwest[e].reduce((res:quest[], elem, ind)=>{
+        const examTicket:quest[] = allExamQwest[e].reduce((res:quest[], elem:quest, ind:number)=>{
 
             res.push({
                 ...elem,
@@ -75,7 +74,7 @@ function Exam(){
                     'exam_tickets_btnArea_visible': ticketsAreaBtn
                 })}>
                     {
-                        allExamQwest.map((e, ind) => (
+                        allExamQwest.map((e:quest[], ind:number) => (
                             <button
                                 key={e[0].ticket_number}
                                 className={cx('exam_tickets_btnArea_btn', {})}

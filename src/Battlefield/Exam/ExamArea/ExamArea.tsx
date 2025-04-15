@@ -3,8 +3,8 @@ import styles from './examArea.module.css';
 import Mission from "../../Components/Mission/Mission.tsx";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 // import {useAppDispatch, useAppSelector} from "/src/store/hooks.ts";
-import {useState} from "react";
-import {props_mission, quest} from "../../store/interface.ts";
+// import {useState} from "react";
+// import {props_mission, quest} from "../../store/interface.ts";
 import {setExamActiveQuest} from "../../../store/examSlice.ts";
 import {useNavigate} from "react-router-dom";
 

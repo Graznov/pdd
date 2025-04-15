@@ -46,16 +46,17 @@
 
         .all_questions_numbers {
 
-            display: flex;
+            /*display: flex;*/
             /*flex-wrap: wrap;*/
             /*display: inline;*/
             /*height: 41px;*/
-            overflow: auto;
+            /*overflow: auto;*/
             width: 100%;
+            text-align: center;
 
             .all_questions_numbers_qwest {
                 margin-right: 3px;
-                /*width: 39px;*/
+                width: 39px;
                 /*height: 29px;*/
                 border: 2px solid silver;
                 border-radius: 5px;
