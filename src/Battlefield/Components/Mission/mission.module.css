@@ -73,6 +73,8 @@
     margin: 10px auto;
     font-family: "Roboto Light", sans-serif;
     color: var(--color);
+    /*height: 100%;*/
+    /*overflow-y: scroll;*/
 
     /*.mission_responseWind{*/
     /*    display: none;*/

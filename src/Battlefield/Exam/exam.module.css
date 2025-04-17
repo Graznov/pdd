@@ -33,6 +33,7 @@
 }
 
 .exam{
+    margin-top: -30px;
 
     .exam-nesdal{
         display: none;
@@ -55,27 +56,54 @@
 
     .exam_tickets{
         /*position: relative;*/
+        /*text-align: center;*/
 
+        .exam_tickets_Btn{
+            /*width: 100%;*/
+            font-size: 17px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .exam_tickets_Btn:hover{
+            border-bottom: 2px solid silver;
+            margin-bottom: -2px;
+        }
 
         .exam_tickets_btnArea{
+            position: absolute;
             display: none;
-            /*position: absolute;*/
-            /*top: 10px;*/
-        }
-        .exam_tickets_btnArea_visible{
-            display: block;
-            width: 80%;
-        }
-        .exam_tickets_btnArea{
+            flex-direction: column;
+            height: 70vh;
+            overflow-y: scroll;
+            width: max-content;
+            z-index: 10;
+            padding: 10px;
+
 
             button{
-                width: 110px;
-                padding: 1px 5px;
+
+                font-size: 17px;
+                border: none;
+                background: none;
+                cursor: pointer;
                 text-align: left;
-                margin: 2px;
+            }
+            button:hover{
+                border-bottom: 2px solid silver;
+                margin-bottom: -2px;
             }
 
-
         }
+        .exam_tickets_btnArea_visible{
+            display: flex;
+            gap: 5px;
+            /*position: absolute;*/
+            /*width: 80%;*/
+
+            /*width: fit-content;*/
+            /*overflow: auto;*/
+        }
+
     }
 }

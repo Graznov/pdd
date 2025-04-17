@@ -54,6 +54,9 @@
     header{
         top: 0;
         width: 100%;
+        font-family: "Roboto Light", sans-serif;
+        /*color: #3c3836;*/
+        color: var(--color-w-font);
 
         .content{
             display: flex;
@@ -99,10 +102,20 @@
             .header_btnArea{
                 display: flex;
                 align-self: center;
-                gap: 10px;
-                button{
-                    padding: 3px 10px;
+                gap: 30px;
+                a{
+                    text-decoration: none;
+                    color: black;
+                    cursor: pointer;
+                    /*width: 200px;*/
+                    transition: 0.5s;
                 }
+                a:hover{
+                    border-bottom: 2px solid black;
+                    margin-bottom: -2px;
+                    /*width: 200px;*/
+                    /*transition-delay: 1s;*/
+                };
             }
             .header_User{
                 display: flex;

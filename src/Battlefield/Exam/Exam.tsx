@@ -2,9 +2,9 @@ import classNames from 'classnames/bind';
 import styles from './exam.module.css';
 import * as examList from "../../../pdd_russia/questions/A_B/tickets/allTickets.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {quest} from "../../store/interface.ts";
-import {setExamList} from "../../store/examSlice.ts";
+import {setExamActiveQuest, setExamList, setGreen, setRed} from "../../store/examSlice.ts";
 import {Outlet, useNavigate} from "react-router-dom";
 import {setWind} from "../../store/styleSlise.ts";
 
@@ -55,18 +55,27 @@ function Exam(){
     }
 
     const [ticketsAreaBtn, setTicketsAreaBtn] = useState(false);
+    const [neSdal, setNeSdal] = useState(false);
+
+    useEffect(() => {
+        if(red===3)setNeSdal(true)
+        setTimeout(()=>{
+            setNeSdal(false)
+        },1000)
+    },[red])
 
     return(
         <div className={cx('exam')}>
 
             <div className={cx('exam-nesdal', {
-                'exam-nesdal--visible': red === 3
+                'exam-nesdal--visible': neSdal
             })}>
                 НЕ СДАЛ
             </div>
 
             <div className={cx('exam_tickets')}>
                 <button
+                    className={cx('exam_tickets_Btn')}
                     onClick={() => setTicketsAreaBtn(!ticketsAreaBtn)}>
                     Выбрать билет
                 </button>
@@ -78,7 +87,13 @@ function Exam(){
                             <button
                                 key={e[0].ticket_number}
                                 className={cx('exam_tickets_btnArea_btn', {})}
-                                onClick={() => setTicket(ind)}>
+                                onClick={() => {
+                                    setTicket(ind)
+                                    dispatch(setExamActiveQuest(0))
+                                    dispatch(setRed(0))
+                                    dispatch(setGreen(0))
+
+                                }}>
                                 {e[0].ticket_number}
                             </button>
                         ))

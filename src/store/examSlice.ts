@@ -60,6 +60,13 @@ const examSlice = createSlice({
             //     "color:orange;font-size:17px;");
             console.log(`examSlice.ts`)
 
+        },
+
+        setRed(state, action){
+            state.red = action.payload
+        },
+        setGreen(state, action){
+            state.green = action.payload
         }
 
 
@@ -75,7 +82,9 @@ export const {
     setExamList,
     examPushAnswerQuest,
     setExamActiveQuest,
-    setExamActiveQuestPlus
+    setExamActiveQuestPlus,
+    setRed,
+    setGreen
 
 } = examSlice.actions;
 export default examSlice.reducer

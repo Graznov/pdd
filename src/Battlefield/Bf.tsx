@@ -61,14 +61,17 @@ function Bf(){
                     {/*    to={'/'}>*/}
                     {/*    <img src="/src/assets/logo.svg" alt="logo"/>*/}
                     {/*</NavLink>*/}
-
+                    <div className={cx('header_btnArea')}>
+                        <NavLink to={'/exam'}>Экзамен, как в 10-ке</NavLink>
+                        <NavLink to={'/allquestions'}>Марафон</NavLink>
+                    </div>
                     <div className={cx('header_input')}>
                         <input
                             value={vallueSearch}
                             onChange={enterTextSearch}
                             type="text"/>
                         <button
-                            onClick={()=> {
+                            onClick={() => {
                                 setVallueSearch('')
                                 dispatch(setSearchArrQuest([]))
                             }}>
@@ -76,11 +79,6 @@ function Bf(){
                         </button>
                     </div>
 
-
-                    <div className={cx('header_btnArea')}>
-                        <NavLink to={'/exam'}>Экзамен, как в 10-ке</NavLink>
-                        <NavLink to={'/allquestions'}>Марафон</NavLink>
-                    </div>
 
                     <div className={cx('header_User')}>
                         <div className={cx('header_User_Name')}>User13</div>
