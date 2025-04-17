@@ -41,11 +41,10 @@ export interface searcheState {
     searchText:string
 }
 
-// interface user {
-//     userName: string,
-//     userEmail: string,
-//     userPassword: string,
-//     selectedQuestions: string[],
-//     marafon: marafonState,
-//     errorQuestions: string[]
-// }
+export interface userData {
+    userName: string,
+    userEmail: string,
+    userPassword: string,
+    selectedQuestions: string[],
+    errorQuestions: string[]
+}

@@ -1,37 +1,41 @@
-:root {
-    --color-w-bg: #faf6d7;
-    --color-w-font: #faefc5;
-    --color-w-bgMission: #ebdbb2;
-    --color-w-btn: #076578;
-    --color-w-inputHead: #458487;
+/*:root {*/
+/*    --color-w-bg: #faf6d7;*/
+/*    --color-w-font: #faefc5;*/
+/*    --color-w-bgMission: #ebdbb2;*/
+/*    --color-w-btn: #076578;*/
+/*    --color-w-inputHead: #458487;*/
 
-    --color: #69605e;
-    --color-w-btn_hover: #064855;
-    --color-w-font_hover: #b1ac9b;
+/*    --color: #69605e;*/
+/*    --color-w-btn_hover: #064855;*/
+/*    --color-w-font_hover: #b1ac9b;*/
 
-    --color-main-bg: #282828;
-    --color-secondary-bg: #3c3836;
-    --color-secondary-bg-opac:rgba(60,56,54,0.5);
-    --color-primary-font: #A89984;
-    --color-secondary-font: #fbf1c7;
-    --color-primmary-icon: #7C6F64;
-    --color-secondary-icon: #fbf1c7;
-    --color-primary: #8EC07C;
-    --color-primary-hover: #689D6A;
-    --color-secondary: #83A598;
-    --color-secondary-hover: #458588;
-    --color-info: #D3869B;
-    --color-info-hover: #B16286;
-    --color-warning: #FABD2F;
-    --color-warning-hover: #D79921;
-    --color-success: #B8BB26;
-    --color-success-hover: #98971A;
-    --color-danger: #FB4934;
-    --color-danger-hover: #CC241D;
-    --color-header-bg: #282828;
-    --color-search-bg: #3c3836;
-    --color-gray-font: gray;
-}
+/*    --color-main-bg: #282828;*/
+/*    --color-secondary-bg: #3c3836;*/
+/*    --color-secondary-bg-opac:rgba(60,56,54,0.5);*/
+/*    --color-primary-font: #A89984;*/
+/*    --color-secondary-font: #fbf1c7;*/
+/*    --color-primmary-icon: #7C6F64;*/
+/*    --color-secondary-icon: #fbf1c7;*/
+/*    --color-primary: #8EC07C;*/
+/*    --color-primary-hover: #689D6A;*/
+/*    --color-secondary: #83A598;*/
+/*    --color-secondary-hover: #458588;*/
+/*    --color-info: #D3869B;*/
+/*    --color-info-hover: #B16286;*/
+/*    --color-warning: #FABD2F;*/
+/*    --color-warning-hover: #D79921;*/
+/*    --color-success: #B8BB26;*/
+/*    --color-success-hover: #98971A;*/
+/*    --color-danger: #FB4934;*/
+/*    --color-danger-hover: #CC241D;*/
+/*    --color-header-bg: #282828;*/
+/*    --color-search-bg: #3c3836;*/
+/*    --color-gray-font: gray;*/
+/*}*/
+
+/*body{*/
+/*    background-color: var(--color-w-bg);*/
+/*}*/
 
 .mission_responseWind{
     font-family: "Roboto Light", sans-serif;
@@ -73,38 +77,9 @@
     margin: 10px auto;
     font-family: "Roboto Light", sans-serif;
     color: var(--color);
+    /*background-color: var(--color-w-bg);*/
     /*height: 100%;*/
     /*overflow-y: scroll;*/
-
-    /*.mission_responseWind{*/
-    /*    display: none;*/
-    /*    position: absolute;*/
-    /*    top: 0;*/
-    /*    left: 50%;*/
-    /*    max-width: 700px;*/
-    /*    margin: -100px -350px;*/
-    /*    background: var(--color-primary);*/
-    /*    padding: 16px;*/
-    /*    font-size: 2vw;*/
-    /*    border-radius: 10px;*/
-    /*    .mission_responseWind_topic{*/
-    /*        display: flex;*/
-    /*        flex-direction: column;*/
-    /*        gap: 7px;*/
-    /*    }*/
-    /*    .mission_responseWind_correct{*/
-    /*        text-align: right;*/
-    /*        font-size: 2.5vw;*/
-    /*        font-weight: 600;*/
-    /*    }*/
-    /*}*/
-    /*.mission_responseWind_visible{*/
-    /*    display: flex;*/
-    /*    flex-direction: column;*/
-    /*    gap: 21px;*/
-    /*}*/
-
-
 
     .mission_title{
         font-size: 27px;
@@ -127,10 +102,11 @@
 
         .mission_selected_actice{
             fill: red;
+            stroke: red;
         }
 
         .mission_selected:hover {
-            stroke: silver;
+            stroke: red;
         }
     }
 

@@ -6,7 +6,8 @@ import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
-import {examPushAnswerQuest, setExamActiveQuest, setExamActiveQuestPlus} from "../../../store/examSlice.ts";
+import {examPushAnswerQuest, setExamActiveQuestPlus} from "../../../store/examSlice.ts";
+import {pushError, pushSelectedQuestion} from "../../../store/userDataSlice.ts";
 
 
 const cx = classNames.bind(styles);
@@ -16,6 +17,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const dispatch = useAppDispatch()
 
     const wind = useAppSelector(state => state.styleSlice.wind)
+    const favorits = useAppSelector(state => state.userDataSlice.selectedQuestions)
+
     // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
     const activeQwest = (wind==='exam')?useAppSelector(state => state.examSlice.examActiveQuest):useAppSelector(state => state.marafonSlice.activeQuest);
 
@@ -28,6 +31,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}`, "color:#559D4CFF;font-size:17px;");
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
+
+        if(!isCorrect)dispatch(pushError(id))
 
         if(wind==='exam'){
             dispatch(examPushAnswerQuest({isCorrect,index}))
@@ -90,7 +95,11 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 <div className={cx('mission_title')}>
                     {title}
                     {ticket_number}
-                    <button className={cx('mission_selected')}>
+                    <button
+                        className={cx('mission_selected',{
+                            'mission_selected_actice' : favorits.includes(id)
+                        })}
+                        onClick={()=>dispatch(pushSelectedQuestion(id))}>
                         <Star/>
                     </button>
                     <button

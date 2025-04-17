@@ -65,6 +65,7 @@ function Bf(){
                         <NavLink to={'/exam'}>Экзамен, как в 10-ке</NavLink>
                         <NavLink to={'/allquestions'}>Марафон</NavLink>
                     </div>
+
                     <div className={cx('header_input')}>
                         <input
                             value={vallueSearch}

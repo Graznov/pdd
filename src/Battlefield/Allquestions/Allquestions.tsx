@@ -6,6 +6,7 @@ import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
+import {useEffect, useRef} from "react";
 
 const cx = classNames.bind(styles);
 
@@ -46,16 +47,43 @@ function Allquestions(){
         + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
         "color:tomato;font-size:17px;");
 
+    ///
+    const containerRef = useRef(null);
+    const activeButtonRef = useRef(null);
+
+    useEffect(() => {
+        if (activeButtonRef.current && containerRef.current) {
+            const container = containerRef.current;
+            const button = activeButtonRef.current;
+
+            // Получаем позиции и размеры
+            const containerWidth = container.offsetWidth;
+            const buttonLeft = button.offsetLeft;
+            const buttonWidth = button.offsetWidth;
+
+            // Вычисляем позицию для прокрутки (центрирование)
+            const scrollPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+
+            // Плавная прокрутка
+            container.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        }
+    }, [activeQwest]);
+    ////
+
     return(
 
         <div className={cx('all_questions')}>
 
-            <div className={cx('all_questions_numbers')}>
+            <div ref={containerRef} className={cx('all_questions_numbers')}>
 
                 {
                     list.map((e) => (
                             <button
                                 key={e.number}
+                                ref={e.number === activeQwest ? activeButtonRef : null}
                                 className={cx('all_questions_numbers_qwest',{
                                     'all_questions_numbers_qwest_red': e.status === 'red',
                                     'all_questions_numbers_qwest_green': e.status === 'green',
