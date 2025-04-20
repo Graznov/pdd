@@ -16,6 +16,8 @@ function ExamArea(){
 
     const dispatch = useAppDispatch()
 
+    const wind = useAppSelector(state => state.styleSlice.wind)
+
     const examActiveQuest = useAppSelector(state => state.examSlice.examActiveQuest)
     const examList = useAppSelector(state => state.examSlice.examList);
     const red = useAppSelector(state => state.examSlice.red);
@@ -74,7 +76,8 @@ function ExamArea(){
                     number={examList[examActiveQuest].number}
                     response={examList[examActiveQuest].response}
                     ticket_category={examList[examActiveQuest].ticket_category}
-                    ticket_number={`Вопрос ${examActiveQuest + 1}`}
+                    ticket_number={examList[examActiveQuest].ticket_number}
+                    title={(wind==='marafon')?`Вопрос ${examActiveQuest + 1}`:`${examList[examActiveQuest].title}`}
                     image={examList[examActiveQuest].image}
                     question={examList[examActiveQuest].question}
                     answers={examList[examActiveQuest].answers}

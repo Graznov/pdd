@@ -29,14 +29,14 @@ const router = createBrowserRouter([
                 element: <Search/>
             },
             {
-                path:"/exam",
-                element: <Exam/>,
-                children:[
-                    {
-                        path : "/exam/ticket",
-                        element:<ExamArea/>
-                    }
-                ]
+                path:"/examticket",
+                element: <ExamArea/>,
+                // children:[
+                //     {
+                //         path : "/examticket",
+                //         element:<ExamArea/>
+                //     }
+                // ]
             },
         ]
     }

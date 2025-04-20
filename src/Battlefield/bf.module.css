@@ -101,6 +101,7 @@
 
             }
             .header_btnArea{
+                margin-left: 5px;
                 display: flex;
                 align-self: center;
                 gap: 30px;
@@ -116,8 +117,45 @@
                     /*width: 200px;*/
                     /*transition-delay: 1s;*/
                 };
+                .exam_tickets{
+                    position: relative;
+                    .exam_tickets_btnArea{
+                        z-index: 1;
+                        background-color: var(--color-w-btn);
+                        padding: 5px;
+                        display: none;
+                        /*border: 1px solid red;*/
+                        position: absolute;
+                        top: 20px;
+                        left: 0;
+
+                        .exam_tickets_btnArea_btn{
+                            color: black;
+                            width: 100px;
+                            /*border: 1px solid black;*/
+                        }
+                        .exam_tickets_btnArea_btn:hover{
+                            color: black;
+                            border-bottom: 1px solid black;
+                            margin-bottom: -1px;
+                        }
+
+
+                    }
+                }
+                .exam_tickets:hover{
+                    .exam_tickets_btnArea{
+                        display: flex;
+                        height: 90vh;
+                        overflow-y: scroll;
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+                }
+
             }
             .header_User{
+                margin-right: 5px;
                 display: flex;
                 /*justify-content: space-between;*/
                 align-self: center;

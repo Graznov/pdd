@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 
 function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic, response}: quest) {
 
+    // console.log(response)
     const dispatch = useAppDispatch()
 
     const wind = useAppSelector(state => state.styleSlice.wind)
@@ -28,7 +29,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const pathToImg = image.substr(1)
 
-    console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}`, "color:#559D4CFF;font-size:17px;");
+    console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
@@ -93,8 +94,10 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
 
                 <div className={cx('mission_title')}>
+                    <div className={cx('mission_title_ticketNumber')}>
+                        {ticket_number}
+                    </div>
                     {title}
-                    {ticket_number}
                     <button
                         className={cx('mission_selected',{
                             'mission_selected_actice' : favorits.includes(id)

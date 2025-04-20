@@ -87,6 +87,12 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        gap: 10px;
+
+
+        .mission_title_ticketNumber{
+            /*margin-right: 10px;*/
+        }
 
         .mission_selected,
         .mission_img_text{
