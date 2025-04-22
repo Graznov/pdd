@@ -19,13 +19,21 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const wind = useAppSelector(state => state.styleSlice.wind)
     const favorits = useAppSelector(state => state.userDataSlice.selectedQuestions)
-    const neSdal = useAppSelector(state => state.examSlice.neSdal)
+    const examActiveQuest = useAppSelector(state => state.examSlice.examActiveQuest);
+    const marafonActiveQuest = useAppSelector(state => state.marafonSlice.activeQuest);
+    const activeQwest = (wind === 'exam') ? examActiveQuest : marafonActiveQuest;
+
+    const listExam = useAppSelector(state => state.examSlice.examList)
+    const listMarafon = useAppSelector(state => state.marafonSlice.listQuests)
+    const list = (wind==='exam')?listExam:listMarafon
+    // const neSdal = useAppSelector(state => state.examSlice.neSdal)
 
     // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
-    const activeQwest = (wind==='exam')?useAppSelector(state => state.examSlice.examActiveQuest):useAppSelector(state => state.marafonSlice.activeQuest);
+    // const activeQwest = (wind==='exam')?useAppSelector(state => state.examSlice.examActiveQuest):useAppSelector(state => state.marafonSlice.activeQuest);
+
 
     // const list = useAppSelector(state => state.marafonSlice.listQuests);
-    const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
+    // const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
 
 
     const pathToImg = image.substr(1)
@@ -44,13 +52,17 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}\nlist[activeQuest]: ${list[activeQwest].yourResponse}`, "color:#559D4CFF;font-size:17px;");
 
+
         setTimeout(() => {
             if(wind==='exam'){
-                    dispatch(setExamActiveQuestPlus())
+                dispatch(setExamActiveQuestPlus())
             } else if (wind==='marafon'){
                 dispatch(setActiveQwestPlus())
             }
         }, 1000);
+
+
+
     };
 
     useEffect(() => {

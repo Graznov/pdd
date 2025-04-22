@@ -130,19 +130,19 @@ function Bf(){
                         <NavLink to={'/allquestions'}>Марафон</NavLink>
                     </div>
 
-                    {/*<div className={cx('header_input')}>*/}
-                    {/*    <input*/}
-                    {/*        value={vallueSearch}*/}
-                    {/*        onChange={enterTextSearch}*/}
-                    {/*        type="text"/>*/}
-                    {/*    <button*/}
-                    {/*        onClick={() => {*/}
-                    {/*            setVallueSearch('')*/}
-                    {/*            dispatch(setSearchArrQuest([]))*/}
-                    {/*        }}>*/}
-                    {/*        <Close fill={'#3c3836'} width={'43px'} height={'43px'}/>*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
+                    <div className={cx('header_input')}>
+                        <input
+                            value={vallueSearch}
+                            onChange={enterTextSearch}
+                            type="text"/>
+                        <button
+                            onClick={() => {
+                                setVallueSearch('')
+                                dispatch(setSearchArrQuest([]))
+                            }}>
+                            <Close fill={'#3c3836'} width={'43px'} height={'43px'}/>
+                        </button>
+                    </div>
 
 
                     <div className={cx('header_User')}>

@@ -145,7 +145,8 @@
         .answer_Btn_0,
         .answer_Btn_1,
         .answer_Btn_2,
-        .answer_Btn_3{
+        .answer_Btn_3,
+        .answer_Btn_4{
             transition: background-color 0.3s ease;
 
             color: var(--color);

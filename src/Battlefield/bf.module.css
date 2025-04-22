@@ -48,7 +48,8 @@
     footer{
         background: var(--color-w-btn);
         /*height: 100px;*/
-        position: absolute;
+        position: sticky;
+        z-index: 11;
     }
 
     header{
@@ -172,7 +173,7 @@
     }
 
     main{
-        padding: 100px 0px 0px 0px;
+        padding: 5px 0px 0px 0px;
     }
 
 
