@@ -1,4 +1,74 @@
 
+.exam-nesdal{
+    /*border: 3px solid #000;*/
+    display: none;
+    border-radius: 15px;
+    background-color: #ec0831;
+    font-size: 35px;
+    color: #ffdb7f;
+    top: 30%;
+    left: 50%;
+    width: 250px;
+    height: 200px;
+    margin-left: -100px;
+    /*padding: 40px 0;*/
+    position: absolute;
+    z-index: 12;
+    font-family: "Roboto Light", sans-serif;
+
+    -webkit-box-shadow: 0px 0px 25px 29px rgba(34, 60, 80, 0.18);
+    -moz-box-shadow: 0px 0px 25px 29px rgba(34, 60, 80, 0.18);
+    box-shadow: 0px 0px 25px 29px rgba(34, 60, 80, 0.18);
+
+    .exam-nesdal_inner{
+        position: absolute;
+        top: 30px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 15px;
+        background-color: #858585;
+        text-align: center;
+
+        /*.exam-nesdal_inner_text{*/
+        /*    margin-top: 30px;*/
+        /*}*/
+
+
+        .exam-nesdal_inner_BtnArea{
+
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 80px;
+
+            button{
+                border-radius: 10px;
+                border: 2px solid #00040c;
+                padding: 10px;
+                width: 100px;
+                font-weight: 600;
+                cursor: pointer;
+            }
+
+            button:hover{
+                border-radius: 10px;
+                border: 1px solid #00040c;
+                padding: 10px;
+                width: 100px;
+                font-weight: 600;
+                cursor: pointer;
+            }
+        }
+
+    }
+}
+
+.exam-nesdal--visible{
+    display: block;
+}
+.exam_deactive{
+    opacity: 0.79;
+    pointer-events:none;}
 
 .exam {
     position: relative;
@@ -17,6 +87,8 @@
     /*    background-color: red;*/
     /*    color: white;*/
     /*}*/
+
+
 
     .all_questions {
         margin-top: 10px;

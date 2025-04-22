@@ -19,6 +19,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const wind = useAppSelector(state => state.styleSlice.wind)
     const favorits = useAppSelector(state => state.userDataSlice.selectedQuestions)
+    const neSdal = useAppSelector(state => state.examSlice.neSdal)
 
     // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
     const activeQwest = (wind==='exam')?useAppSelector(state => state.examSlice.examActiveQuest):useAppSelector(state => state.marafonSlice.activeQuest);
@@ -45,7 +46,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         setTimeout(() => {
             if(wind==='exam'){
-                dispatch(setExamActiveQuestPlus())
+                    dispatch(setExamActiveQuestPlus())
             } else if (wind==='marafon'){
                 dispatch(setActiveQwestPlus())
             }

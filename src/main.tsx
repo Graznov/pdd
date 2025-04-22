@@ -9,7 +9,7 @@ import Bf from "./Battlefield/Bf.tsx";
 import {store} from "./store/store.ts";
 import Allquestions from "./Battlefield/Allquestions/Allquestions.tsx";
 import Search from "./Battlefield/Search/Search.tsx";
-import Exam from "./Battlefield/Exam/Exam.tsx";
+// import Exam from "./Battlefield/Exam/Exam.tsx";
 import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
 
 const router = createBrowserRouter([
@@ -31,13 +31,15 @@ const router = createBrowserRouter([
             {
                 path:"/examticket",
                 element: <ExamArea/>,
-                // children:[
-                //     {
-                //         path : "/examticket",
-                //         element:<ExamArea/>
-                //     }
-                // ]
             },
+            {
+                path:"/user",
+                // index,
+                element:(
+                    <div>
+                        USER
+                    </div>)}
+
         ]
     }
 ]);

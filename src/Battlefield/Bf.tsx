@@ -146,7 +146,11 @@ function Bf(){
 
 
                     <div className={cx('header_User')}>
-                        <div className={cx('header_User_Name')}>User13</div>
+                        <NavLink
+                            to={'/user'}
+                            className={cx('header_User_Name')}>
+                            User13
+                        </NavLink>
                         {/*<img width='41px' src="https://images.icon-icons.com/10/PNG/256/user_person_customer_man_1532.png" alt="Photo"/>*/}
                     </div>
 
