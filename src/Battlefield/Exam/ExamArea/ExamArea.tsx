@@ -5,9 +5,11 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 // import {useAppDispatch, useAppSelector} from "/src/store/hooks.ts";
 // import {useState} from "react";
 // import {props_mission, quest} from "../../store/interface.ts";
-import {resetExam, setExamActiveQuest, setExamActiveQuestPlus, setNeSdal} from "../../../store/examSlice.ts";
-import {useNavigate} from "react-router-dom";
+import {resetExam, setExamActiveQuest, setExamActiveQuestPlus, setNeSdal, setSdal} from "../../../store/examSlice.ts";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import Winer from '/src/assets/win.svg?react'
+
 
 const cx = classNames.bind(styles);
 
@@ -22,25 +24,64 @@ function ExamArea(){
     const examActiveQuest = useAppSelector(state => state.examSlice.examActiveQuest)
     const examList = useAppSelector(state => state.examSlice.examList);
     const red = useAppSelector(state => state.examSlice.red);
-    // const green = useAppSelector(state => state.examSlice.green);
+    const green = useAppSelector(state => state.examSlice.green);
     const neSdal = useAppSelector(state => state.examSlice.neSdal)
+    const sdal = useAppSelector(state => state.examSlice.sdal)
 
 
     useEffect(() => {
         if(red===3)dispatch(setNeSdal(true))
-    }, [red]);
+        // if(red+green===20 && red<3){
+        //     dispatch(setSdal())
+        //     return (
+        //         <div className={cx('exam-congratulate', {
+        //             'exam-congratulate-visible': sdal
+        //         })}>
+        //             <div className={cx('exam-congratulate_Logo')}>
+        //                 <Winer/>
+        //             </div>
+        //
+        //             <div>
+        //                 <NavLink
+        //                     onClick={() => dispatch(resetExam())}
+        //                     to={'/'}
+        //                 >
+        //                     Вернуться
+        //                 </NavLink>
+        //             </div>
+        //         </div>
+        //     )
+        // }
+    }, [red, green]);
 
-    if(examList.length===0) return null;
+    if (examList.length === 0) return null;
     console.log(examList)
-
 
 
     // const [examActiveQuest, setExamActiveQuest] = useState('')
     // const [ticketsAreaBtn, setTicketsAreaBtn] = useState(false);
 
-    return(
+    return (
 
         <>
+
+            <div className={cx('exam-congratulate', {
+                'exam-congratulate-visible':sdal
+            })}>
+                <div className={cx('exam-congratulate_Logo')}>
+                    <Winer/>
+                </div>
+
+                <div>
+                    <NavLink
+                        onClick={()=>dispatch(resetExam())}
+                        to={'/'}
+                    >
+                        Вернуться
+                    </NavLink>
+                </div>
+            </div>
+
             <div className={cx('exam-nesdal', {
                 'exam-nesdal--visible': neSdal
             })}>
@@ -60,11 +101,7 @@ function ExamArea(){
                             navigate('/')
                         }}>Закончить</button>
                     </div>
-
-
                 </div>
-
-
             </div>
 
             <div className={cx('exam',{
@@ -94,14 +131,6 @@ function ExamArea(){
                         }
 
                     </div>
-
-                    {/*<div className={cx('all_questions_counter')}>*/}
-                    {/*    <div className={cx('all_questions_counter_red')}>{red}</div>*/}
-                    {/*    <div className={cx('all_questions_counter_slash')}>*/}
-                    {/*        /!*<Slash/>*!//*/}
-                    {/*    </div>*/}
-                    {/*    <div className={cx('all_questions_counter_green')}>{green}</div>*/}
-                    {/*</div>*/}
 
                     <Mission
                         yourResponse={examList[examActiveQuest].yourResponse}

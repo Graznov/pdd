@@ -7,7 +7,8 @@ interface examState {
     examList:quest[],
     red:number,
     green:number,
-    neSdal:boolean
+    neSdal:boolean,
+    sdal:boolean
 }
 
 const initialState:examState = {
@@ -15,7 +16,8 @@ const initialState:examState = {
     examList:[],
     red:0,
     green:0,
-    neSdal:false
+    neSdal:false,
+    sdal:false
 }
 
 const examSlice = createSlice({
@@ -31,6 +33,7 @@ const examSlice = createSlice({
             state.red = 0
             state.green = 0
             state.neSdal = false
+            state.sdal = false
         },
 
         setExamList(state,action){
@@ -44,6 +47,7 @@ const examSlice = createSlice({
 
             nextQuest()
             function nextQuest(){
+                if(state.red+state.green===20) return
                 if (state.examActiveQuest===20) state.examActiveQuest=0
                 if (state.examList[state.examActiveQuest].response){
                     state.examActiveQuest++
@@ -83,6 +87,13 @@ const examSlice = createSlice({
 
         setNeSdal(state, action){
             state.neSdal = action.payload
+        },
+
+        setSdal(state){
+            // if(state.neSdal) return
+            // if(state.red+state.green===20){
+                state.sdal = true
+            // }
         }
 
 
@@ -102,7 +113,8 @@ export const {
     setExamActiveQuestPlus,
     setRed,
     setGreen,
-    setNeSdal
+    setNeSdal,
+    setSdal
 
 } = examSlice.actions;
 export default examSlice.reducer

@@ -1,4 +1,41 @@
 
+.exam-congratulate{
+    display: none;
+    border-radius: 15px;
+    background-color: #E9DFC3;
+    font-size: 35px;
+    color: #ffdb7f;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    text-align: center;
+    font-family: "Roboto Light", sans-serif;
+
+    -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+    -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+
+
+    .exam-congratulate_Logo *{
+        width: 200px;
+        height: 200px;
+        margin: 20px 10px 20px 20px;
+    }
+    a{
+        text-decoration: none;
+        color: black;
+        border: 3px solid black;
+        border-radius: 20px;
+        padding: 3px 10px;
+    }
+}
+.exam-congratulate-visible{
+    display: block;
+}
+
 .exam-nesdal{
     /*border: 3px solid #000;*/
     display: none;

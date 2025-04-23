@@ -26,6 +26,10 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const listExam = useAppSelector(state => state.examSlice.examList)
     const listMarafon = useAppSelector(state => state.marafonSlice.listQuests)
     const list = (wind==='exam')?listExam:listMarafon
+
+    // const red = useAppSelector(state => state.examSlice.red);
+    // const green = useAppSelector(state => state.examSlice.green);
+
     // const neSdal = useAppSelector(state => state.examSlice.neSdal)
 
     // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
@@ -35,7 +39,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     // const list = useAppSelector(state => state.marafonSlice.listQuests);
     // const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
 
-
+    // let number = 0
+    // useEffect(() => {
+    //     number = red+green
+    //     console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\nnumber = ${number}` , "color:#559D4CFF;font-size:17px;")
+    //
+    // }, [red, green]);
     const pathToImg = image.substr(1)
 
     console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
@@ -52,6 +61,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}\nlist[activeQuest]: ${list[activeQwest].yourResponse}`, "color:#559D4CFF;font-size:17px;");
 
+        // if (number===20) return
+
 
         setTimeout(() => {
             if(wind==='exam'){
@@ -60,8 +71,6 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 dispatch(setActiveQwestPlus())
             }
         }, 1000);
-
-
 
     };
 
