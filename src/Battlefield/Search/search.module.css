@@ -4,3 +4,15 @@
 
     /*color: #559d4c;*/
 }
+
+
+@media screen and (min-width:320px) and (max-width:500px){
+    .search_content{
+        position: absolute;
+        top: 7vh;
+        height: 87vh;
+        overflow-y: scroll;
+
+        /*color: #559d4c;*/
+    }
+}

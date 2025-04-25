@@ -12,7 +12,6 @@ function Search() {
 
     return(
         <div className={cx('search_content')}>
-            SEARCH
 
             {
                 searchList.map((qwest) => (
