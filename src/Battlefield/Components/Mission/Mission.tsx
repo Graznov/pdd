@@ -8,6 +8,7 @@ import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
 import {examPushAnswerQuest, setExamActiveQuestPlus} from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion} from "../../../store/userDataSlice.ts";
+import {useNavigate} from "react-router-dom";
 
 
 const cx = classNames.bind(styles);
@@ -16,6 +17,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     // console.log(response)
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
 
     const wind = useAppSelector(state => state.styleSlice.wind)
     const favorits = useAppSelector(state => state.userDataSlice.selectedQuestions)
@@ -27,8 +30,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const listMarafon = useAppSelector(state => state.marafonSlice.listQuests)
     const list = (wind==='exam')?listExam:listMarafon
 
-    // const red = useAppSelector(state => state.examSlice.red);
-    // const green = useAppSelector(state => state.examSlice.green);
+    const red = useAppSelector(state => state.examSlice.red);
+    const green = useAppSelector(state => state.examSlice.green);
 
     // const neSdal = useAppSelector(state => state.examSlice.neSdal)
 
@@ -40,14 +43,16 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     // const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
 
     // let number = 0
-    // useEffect(() => {
-    //     number = red+green
-    //     console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\nnumber = ${number}` , "color:#559D4CFF;font-size:17px;")
-    //
-    // }, [red, green]);
+    useEffect(() => {
+        if(red+green===20) navigate('/')
+        console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\n` , "color:#559D4CFF;font-size:17px;")
+
+    }, [red, green]);
     const pathToImg = image.substr(1)
 
     console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
+
+
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
@@ -62,7 +67,6 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}\nlist[activeQuest]: ${list[activeQwest].yourResponse}`, "color:#559D4CFF;font-size:17px;");
 
         // if (number===20) return
-
 
         setTimeout(() => {
             if(wind==='exam'){

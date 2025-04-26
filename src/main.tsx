@@ -11,6 +11,7 @@ import Allquestions from "./Battlefield/Allquestions/Allquestions.tsx";
 import Search from "./Battlefield/Search/Search.tsx";
 // import Exam from "./Battlefield/Exam/Exam.tsx";
 import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
+import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             },
             {
                 path:"/examticket",
+                element: <Tickets/>,
+            },
+            {
+                path:"/examticket/ticket",
                 element: <ExamArea/>,
             },
             {

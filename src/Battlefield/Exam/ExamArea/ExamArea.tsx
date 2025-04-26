@@ -98,7 +98,7 @@ function ExamArea(){
                         }}>Продолжить</button>
                         <button onClick={()=>{
                             dispatch(resetExam())
-                            navigate('/')
+                            navigate('/examticket')
                         }}>Закончить</button>
                     </div>
                 </div>
