@@ -2,10 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './examArea.module.css';
 import Mission from "../../Components/Mission/Mission.tsx";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-// import {useAppDispatch, useAppSelector} from "/src/store/hooks.ts";
-// import {useState} from "react";
-// import {props_mission, quest} from "../../store/interface.ts";
-import {resetExam, setExamActiveQuest, setExamActiveQuestPlus, setNeSdal, setSdal} from "../../../store/examSlice.ts";
+import {resetExam, setExamActiveQuest, setExamActiveQuestPlus, setNeSdal} from "../../../store/examSlice.ts";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import Winer from '/src/assets/win.svg?react'
@@ -16,7 +13,6 @@ const cx = classNames.bind(styles);
 function ExamArea(){
 
     const navigate = useNavigate()
-    // const [neSdal, setNeSdal] = useState(false)
 
     const dispatch = useAppDispatch()
 
@@ -31,35 +27,10 @@ function ExamArea(){
 
     useEffect(() => {
         if(red===3)dispatch(setNeSdal(true))
-        // if(red+green===20 && red<3){
-        //     dispatch(setSdal())
-        //     return (
-        //         <div className={cx('exam-congratulate', {
-        //             'exam-congratulate-visible': sdal
-        //         })}>
-        //             <div className={cx('exam-congratulate_Logo')}>
-        //                 <Winer/>
-        //             </div>
-        //
-        //             <div>
-        //                 <NavLink
-        //                     onClick={() => dispatch(resetExam())}
-        //                     to={'/'}
-        //                 >
-        //                     Вернуться
-        //                 </NavLink>
-        //             </div>
-        //         </div>
-        //     )
-        // }
     }, [red, green]);
 
     if (examList.length === 0) return null;
     console.log(examList)
-
-
-    // const [examActiveQuest, setExamActiveQuest] = useState('')
-    // const [ticketsAreaBtn, setTicketsAreaBtn] = useState(false);
 
     return (
 
@@ -94,7 +65,6 @@ function ExamArea(){
                         <button onClick={()=> {
                             dispatch(setNeSdal(false))
                             dispatch(setExamActiveQuestPlus())
-
                         }}>Продолжить</button>
                         <button onClick={()=>{
                             dispatch(resetExam())

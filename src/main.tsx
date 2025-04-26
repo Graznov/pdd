@@ -12,6 +12,7 @@ import Search from "./Battlefield/Search/Search.tsx";
 // import Exam from "./Battlefield/Exam/Exam.tsx";
 import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
 import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
+import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
         element: <Bf/>,
         // errorElement:<ErrorPage/>,
         children:[
+            {
+                index: true,
+                element: <DefaultComponent />
+            },
             {
                 path:"/allquestions",
                 // index,
@@ -43,7 +48,9 @@ const router = createBrowserRouter([
                 element:(
                     <div>
                         USER
-                    </div>)}
+                    </div>)
+            },
+
 
         ]
     }
