@@ -4,7 +4,7 @@ import Mission from "../../Components/Mission/Mission.tsx";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {resetExam, setExamActiveQuest, setExamActiveQuestPlus, setNeSdal} from "../../../store/examSlice.ts";
 import {NavLink, useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Winer from '/src/assets/win.svg?react'
 
 
@@ -24,9 +24,12 @@ function ExamArea(){
     const neSdal = useAppSelector(state => state.examSlice.neSdal)
     const sdal = useAppSelector(state => state.examSlice.sdal)
 
-
+    const [flag, setFlag] = useState(false)
     useEffect(() => {
-        if(red===3)dispatch(setNeSdal(true))
+        if(!flag && red===3){
+            dispatch(setNeSdal(true))
+            setFlag(true)
+        }
     }, [red, green]);
 
     if (examList.length === 0) return null;
@@ -46,7 +49,7 @@ function ExamArea(){
                 <div>
                     <NavLink
                         onClick={()=>dispatch(resetExam())}
-                        to={'/'}
+                        to={'/examticket'}
                     >
                         Вернуться
                     </NavLink>

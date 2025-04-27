@@ -89,10 +89,10 @@ const examSlice = createSlice({
             state.neSdal = action.payload
         },
 
-        setSdal(state){
+        setSdal(state, action){
             // if(state.neSdal) return
             // if(state.red+state.green===20){
-                state.sdal = true
+                state.sdal = action.payload
             // }
         }
 

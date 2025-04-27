@@ -6,12 +6,15 @@ import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
-import {examPushAnswerQuest, setExamActiveQuestPlus} from "../../../store/examSlice.ts";
+import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
 
 
 const cx = classNames.bind(styles);
+
+let number :number = 0
+
 
 function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic, response}: quest) {
 
@@ -33,6 +36,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const red = useAppSelector(state => state.examSlice.red);
     const green = useAppSelector(state => state.examSlice.green);
 
+    // const sdal = useAppSelector(state => state.examSlice.sdal)
+
     // const neSdal = useAppSelector(state => state.examSlice.neSdal)
 
     // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
@@ -42,12 +47,19 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     // const list = useAppSelector(state => state.marafonSlice.listQuests);
     // const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
 
-    // let number = 0
+    // let number :number
+
     useEffect(() => {
-        if(red+green===20) navigate('/')
-        console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\n` , "color:#559D4CFF;font-size:17px;")
+        number = red+green
+
+        // if(red+green===20) navigate('/')
+        console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\nnumber = ${number}` , "color:#559D4CFF;font-size:17px;")
 
     }, [red, green]);
+
+    useEffect(() => {
+
+    }, [number]);
     const pathToImg = image.substr(1)
 
     console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
@@ -58,7 +70,22 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         if(!isCorrect)dispatch(pushError(id))
 
+        // console.log(`number = ${number}`)
+        console.log(`red+green = ${red+green}`)
+
+
         if(wind==='exam'){
+            if(red+green+1===20 && red<3) {
+                console.log('CONGRAT...')
+                dispatch(examPushAnswerQuest({isCorrect,index}))
+                dispatch(setSdal(true))
+                return
+            } else if (red+green+1===20){
+                setTimeout(()=>{
+                    dispatch(resetExam())
+                    navigate('/examticket')
+                },1000)
+            }
             dispatch(examPushAnswerQuest({isCorrect,index}))
         } else if (wind==='marafon'){
             dispatch(pushAnswerQuest({isCorrect,index}))
