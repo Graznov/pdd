@@ -16,7 +16,7 @@
         background: var(--color-w-btn);
         /*height: 100px;*/
         position: sticky;
-        z-index: 11;
+        z-index: 12;
     }
 
     header{

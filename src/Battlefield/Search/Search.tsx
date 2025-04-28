@@ -66,7 +66,7 @@ function Search() {
                         setVallueSearch('')
                         dispatch(setSearchArrQuest([]))
                     }}>
-                    <Close fill={'#69605EFF'} width={'43px'} height={'43px'}/>
+                    <Close className={cx('button_close')}/>
                 </button>
             </div>
 

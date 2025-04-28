@@ -1,7 +1,10 @@
 .search-counter{
     position: relative;
+    /*height: 77vh;*/
 
     .header_input {
+        /*margin-bottom: 50px;*/
+
         position: absolute;
         display: flex;
         align-items: center;
@@ -9,7 +12,7 @@
         left: 0;
         right: 0;
         width: 300px;
-        margin: 0 auto;
+        margin: 0 auto 0 auto;
         text-align: center;
         z-index: 11;
 
@@ -43,14 +46,26 @@
             cursor: pointer;
             padding: 3px 0 0 0;
             margin: 0;
+
+            .button_close{
+                fill: #69605EFF;
+                width: 43px;
+                height: 43px;
+            }
         }
 
     }
 
     .search_content {
-        height: 87vh;
+
+        position: absolute;
+        top: 70px;
+        min-width: 0;
+        max-height: 85vh;
+        width: 100%;
+        /*overflow: hidden;*/
         overflow-y: scroll;
-        padding-top: 50px;
+        /*padding-top: 50px;*/
         /*margin-top: 50px;*/
 
 
@@ -64,11 +79,9 @@
 .search-counter{
     .header_input{
         position: absolute;
-        /*bottom: 0;*/
         border: none;
         top: calc(83vh);
         background: none;
-
     }
 
     .search_content{
@@ -77,11 +90,6 @@
         height: 83vh;
         overflow-y: scroll;
         padding-top: 0;
-
-
-
-
-        /*color: #559d4c;*/
     }
 }
 
