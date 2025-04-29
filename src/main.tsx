@@ -13,6 +13,7 @@ import Search from "./Battlefield/Search/Search.tsx";
 import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
 import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
+import User from "./Battlefield/User/User.tsx";
 
 const router = createBrowserRouter([
     {
@@ -45,10 +46,7 @@ const router = createBrowserRouter([
             {
                 path:"/user",
                 // index,
-                element:(
-                    <div>
-                        USER
-                    </div>)
+                element:<User/>
             },
 
 
