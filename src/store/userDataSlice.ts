@@ -3,7 +3,7 @@ import {userData} from "./interface.ts";
 
 const initialState:userData = {
     // wind:null
-    entrance:false,
+    entrance:true,
     userName: '',
     userEmail: '',
     userPassword: '',

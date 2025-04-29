@@ -2,7 +2,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 // import App from './App.tsx'
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, NavLink, RouterProvider} from "react-router-dom";
 import React from 'react';
 import {Provider} from "react-redux";
 import Bf from "./Battlefield/Bf.tsx";
@@ -12,8 +12,9 @@ import Search from "./Battlefield/Search/Search.tsx";
 // import Exam from "./Battlefield/Exam/Exam.tsx";
 import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
 import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
-import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
+// import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
 import User from "./Battlefield/User/User.tsx";
+
 
 const router = createBrowserRouter([
     {
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
         children:[
             {
                 index: true,
-                element: <DefaultComponent />
+                // element: <DefaultComponent />
+                element: <Tickets/>
             },
             {
                 path:"/allquestions",
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
                 element: <Search/>
             },
             {
+
                 path:"/examticket",
                 element: <Tickets/>,
             },
@@ -46,7 +49,48 @@ const router = createBrowserRouter([
             {
                 path:"/user",
                 // index,
-                element:<User/>
+                element:<User/>,
+                children:[
+                    // {
+                    //     index: true,
+                    //     element: <Navigate to="userdata" replace />,
+                    //     element: entrance ? (
+                    //         <Navigate to="userdata" replace />
+                    //     ) : (
+                    //         <Navigate to="login" replace />
+                    //     ),
+                    // },
+                    {
+                        path:"/user/userdata",
+                        // element: <UserData/>,
+                        element: (
+                            <div>
+                                UserData
+                            </div>
+                        )
+                    },
+                    {
+                        path:"/user/registration",
+                        // element: <Registration/>,
+                        element: (
+                            <div>
+                                Registration
+                                <NavLink to={'/user/login'}>Войти</NavLink>
+                            </div>
+                        )
+                    },
+                    {
+                        path:"/user/login",
+                        // element:<Login/>,
+                        element: (
+                            <div>
+                                Log In
+                                <NavLink to={'/user/registration'}>Зарегестрироваться</NavLink>
+                            </div>
+                        )
+                    }
+                ]
+
             },
 
 

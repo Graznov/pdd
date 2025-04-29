@@ -1,11 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
 import {NavLink, Outlet} from "react-router-dom";
+import {useAppSelector} from "../store/hooks.ts";
 // import DefaultComponent from "./DefaultComponent/DefaultComponent.tsx";
 
 const cx = classNames.bind(styles);
 
 function Bf(){
+
+    const UserName = useAppSelector(state => state.userDataSlice.userName)
+
+    const name = (UserName.length)?UserName:'LogIn';
 
     return (
             <div className={cx('container')}>
@@ -21,11 +26,11 @@ function Bf(){
 
                         </div>
 
-                        <div className={cx('header_User')}>
+                        <div className={cx('header_User', 'header_btnArea')}>
                             <NavLink
                                 to={'/user'}
                                 className={cx('header_User_Name')}>
-                                User13
+                                {name}
                             </NavLink>
                             {/*<img width='41px' src="https://images.icon-icons.com/10/PNG/256/user_person_customer_man_1532.png" alt="Photo"/>*/}
                         </div>
