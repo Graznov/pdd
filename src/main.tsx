@@ -2,7 +2,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 // import App from './App.tsx'
-import {createBrowserRouter, Navigate, NavLink, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import React from 'react';
 import {Provider} from "react-redux";
 import Bf from "./Battlefield/Bf.tsx";
@@ -14,6 +14,7 @@ import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
 import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 // import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
 import User from "./Battlefield/User/User.tsx";
+import LogIn from "./Battlefield/LogIn/LogIn.tsx";
 
 
 const router = createBrowserRouter([
@@ -69,25 +70,20 @@ const router = createBrowserRouter([
                             </div>
                         )
                     },
-                    {
-                        path:"/user/registration",
-                        // element: <Registration/>,
-                        element: (
-                            <div>
-                                Registration
-                                <NavLink to={'/user/login'}>Войти</NavLink>
-                            </div>
-                        )
-                    },
+                    // {
+                    //     path:"/user/registration",
+                    //     // element: <Registration/>,
+                    //     element: (
+                    //         <div>
+                    //             Registration
+                    //             <NavLink to={'/user/login'}>Войти</NavLink>
+                    //         </div>
+                    //     )
+                    // },
                     {
                         path:"/user/login",
                         // element:<Login/>,
-                        element: (
-                            <div>
-                                Log In
-                                <NavLink to={'/user/registration'}>Зарегестрироваться</NavLink>
-                            </div>
-                        )
+                        element: <LogIn/>
                     }
                 ]
 
