@@ -27,6 +27,10 @@
             font-size: 14px;
         }
 
+        .error{
+            background: rgba(255, 0, 0, 0.3);
+        }
+
         .login-form_passContainer{
             position: relative;
 
@@ -75,16 +79,25 @@
             cursor: pointer;
             background: none;
         }
+
         .login-form_none{
             display: none;
         }
 
         .register-form {
-            display: none;
+            /*display: none;*/
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.9s ease, height 0.3s ease;
+
         }
 
         .register-form_show{
-            display: block;
+            /*display: block;*/
+
+            opacity: 1;
+            height: auto; /* Или фиксированная высота, например 300px */
         }
     }
 }

@@ -1,6 +1,6 @@
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Eye from '/src/assets/eye.svg?react'
 import EyeHidden from '/src/assets/eye-hidden.svg?react'
 
@@ -18,6 +18,12 @@ const FORM_REGISTRATION = {
     password_2:'',
 }
 
+const ERROR = {
+    name:false,
+    email:false,
+    password:false,
+}
+
 function LogIn() {
 
     const [isLoginVisible, setIsLoginVisible] = useState(true);
@@ -25,29 +31,68 @@ function LogIn() {
 
     const [formLogIn, setFormLogIn] = useState(FORM_LOGIN);
 
-
     const [formRegistration, setFormRegistration] = useState(FORM_REGISTRATION);
+
+    const [error, setError] = useState(ERROR);
+
+    useEffect(()=>{
+
+    },[error])
+
+    function validateEmail(email:string) {
+        if (!email) return false; // Проверка на пустую строку
+
+        // Более строгое регулярное выражение
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        return re.test(String(email).toLowerCase());
+    }
+
+    // console.log(validateEmail(formRegistration.userEmail))
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(isLoginVisible ? "Login form submitted" : "Register form submitted");
         // Здесь можно добавить логику отправки данных на сервер
         if(!isLoginVisible){
+
             if(formRegistration.userName.length
                 && formRegistration.userEmail.length
                 && formRegistration.password_1
                 && formRegistration.password_1===formRegistration.password_2){
+                
                 console.log(`formRegistration: ${JSON.stringify(formRegistration)}`);
+
+                console.log(validateEmail(formRegistration.userEmail))
+
+
+                //отправка на сервер
+
+            } else {
+                alert('Не все поля заполнены')
             }
+
+
+            setTimeout(()=>{
+                setError(ERROR)
+            },1000)
+
         } else{
             if(formLogIn.userName.length && formLogIn.password.length){
                 console.log(`formLogIn: ${JSON.stringify(formLogIn)}`);
+
+                //отправка на сервер
+            } else{
+                alert('Не все поля заполнены')
             }
+
+
         }
 
     };
 
-    console.log(`isLoginVisible: ${isLoginVisible}`);
+    // console.log(`isLoginVisible: ${isLoginVisible}`);
 
     return (
         <div className={cx("login-page")}>
@@ -57,6 +102,7 @@ function LogIn() {
                 })}>
 
                     <input
+                        className={cx({'error':error.name})}
                         onChange={(event)=>{
                             setFormRegistration({
                                 ...formRegistration,
@@ -68,6 +114,7 @@ function LogIn() {
                         placeholder="name"/>
 
                     <input
+                        className={cx({'error':error.email})}
                         onChange={(event)=>{
                             setFormRegistration({
                                 ...formRegistration,
@@ -133,6 +180,7 @@ function LogIn() {
                 })}>
 
                     <input
+                        className={cx({'error':error.name})}
                         value={formLogIn.userName}
                         onChange={(event)=>{setFormLogIn({
                             ...formLogIn,
@@ -142,6 +190,7 @@ function LogIn() {
                         placeholder="username"/>
                     <div className={cx('login-form_passContainer')}>
                         <input
+                            className={cx({'error':error.password})}
                             value={formLogIn.password}
                             onChange={(event)=>{setFormLogIn({
                                 ...formLogIn,
