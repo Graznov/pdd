@@ -13,7 +13,7 @@ import Search from "./Battlefield/Search/Search.tsx";
 import ExamArea from "./Battlefield/Exam/ExamArea/ExamArea.tsx";
 import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 // import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
-import User from "./Battlefield/User/User.tsx";
+// import User from "./Battlefield/User/User.tsx";
 import LogIn from "./Battlefield/LogIn/LogIn.tsx";
 import ErrorPage from "./Errorpage/ErrorPage.tsx";
 
@@ -56,28 +56,42 @@ const router = createBrowserRouter([
                 path:"/examticket/ticket",
                 element: <ExamArea/>,
             },
+            // {
+            //     path:"/user",
+            //     // index,
+            //     element:<User/>,
+            //     children:[
+            //         {
+            //             path:"/user/userdata",
+            //             // element: <UserData/>,
+            //             element: (
+            //                 <div>
+            //                     UserData
+            //                 </div>
+            //             )
+            //         },
+            //         {
+            //             path:"/user/login",
+            //             // element:<Login/>,
+            //             element: <LogIn/>
+            //         }
+            //     ]
+            //
+            // },
             {
-                path:"/user",
-                // index,
-                element:<User/>,
-                children:[
-                    {
-                        path:"/user/userdata",
-                        // element: <UserData/>,
-                        element: (
-                            <div>
-                                UserData
-                            </div>
-                        )
-                    },
-                    {
-                        path:"/user/login",
-                        // element:<Login/>,
-                        element: <LogIn/>
-                    }
-                ]
-
+                path:"/userdata",
+                // element: <UserData/>,
+                element: (
+                    <div>
+                        UserData
+                    </div>
+                )
             },
+            {
+                path:"/login",
+                // element:<Login/>,
+                element: <LogIn/>
+            }
 
 
         ]

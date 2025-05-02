@@ -2,11 +2,12 @@ import classNames from 'classnames/bind';
 import styles from './bf.module.css';
 import {NavLink, Outlet} from "react-router-dom";
 import {useAppSelector} from "../store/hooks.ts";
-// import DefaultComponent from "./DefaultComponent/DefaultComponent.tsx";
 
 const cx = classNames.bind(styles);
 
 function Bf(){
+
+    const entrance = useAppSelector(state => state.userDataSlice.entrance)
 
     const UserName = useAppSelector(state => state.userDataSlice.userName)
 
@@ -28,7 +29,7 @@ function Bf(){
 
                         <div className={cx('header_User', 'header_btnArea')}>
                             <NavLink
-                                to={'/user'}
+                                to={(entrance)?'/userdata':'/login'}
                                 className={cx('header_User_Name')}>
                                 {name}
                             </NavLink>
@@ -40,8 +41,8 @@ function Bf(){
 
                 <main>
                     <div className={cx('content')}>
-                        <Outlet/>
 
+                        <Outlet/>
 
                     </div>
                 </main>

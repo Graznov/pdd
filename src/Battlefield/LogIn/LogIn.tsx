@@ -65,6 +65,34 @@ function LogIn() {
 
                 //отправка на сервер
 
+                fetch(`http://localhost:3000/user/register`, {
+                    method: 'POST', // Указываем метод запроса
+                    headers: {
+                        'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
+                    },
+                    body: JSON.stringify(formRegistration)
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            // setRespons(response.statusText)
+                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+
+                        }
+
+                        return response.json()
+                    })
+
+                    .then((data) => {
+
+                        console.log('Данные получены', data)
+                        // setRespons(data)
+                    })
+                    .catch((err) => {
+                        console.log('Произошла ошибка', err.message, err.status)
+
+
+                    })
+
             } else if(formRegistration.userName.length<=5){
                 alert('Имя должно содержать более 5 символов')
             } else if(formRegistration.password_1.length<=7){
