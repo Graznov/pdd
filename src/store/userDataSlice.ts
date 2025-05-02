@@ -7,7 +7,7 @@ const initialState:userData = {
     userName: '',
     // userEmail: '',
     userPassword: '',
-    selectedQuestions: [],
+    starQuestions: [],
     errorQuestions: []
 }
 

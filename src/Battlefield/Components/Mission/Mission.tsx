@@ -24,7 +24,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
 
     const wind = useAppSelector(state => state.styleSlice.wind)
-    const favorits = useAppSelector(state => state.userDataSlice.selectedQuestions)
+    const favorits = useAppSelector(state => state.userDataSlice.starQuestions)
     const examActiveQuest = useAppSelector(state => state.examSlice.examActiveQuest);
     const marafonActiveQuest = useAppSelector(state => state.marafonSlice.activeQuest);
     const activeQwest = (wind === 'exam') ? examActiveQuest : marafonActiveQuest;

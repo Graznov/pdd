@@ -50,6 +50,8 @@ function LogIn() {
 
     // console.log(validateEmail(formRegistration.userEmail))
 
+    const [nameError, setNameError] = useState(false);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -61,7 +63,10 @@ function LogIn() {
                 && formRegistration.password_1.length>7
                 && formRegistration.password_1===formRegistration.password_2){
                 
-                console.log(`formRegistration: ${JSON.stringify(formRegistration)}`);
+                console.log(`formRegistration: ${JSON.stringify({
+                    name:formRegistration.userName,
+                    password:formRegistration.password_1,
+                })}`);
 
                 //отправка на сервер
 
@@ -70,11 +75,23 @@ function LogIn() {
                     headers: {
                         'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
                     },
-                    body: JSON.stringify(formRegistration)
+                    body: JSON.stringify({
+                        name:formRegistration.userName,
+                        password:formRegistration.password_1,
+                    })
                 })
                     .then((response) => {
                         if (!response.ok) {
-                            // setRespons(response.statusText)
+
+                            if(response.status === 409){
+                                console.log('Имя занято')
+
+                                setNameError(true)
+
+                                setTimeout(()=>{
+                                    setNameError(false)
+                                },1000)
+                            }
                             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
 
                         }
@@ -84,14 +101,21 @@ function LogIn() {
 
                     .then((data) => {
 
-                        console.log('Данные получены', data)
-                        // setRespons(data)
+                        console.log('Данные получены', data, data)
+
+                        setFormLogIn({
+                            ...formLogIn,
+                            userName: formRegistration.userName
+                        })
+                        setIsLoginVisible(!isLoginVisible);
+                        setFormRegistration(FORM_REGISTRATION);
+
                     })
                     .catch((err) => {
                         console.log('Произошла ошибка', err.message, err.status)
-
-
                     })
+
+                // setFormRegistration(FORM_REGISTRATION);
 
             } else if(formRegistration.userName.length<=5){
                 alert('Имя должно содержать более 5 символов')
@@ -132,7 +156,7 @@ function LogIn() {
                 })}>
 
                     <input
-                        className={cx('input',{'error-name':error.name})}
+                        className={cx('input',{'error-name':nameError})}
                         onChange={(event)=>{
                             setFormRegistration({
                                 ...formRegistration,

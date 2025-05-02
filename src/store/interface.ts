@@ -46,6 +46,6 @@ export interface userData {
     userName: string,
     // userEmail: string,
     userPassword: string,
-    selectedQuestions: string[],
+    starQuestions: string[],
     errorQuestions: string[]
 }
