@@ -55,7 +55,7 @@ function Search() {
     return(
 
 
-        <div    className={cx('search-counter')}>
+        <div className={cx('search-counter')}>
             <div className={cx('header_input')}>
                 <input
                     value={vallueSearch}

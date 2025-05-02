@@ -5,7 +5,7 @@ const initialState:userData = {
     // wind:null
     entrance:false,
     userName: '',
-    userEmail: '',
+    // userEmail: '',
     userPassword: '',
     selectedQuestions: [],
     errorQuestions: []

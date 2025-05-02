@@ -27,3 +27,37 @@
         color: green;
     }
 }
+
+@media screen and (min-width:320px) and (max-width:500px){
+
+    .searchContainer{
+
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*gap: 10px;*/
+        /*width: 80%;*/
+        /*margin: 10px auto;*/
+        /*font-family: "Roboto Light",sans-serif;*/
+        /*!*border: 1px solid red;*!*/
+        /*padding: 10px;*/
+        /*border-radius: 10px;*/
+        /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
+
+
+        .searchContainer_question{
+            font-size: large;
+        }
+        img{
+            width: 99%;
+            margin: 0 auto;
+        }
+        /*.searchContainer_question_correct{*/
+
+        /*}*/
+        .searchContainer_question_text{
+            font-size: 1.5rem;
+            color: green;
+        }
+    }
+
+}

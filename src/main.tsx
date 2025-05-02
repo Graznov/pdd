@@ -15,14 +15,23 @@ import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 // import DefaultComponent from "./Battlefield/DefaultComponent/DefaultComponent.tsx";
 import User from "./Battlefield/User/User.tsx";
 import LogIn from "./Battlefield/LogIn/LogIn.tsx";
+import ErrorPage from "./Errorpage/ErrorPage.tsx";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Bf/>,
-        // errorElement:<ErrorPage/>,
+        errorElement:<ErrorPage/>,
         children:[
+            // {
+            //     path:'/errorpage',
+            //     element: (
+            //         <div>
+            //             ERROR
+            //         </div>
+            //     )
+            // },
             {
                 index: true,
                 // element: <DefaultComponent />
@@ -52,15 +61,6 @@ const router = createBrowserRouter([
                 // index,
                 element:<User/>,
                 children:[
-                    // {
-                    //     index: true,
-                    //     element: <Navigate to="userdata" replace />,
-                    //     element: entrance ? (
-                    //         <Navigate to="userdata" replace />
-                    //     ) : (
-                    //         <Navigate to="login" replace />
-                    //     ),
-                    // },
                     {
                         path:"/user/userdata",
                         // element: <UserData/>,
@@ -70,16 +70,6 @@ const router = createBrowserRouter([
                             </div>
                         )
                     },
-                    // {
-                    //     path:"/user/registration",
-                    //     // element: <Registration/>,
-                    //     element: (
-                    //         <div>
-                    //             Registration
-                    //             <NavLink to={'/user/login'}>Войти</NavLink>
-                    //         </div>
-                    //     )
-                    // },
                     {
                         path:"/user/login",
                         // element:<Login/>,

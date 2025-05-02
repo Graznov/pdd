@@ -13,14 +13,14 @@ const FORM_LOGIN = {
 
 const FORM_REGISTRATION = {
     userName:'',
-    userEmail:'',
+    // userEmail:'',
     password_1:'',
     password_2:'',
 }
 
 const ERROR = {
     name:false,
-    email:false,
+    // email:false,
     password:false,
 }
 
@@ -36,17 +36,17 @@ function LogIn() {
     const [error, setError] = useState(ERROR);
 
     useEffect(()=>{
+        console.log("%c" + `LogIn.tsx\nformRegistration: ${JSON.stringify(formRegistration)}`, "color:#559D4CFF;font-size:17px;");
+    },[formRegistration])
 
-    },[error])
-
-    function validateEmail(email:string) {
-        if (!email) return false; // Проверка на пустую строку
-
-        // Более строгое регулярное выражение
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-        return re.test(String(email).toLowerCase());
-    }
+    // function validateEmail(email:string) {
+    //     if (!email) return false; // Проверка на пустую строку
+    //
+    //     // Более строгое регулярное выражение
+    //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //
+    //     return re.test(String(email).toLowerCase());
+    // }
 
     // console.log(validateEmail(formRegistration.userEmail))
 
@@ -57,26 +57,28 @@ function LogIn() {
         // Здесь можно добавить логику отправки данных на сервер
         if(!isLoginVisible){
 
-            if(formRegistration.userName.length
-                && formRegistration.userEmail.length
-                && formRegistration.password_1
+            if(formRegistration.userName.length>5
+                && formRegistration.password_1.length>7
                 && formRegistration.password_1===formRegistration.password_2){
                 
                 console.log(`formRegistration: ${JSON.stringify(formRegistration)}`);
 
-                console.log(validateEmail(formRegistration.userEmail))
-
-
                 //отправка на сервер
 
+            } else if(formRegistration.userName.length<=5){
+                alert('Имя должно содержать более 5 символов')
+            } else if(formRegistration.password_1.length<=7){
+                alert('Пароль должен содержать ,больше 7 символов')
+            }else if (formRegistration.password_1!==formRegistration.password_2){
+                alert('Пароли не совпадают')
             } else {
                 alert('Не все поля заполнены')
             }
 
 
-            setTimeout(()=>{
-                setError(ERROR)
-            },1000)
+            // setTimeout(()=>{
+            //     setError(ERROR)
+            // },1000)
 
         } else{
             if(formLogIn.userName.length && formLogIn.password.length){
@@ -102,7 +104,7 @@ function LogIn() {
                 })}>
 
                     <input
-                        className={cx({'error':error.name})}
+                        className={cx('input',{'error-name':error.name})}
                         onChange={(event)=>{
                             setFormRegistration({
                                 ...formRegistration,
@@ -111,19 +113,19 @@ function LogIn() {
                         }}
                         value={formRegistration.userName}
                         type="text"
-                        placeholder="name"/>
+                        placeholder="Имя"/>
 
-                    <input
-                        className={cx({'error':error.email})}
-                        onChange={(event)=>{
-                            setFormRegistration({
-                                ...formRegistration,
-                                userEmail: event.target.value
-                            })
-                        }}
-                        value={formRegistration.userEmail}
-                        type="text"
-                        placeholder="email address"/>
+                    {/*<input*/}
+                    {/*    className={cx('input', {'error-email':error.email})}*/}
+                    {/*    onChange={(event)=>{*/}
+                    {/*        setFormRegistration({*/}
+                    {/*            ...formRegistration,*/}
+                    {/*            userEmail: event.target.value*/}
+                    {/*        })*/}
+                    {/*    }}*/}
+                    {/*    value={formRegistration.userEmail}*/}
+                    {/*    type="text"*/}
+                    {/*    placeholder="email address"/>*/}
 
                     <div className={cx('login-form_passContainer')}>
 
@@ -136,7 +138,7 @@ function LogIn() {
                             }}
                             value={formRegistration.password_1}
                             type={(passVisible) ? "text" : "password"}
-                            placeholder="password"/>
+                            placeholder="Пароль"/>
 
                         <button className={cx('pass-visible-switch')} onClick={() => setPassVisible(!passVisible)}>
                             {(passVisible) ? <Eye/> : <EyeHidden/>}
@@ -156,23 +158,23 @@ function LogIn() {
                             }}
                             value={formRegistration.password_2}
                             type={(passVisible) ? "text" : "password"}
-                            placeholder="confirm password"/>
+                            placeholder="Подтверждение пароля"/>
                     </div>
 
 
                     <button
                         onClick={handleSubmit}
                         className={cx('form-button')}>
-                        create
+                        создать
                     </button>
                     <p className={cx("message")}>
-                        Already registered?
+                        Уже зарегестрирован?
                         <button onClick={() => {
                             setFormLogIn(FORM_LOGIN)
                             setFormRegistration(FORM_REGISTRATION)
                             setIsLoginVisible(!isLoginVisible)
 
-                        }}>Sign In</button>
+                        }}>Войти</button>
                     </p>
                 </div>
                 <div className={cx("login-form", {
@@ -187,7 +189,7 @@ function LogIn() {
                             userName: event.target.value
                         })}}
                         type="text"
-                        placeholder="username"/>
+                        placeholder="Имя"/>
                     <div className={cx('login-form_passContainer')}>
                         <input
                             className={cx({'error':error.password})}
@@ -197,7 +199,7 @@ function LogIn() {
                                 password: event.target.value
                             })}}
                             type={(passVisible) ? "text" : "password"}
-                            placeholder="password"/>
+                            placeholder="Пароль"/>
                         <button className={cx('pass-visible-switch')} onClick={() => setPassVisible(!passVisible)}>
                             {(passVisible)?<Eye/>:<EyeHidden/>}
                         </button>
@@ -205,14 +207,14 @@ function LogIn() {
 
                     <button
                         onClick={handleSubmit}
-                        className={cx('form-button')}>login</button>
+                        className={cx('form-button')}>Войти</button>
                     <p className={cx("message")}>
-                        Not registered?
+                        Нет аккаунта?
                         <button onClick={() => {
                             setFormLogIn(FORM_LOGIN)
                             setFormRegistration(FORM_REGISTRATION)
                             setIsLoginVisible(!isLoginVisible)
-                        }}>Create an account</button>
+                        }}>Зарегестрироваться</button>
                     </p>
                 </div>
             </div>

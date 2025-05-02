@@ -31,6 +31,13 @@
             background: rgba(255, 0, 0, 0.3);
         }
 
+        .error-name{
+            background: rgba(255, 0, 0, 0.3);
+        }
+        .error-email{
+            background: rgba(255, 0, 0, 0.3);
+        }
+
         .login-form_passContainer{
             position: relative;
 
