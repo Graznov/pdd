@@ -169,8 +169,8 @@ function LogIn() {
                         // localStorage.setItem('accessToken', data.accessToken)
                         // localStorage.setItem('_id', data.id)
 
-                        localStorage.setItem('accessToken', data.accessToken)
-                        localStorage.setItem('_id', data.id)
+                        localStorage.setItem('PDD_accessToken', data.accessToken)
+                        localStorage.setItem('PDD_id', data.id)
 
                         dispatch(setUserName(data))
                         // dispatch(setEmail(data.email))

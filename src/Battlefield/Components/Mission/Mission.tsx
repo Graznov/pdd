@@ -6,6 +6,7 @@ import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
+import Error from '/src/assets/error.svg?react'
 import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
@@ -79,7 +80,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     credentials: "include",
                     headers: {
                         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                        'Authorization': localStorage.getItem('accessToken')!, // Токен передаётся в заголовке
+                        'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
                     },
                     body: JSON.stringify({id:id})
                 })
@@ -88,7 +89,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
                             if(response.status === 400){
                                 console.log('TOKENS ERROR')
-                                localStorage.removeItem('accessToken')
+                                localStorage.removeItem('PDD_accessToken')
+                                localStorage.removeItem('PDD_id')
                                 dispatch(resetUserData())
 
 
@@ -105,7 +107,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
                         console.log('Данные получены', data)
 
-                        localStorage.setItem('accessToken', data.accessToken)
+                        localStorage.setItem('PDD_accessToken', data.accessToken)
 
 
                         // setFormLogIn({
@@ -177,6 +179,11 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const [responseWind, setResponseWind] = useState(false);
 
+    const pushStar = () => {
+        console.log('Push_Star')
+        dispatch(pushSelectedQuestion(id))
+    }
+
     return (
 
         <>
@@ -201,6 +208,11 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
 
                 <div className={cx('mission_title')}>
+                    <div className={cx('mission_title-error',{
+                        'mission_title-error-visible':UserData.errorQuestions.includes(id)
+                    })}>
+                        <Error/>
+                    </div>
                     <div className={cx('mission_title_ticketNumber')}>
                         {ticket_number}
                     </div>
@@ -209,7 +221,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         className={cx('mission_selected',{
                             'mission_selected_actice' : favorits.includes(id)
                         })}
-                        onClick={()=>dispatch(pushSelectedQuestion(id))}>
+                        onClick={pushStar}>
                         <Star/>
                     </button>
                     <button

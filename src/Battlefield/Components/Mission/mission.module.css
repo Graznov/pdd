@@ -58,6 +58,12 @@
         align-items: center;
         gap: 10px;
 
+        .mission_title-error{
+            display: none;
+        }
+        .mission_title-error-visible{
+            display: block;
+        }
 
         .mission_title_ticketNumber{
             /*margin-right: 10px;*/
