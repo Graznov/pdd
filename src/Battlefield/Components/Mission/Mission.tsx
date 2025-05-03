@@ -7,7 +7,7 @@ import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.t
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
 import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from "../../../store/examSlice.ts";
-import {pushError, pushSelectedQuestion} from "../../../store/userDataSlice.ts";
+import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
 
 
@@ -22,6 +22,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
+    const UserData = useAppSelector(state => state.userDataSlice)
 
     const wind = useAppSelector(state => state.styleSlice.wind)
     const favorits = useAppSelector(state => state.userDataSlice.starQuestions)
@@ -68,7 +69,60 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
-        if(!isCorrect)dispatch(pushError(id))
+        if(!isCorrect) {
+            dispatch(pushError(id))
+
+            if(UserData.entrance){
+
+                fetch(`http://localhost:3000/user/pusherror/${UserData.id}`, {
+                    method: 'PATCH', // Указываем метод запроса
+                    credentials: "include",
+                    headers: {
+                        'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+                        'Authorization': localStorage.getItem('accessToken')!, // Токен передаётся в заголовке
+                    },
+                    body: JSON.stringify({id:id})
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+
+                            if(response.status === 400){
+                                console.log('TOKENS ERROR')
+                                localStorage.removeItem('accessToken')
+                                dispatch(resetUserData())
+
+
+
+                            }
+                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+
+                        }
+
+                        return response.json()
+                    })
+
+                    .then((data) => {
+
+                        console.log('Данные получены', data)
+
+                        localStorage.setItem('accessToken', data.accessToken)
+
+
+                        // setFormLogIn({
+                        //     ...formLogIn,
+                        //     name: formRegistration.userName
+                        // })
+                        // setIsLoginVisible(!isLoginVisible);
+                        // setFormRegistration(FORM_REGISTRATION);
+
+                    })
+                    .catch((err) => {
+                        console.log('Произошла ошибка', err.message, err.status)
+                    })
+
+            }
+        }
+
 
         // console.log(`number = ${number}`)
         console.log(`red+green = ${red+green}`)

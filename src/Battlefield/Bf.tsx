@@ -7,12 +7,9 @@ const cx = classNames.bind(styles);
 
 function Bf(){
 
-    const entrance = useAppSelector(state => state.userDataSlice.entrance)
+    const UserData = useAppSelector(state => state.userDataSlice)
 
-    const UserName = useAppSelector(state => state.userDataSlice.userName)
-    const Entrance =  useAppSelector(state => state.userDataSlice.entrance)
-
-    const name = (Entrance)?UserName:'LogIn';
+    const name = (UserData.entrance)?UserData.userName:'LogIn';
 
     return (
             <div className={cx('container')}>
@@ -30,7 +27,7 @@ function Bf(){
 
                         <div className={cx('header_User', 'header_btnArea')}>
                             <NavLink
-                                to={(entrance)?'/userdata':'/login'}
+                                to={(UserData.entrance)?'/userdata':'/login'}
                                 className={cx('header_User_Name')}>
                                 {name}
                             </NavLink>

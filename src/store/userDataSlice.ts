@@ -2,11 +2,9 @@ import {createSlice} from '@reduxjs/toolkit'
 import {userData} from "./interface.ts";
 
 const initialState:userData = {
-    // wind:null
     entrance:false,
     userName: '',
     id:'',
-    // userEmail: '',
     userPassword: '',
     starQuestions: [],
     errorQuestions: []
@@ -22,6 +20,17 @@ const userDataSlice = createSlice({
             state.userName = action.payload.name
             state.id = action.payload.id
             state.entrance = true
+            state.starQuestions = action.payload.starQuestions
+            state.errorQuestions = action.payload.errorQuestions
+        },
+
+        resetUserData(state){
+            state.userName = ''
+            state.id = ''
+            state.userPassword = ''
+            state.starQuestions = []
+            state.errorQuestions = []
+            state.entrance = false
         },
 
         pushSelectedQuestion(state, action){
@@ -31,7 +40,7 @@ const userDataSlice = createSlice({
 
         pushError(state, action){
             state.errorQuestions.push(action.payload)
-            console.log("%c" + `userDataSlice.ts\nselected: ${state.selectedQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
+            console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
 
         }
 
@@ -42,6 +51,7 @@ const userDataSlice = createSlice({
 
 export const {
     setUserName,
+    resetUserData,
     pushSelectedQuestion,
     pushError,
 
