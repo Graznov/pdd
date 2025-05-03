@@ -10,8 +10,9 @@ function Bf(){
     const entrance = useAppSelector(state => state.userDataSlice.entrance)
 
     const UserName = useAppSelector(state => state.userDataSlice.userName)
+    const Entrance =  useAppSelector(state => state.userDataSlice.entrance)
 
-    const name = (UserName.length)?UserName:'LogIn';
+    const name = (Entrance)?UserName:'LogIn';
 
     return (
             <div className={cx('container')}>

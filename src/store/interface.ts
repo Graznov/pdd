@@ -44,6 +44,7 @@ export interface searcheState {
 export interface userData {
     entrance:boolean,
     userName: string,
+    id:string
     // userEmail: string,
     userPassword: string,
     starQuestions: string[],

@@ -16,6 +16,7 @@ import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 // import User from "./Battlefield/User/User.tsx";
 import LogIn from "./Battlefield/LogIn/LogIn.tsx";
 import ErrorPage from "./Errorpage/ErrorPage.tsx";
+import UserData from "./Battlefield/UserData/UserData.tsx";
 
 
 const router = createBrowserRouter([
@@ -24,14 +25,6 @@ const router = createBrowserRouter([
         element: <Bf/>,
         errorElement:<ErrorPage/>,
         children:[
-            // {
-            //     path:'/errorpage',
-            //     element: (
-            //         <div>
-            //             ERROR
-            //         </div>
-            //     )
-            // },
             {
                 index: true,
                 // element: <DefaultComponent />
@@ -56,36 +49,11 @@ const router = createBrowserRouter([
                 path:"/examticket/ticket",
                 element: <ExamArea/>,
             },
-            // {
-            //     path:"/user",
-            //     // index,
-            //     element:<User/>,
-            //     children:[
-            //         {
-            //             path:"/user/userdata",
-            //             // element: <UserData/>,
-            //             element: (
-            //                 <div>
-            //                     UserData
-            //                 </div>
-            //             )
-            //         },
-            //         {
-            //             path:"/user/login",
-            //             // element:<Login/>,
-            //             element: <LogIn/>
-            //         }
-            //     ]
-            //
-            // },
             {
                 path:"/userdata",
                 // element: <UserData/>,
-                element: (
-                    <div>
-                        UserData
-                    </div>
-                )
+                element: <UserData/>
+
             },
             {
                 path:"/login",

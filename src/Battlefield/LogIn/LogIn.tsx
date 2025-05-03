@@ -3,11 +3,14 @@ import classNames from "classnames/bind";
 import {useEffect, useState} from "react";
 import Eye from '/src/assets/eye.svg?react'
 import EyeHidden from '/src/assets/eye-hidden.svg?react'
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../../store/hooks.ts";
+import {setUserName} from "../../store/userDataSlice.ts";
 
 const cx = classNames.bind(styles);
 
 const FORM_LOGIN = {
-    userName:'',
+    name:'',
     password:''
 }
 
@@ -25,6 +28,10 @@ const ERROR = {
 }
 
 function LogIn() {
+
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+
 
     const [isLoginVisible, setIsLoginVisible] = useState(true);
     const [passVisible, setPassVisible] = useState(false);
@@ -105,7 +112,7 @@ function LogIn() {
 
                         setFormLogIn({
                             ...formLogIn,
-                            userName: formRegistration.userName
+                            name: formRegistration.userName
                         })
                         setIsLoginVisible(!isLoginVisible);
                         setFormRegistration(FORM_REGISTRATION);
@@ -133,10 +140,47 @@ function LogIn() {
             // },1000)
 
         } else{
-            if(formLogIn.userName.length && formLogIn.password.length){
+            if(formLogIn.name.length && formLogIn.password.length){
                 console.log(`formLogIn: ${JSON.stringify(formLogIn)}`);
 
                 //отправка на сервер
+
+                fetch(`http://localhost:3000/user/login`, {
+                    method: 'POST', // Указываем метод запроса
+                    headers: {
+                        'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
+                    },
+                    credentials: "include",
+                    body: JSON.stringify(formLogIn)
+                })
+                    .then((response) => {
+
+                        if (!response.ok) {
+                            if(response.status === 400) alert('Логин или(и) пароль неверны')
+                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+
+
+                        }
+                        return response.json()
+                    })
+                    .then((data) => {
+
+                        console.log('Данные получены', data)
+                        // localStorage.setItem('accessToken', data.accessToken)
+                        // localStorage.setItem('_id', data.id)
+
+
+                        dispatch(setUserName(data))
+                        // dispatch(setEmail(data.email))
+
+                        navigate('/userdata')
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        console.log('Произошла ошибка', err.message)
+                    })
+
+
             } else{
                 alert('Не все поля заполнены')
             }
@@ -235,10 +279,10 @@ function LogIn() {
 
                     <input
                         className={cx({'error':error.name})}
-                        value={formLogIn.userName}
+                        value={formLogIn.name}
                         onChange={(event)=>{setFormLogIn({
                             ...formLogIn,
-                            userName: event.target.value
+                            name: event.target.value
                         })}}
                         type="text"
                         placeholder="Имя"/>

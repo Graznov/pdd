@@ -5,6 +5,7 @@ const initialState:userData = {
     // wind:null
     entrance:false,
     userName: '',
+    id:'',
     // userEmail: '',
     userPassword: '',
     starQuestions: [],
@@ -17,10 +18,15 @@ const userDataSlice = createSlice({
     reducers: {
 
         // ...Redusers:...
+        setUserName(state, action){
+            state.userName = action.payload.name
+            state.id = action.payload.id
+            state.entrance = true
+        },
 
         pushSelectedQuestion(state, action){
-            state.selectedQuestions.push(action.payload)
-            console.log("%c" + `userDataSlice.ts\nselected: ${state.selectedQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
+            state.starQuestions.push(action.payload)
+            console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
         },
 
         pushError(state, action){
@@ -35,6 +41,7 @@ const userDataSlice = createSlice({
 })
 
 export const {
+    setUserName,
     pushSelectedQuestion,
     pushError,
 
