@@ -158,3 +158,14 @@
     opacity: 0.79;
     pointer-events:none;
 }
+
+@media screen and (min-width:320px) and (max-width:500px) {
+
+    .mission {
+        .mission_title{
+            font-size: 1.3rem;
+        }
+
+    }
+
+}

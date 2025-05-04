@@ -92,31 +92,15 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                                 localStorage.removeItem('PDD_accessToken')
                                 localStorage.removeItem('PDD_id')
                                 dispatch(resetUserData())
-
-
-
                             }
                             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-
                         }
-
                         return response.json()
                     })
 
                     .then((data) => {
-
                         console.log('Данные получены', data)
-
                         localStorage.setItem('PDD_accessToken', data.accessToken)
-
-
-                        // setFormLogIn({
-                        //     ...formLogIn,
-                        //     name: formRegistration.userName
-                        // })
-                        // setIsLoginVisible(!isLoginVisible);
-                        // setFormRegistration(FORM_REGISTRATION);
-
                     })
                     .catch((err) => {
                         console.log('Произошла ошибка', err.message, err.status)
@@ -182,6 +166,41 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const pushStar = () => {
         console.log('Push_Star')
         dispatch(pushSelectedQuestion(id))
+
+        if(UserData.entrance){
+            fetch(`http://localhost:3000/user/redactstar/${UserData.id}`, {
+                method: 'PATCH', // Указываем метод запроса
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+                    'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+                },
+                body: JSON.stringify({id:id})
+            })
+                .then((response) => {
+                    if (!response.ok) {
+
+                        if(response.status === 400){
+                            console.log('TOKENS ERROR')
+                            localStorage.removeItem('PDD_accessToken')
+                            localStorage.removeItem('PDD_id')
+                            dispatch(resetUserData())
+                        }
+                        throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                    }
+                    return response.json()
+                })
+
+                .then((data) => {
+                    console.log('Данные получены', data)
+                    localStorage.setItem('PDD_accessToken', data.accessToken)
+                })
+                .catch((err) => {
+                    console.log('Произошла ошибка', err.message, err.status)
+                })
+
+        }
+
     }
 
     return (

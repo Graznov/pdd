@@ -34,7 +34,18 @@ const userDataSlice = createSlice({
         },
 
         pushSelectedQuestion(state, action){
-            state.starQuestions.push(action.payload)
+            console.log(`action.payload: ${action.payload}`)
+            if(state.starQuestions.includes(action.payload)){
+                const res = state.starQuestions.reduce((r:string[],i)=>{
+                    if(i!==action.payload) r.push(i)
+                    return r
+                },[])
+
+                state.starQuestions = res
+            } else {
+                state.starQuestions.push(action.payload)
+            }
+
             console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
         },
 

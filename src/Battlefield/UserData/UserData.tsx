@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Exit from '/src/assets/exit.svg?react'
 import DeleteAcc from '/src/assets/delete-profile.svg?react'
+import Close from '/src/assets/close.svg?react'
+
 import {resetUserData} from "../../store/userDataSlice.ts";
 
 
@@ -92,6 +94,15 @@ function UserData(){
             <div className={cx('wind-delete-akk', {
                 'wind-delete-akk_Visible':deleteWindow
             })}>
+                <button
+                    onClick={()=> {
+                        setDeleteWindow(false)
+                        setInputValue('')
+                    }}
+                    className={cx('wind-delete-akk-Btn-Close')}>
+                    <Close/>
+                </button>
+
                 <div className={cx('wind-delete-akk-text')}>
                     для удаления аккаунта введите свой ник:
                 </div>
@@ -121,6 +132,12 @@ function UserData(){
                     <button onClick={()=>setDeleteWindow(true)}><DeleteAcc/></button>
                 </div>
             </div>
+
+            <div className={cx("userData_main")}>
+                <div className={cx("userData_main_stars")}>Избранные вопросы {UserData.starQuestions.length}</div>
+                <div className={cx("userData_main_errors")}>Ошибки {UserData.errorQuestions.length}</div>
+            </div>
+
         </div>
     )
 }
