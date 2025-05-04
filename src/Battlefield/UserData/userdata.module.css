@@ -1,21 +1,89 @@
 .userData{
 
+    position: relative;
     width:90vw;
     height:85vh;
     margin: 0 auto;
     padding-top: 20px;
-
     background: silver;
 
-    .user-name{
-        width: 90%;
-        margin: 0 auto;
-        font-size: 33px;
-        border-bottom: 2px solid #4f4a4a;
+    .wind-delete-akk{
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        border: 1px solid black;
+        background: #afaeae;
+        padding: 10px;
+        font-size: 25px;
+        font-family: "Roboto Light", sans-serif;
 
-        span{
-            font-size: 25px;
-            color: #7a7a79;
+        input{
+            text-align: center;
+            font-size: 33px;
+            border: none;
+            /*border-radius: 10px;*/
+            background: #d1cece;
+            color: red;
+        }
+        .wind-delete-akk_BTN-area{
+            display: none;
+
+        }
+        .wind-delete-akk_BTN-area-VISIBLE{
+            display: flex;
+            justify-content: space-between;
+
+            button{
+                padding: 10px 20px;
+                font-size: 25px;
+                cursor: pointer;
+                border: none;
+                border-radius: 10px;
+            }
+        }
+
+        .wind-delete-akk-UserName{
+            font-size: 31px;
+            text-align: center;
+        }
+
+    }
+    .wind-delete-akk_Visible{
+        display: flex;
+    }
+
+    .userData-top_content{
+        border-bottom: 2px solid #4f4a4a;
+        padding-bottom: 13px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .user-name{
+            width: 90%;
+            margin: 0 auto;
+            font-size: 33px;
+
+            span{
+                font-size: 25px;
+                color: #7a7a79;
+            }
+        }
+
+        .btn-area{
+            display: flex;
+            align-items: center;
+            button{
+                border: none;
+                background: none;
+                cursor: pointer;
+            }
         }
     }
+
 }

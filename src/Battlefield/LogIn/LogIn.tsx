@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import Eye from '/src/assets/eye.svg?react'
 import EyeHidden from '/src/assets/eye-hidden.svg?react'
 import {useNavigate} from "react-router-dom";
-import {useAppDispatch} from "../../store/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setUserName} from "../../store/userDataSlice.ts";
 
 const cx = classNames.bind(styles);
@@ -31,6 +31,7 @@ function LogIn() {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const UserData = useAppSelector(state => state.userDataSlice)
 
 
     const [isLoginVisible, setIsLoginVisible] = useState(true);
@@ -41,6 +42,10 @@ function LogIn() {
     const [formRegistration, setFormRegistration] = useState(FORM_REGISTRATION);
 
     const [error, setError] = useState(ERROR);
+
+    useEffect(() => {
+        if(UserData.entrance) navigate('/userdata')
+    }, [UserData.entrance]);
 
     useEffect(()=>{
         console.log("%c" + `LogIn.tsx\nformRegistration: ${JSON.stringify(formRegistration)}`, "color:#559D4CFF;font-size:17px;");

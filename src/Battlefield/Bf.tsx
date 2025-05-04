@@ -45,10 +45,11 @@ function Bf(){
 
                     if (data.accessToken) {
                         localStorage.setItem('PDD_accessToken', data.accessToken)
+                        dispatch(setUserName(data))
                     }else {
                         console.log(`NO accessToken`)
                     }
-                    dispatch(setUserName(data))
+
                     // dispatch(setTasks(data.tasks))
                     // dispatch(setId(data.id))
                     // dispatch(setEmail(data.email))
