@@ -17,12 +17,25 @@
         border: 2px solid var(--color);
         border-radius: 3px;
         padding: 5px;
+
+        .exam_tickets_btnArea_btn_Content{
+            display: none;
+        }
+
+        .exam_tickets_btnArea_btn_Content-Visible{
+            display: block;
+        }
     }
 
     a:hover{
         -webkit-box-shadow: 0px 5px 22px 11px rgba(34, 60, 80, 0.35);
         -moz-box-shadow: 0px 5px 22px 11px rgba(34, 60, 80, 0.35);
         box-shadow: 0px 5px 22px 11px rgba(34, 60, 80, 0.35);
+
+        /*.exam_tickets_btnArea_btn_Content{*/
+        /*    display: block;*/
+        /*}*/
+
     }
 }
 

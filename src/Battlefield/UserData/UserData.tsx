@@ -90,54 +90,57 @@ function UserData(){
     const [inputValue, setInputValue] = useState('');
 
     return (
-        <div className={cx("userData")}>
-            <div className={cx('wind-delete-akk', {
-                'wind-delete-akk_Visible':deleteWindow
-            })}>
-                <button
-                    onClick={()=> {
-                        setDeleteWindow(false)
-                        setInputValue('')
-                    }}
-                    className={cx('wind-delete-akk-Btn-Close')}>
-                    <Close/>
-                </button>
 
-                <div className={cx('wind-delete-akk-text')}>
-                    для удаления аккаунта введите свой ник:
-                </div>
-                <div className={cx('wind-delete-akk-UserName')}>
-                    {UserData.userName}
-                </div>
-
-                <input
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    type="text"/>
-
-                <div className={cx('wind-delete-akk_BTN-area', {
-                    'wind-delete-akk_BTN-area-VISIBLE':inputValue===UserData.userName,
+        <div className={cx('container')}>
+            <div className={cx("userData")}>
+                <div className={cx('wind-delete-akk', {
+                    'wind-delete-akk_Visible':deleteWindow
                 })}>
-                    <button onClick={deleteAccount}>Удалить</button>
-                    <button onClick={()=> {
-                        setDeleteWindow(false)
-                        setInputValue('')
-                    }}>Отмена</button>
-                </div>
-            </div>
-            <div className={cx("userData-top_content")}>
-                <div className={cx('user-name')}>{UserData.userName} <span>user_id: {UserData.id}</span></div>
-                <div className={cx('btn-area')}>
-                    <button onClick={logOut}><Exit/></button>
-                    <button onClick={()=>setDeleteWindow(true)}><DeleteAcc/></button>
-                </div>
-            </div>
+                    <button
+                        onClick={()=> {
+                            setDeleteWindow(false)
+                            setInputValue('')
+                        }}
+                        className={cx('wind-delete-akk-Btn-Close')}>
+                        <Close/>
+                    </button>
 
-            <div className={cx("userData_main")}>
-                <div className={cx("userData_main_stars")}>Избранные вопросы {UserData.starQuestions.length}</div>
-                <div className={cx("userData_main_errors")}>Ошибки {UserData.errorQuestions.length}</div>
-            </div>
+                    <div className={cx('wind-delete-akk-text')}>
+                        для удаления аккаунта введите свой ник:
+                    </div>
+                    <div className={cx('wind-delete-akk-UserName')}>
+                        {UserData.userName}
+                    </div>
 
+                    <input
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        type="text"/>
+
+                    <div className={cx('wind-delete-akk_BTN-area', {
+                        'wind-delete-akk_BTN-area-VISIBLE':inputValue===UserData.userName,
+                    })}>
+                        <button onClick={deleteAccount}>Удалить</button>
+                        <button onClick={()=> {
+                            setDeleteWindow(false)
+                            setInputValue('')
+                        }}>Отмена</button>
+                    </div>
+                </div>
+                <div className={cx("userData-top_content")}>
+                    <div className={cx('user-name')}>{UserData.userName} <span>user_id: {UserData.id}</span></div>
+                    <div className={cx('btn-area')}>
+                        <button onClick={logOut}><Exit/></button>
+                        <button onClick={()=>setDeleteWindow(true)}><DeleteAcc/></button>
+                    </div>
+                </div>
+
+                <div className={cx("userData_main")}>
+                    <div className={cx("userData_main_stars")}>Избранные вопросы {UserData.starQuestions.length}</div>
+                    <div className={cx("userData_main_errors")}>Ошибки {UserData.errorQuestions.length}</div>
+                </div>
+
+            </div>
         </div>
     )
 }

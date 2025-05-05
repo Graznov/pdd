@@ -7,7 +7,8 @@ const initialState:userData = {
     id:'',
     userPassword: '',
     starQuestions: [],
-    errorQuestions: []
+    errorQuestions: [],
+    examTiketsStatus:[]
 }
 
 const userDataSlice = createSlice({
@@ -22,6 +23,7 @@ const userDataSlice = createSlice({
             state.entrance = true
             state.starQuestions = action.payload.starQuestions
             state.errorQuestions = action.payload.errorQuestions
+            state.examTiketsStatus = action.payload.examTiketsStatus
         },
 
         resetUserData(state){
@@ -31,6 +33,7 @@ const userDataSlice = createSlice({
             state.starQuestions = []
             state.errorQuestions = []
             state.entrance = false
+            state.examTiketsStatus = []
         },
 
         pushSelectedQuestion(state, action){

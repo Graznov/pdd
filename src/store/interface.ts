@@ -48,5 +48,9 @@ export interface userData {
     // userEmail: string,
     userPassword: string,
     starQuestions: string[],
-    errorQuestions: string[]
+    errorQuestions: string[],
+    examTiketsStatus:{
+        red:number,
+        green:number,
+    }[]
 }
