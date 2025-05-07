@@ -6,7 +6,7 @@ import {quest} from "../../../store/interface.ts";
 import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
-import Error from '/src/assets/error.svg?react'
+import ErrorSVG from '/src/assets/error.svg?react'
 import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
@@ -236,7 +236,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     <div className={cx('mission_title-error',{
                         'mission_title-error-visible':UserData.errorQuestions.includes(id)
                     })}>
-                        <Error/>
+                        <ErrorSVG/>
                     </div>
                     <div className={cx('mission_title_ticketNumber')}>
                         {ticket_number}

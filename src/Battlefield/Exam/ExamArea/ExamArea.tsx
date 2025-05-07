@@ -53,16 +53,16 @@ function ExamArea(){
             dispatch(setRedGreen({result:'sdal', tiketNumber:tiketNumber}))
         }
 
-        fetch(`http://localhost:3000/user/tickets/${UserData.id}`, {
-            method: 'PATCH', // Указываем метод запроса
-            credentials: "include",
-            headers: {
-                'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
-            },
-            // body: JSON.stringify([res, tiketNumber]),
-            body: JSON.stringify(UserData.examTiketsStatus),
-        })
+        // fetch(`http://localhost:3000/user/tickets/${UserData.id}`, {
+        //     method: 'PATCH', // Указываем метод запроса
+        //     credentials: "include",
+        //     headers: {
+        //         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+        //         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+        //     },
+        //     // body: JSON.stringify([res, tiketNumber]),
+        //     body: JSON.stringify(UserData.examTiketsStatus),
+        // })
             // .then((response) => {
             //     if (!response.ok) {
             //
