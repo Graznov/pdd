@@ -49,8 +49,5 @@ export interface userData {
     userPassword: string,
     starQuestions: string[],
     errorQuestions: string[],
-    examTiketsStatus:{
-        red:number,
-        green:number,
-    }[]
+    examTiketsStatus:{color:'none'|'red'|'green'}[]
 }

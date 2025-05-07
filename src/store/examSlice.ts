@@ -8,7 +8,8 @@ interface examState {
     red:number,
     green:number,
     neSdal:boolean,
-    sdal:boolean
+    sdal:boolean,
+    ticketNumber:number
 }
 
 const initialState:examState = {
@@ -17,7 +18,8 @@ const initialState:examState = {
     red:0,
     green:0,
     neSdal:false,
-    sdal:false
+    sdal:false,
+    ticketNumber:0
 }
 
 const examSlice = createSlice({
@@ -94,6 +96,9 @@ const examSlice = createSlice({
             // if(state.red+state.green===20){
                 state.sdal = action.payload
             // }
+        },
+        setTiketNumber(state, action){
+            state.ticketNumber = action.payload
         }
 
 
@@ -114,7 +119,7 @@ export const {
     setRed,
     setGreen,
     setNeSdal,
-    setSdal
-
+    setSdal,
+    setTiketNumber
 } = examSlice.actions;
 export default examSlice.reducer

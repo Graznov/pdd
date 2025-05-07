@@ -3,12 +3,11 @@ import styles from "./tickets.module.css";
 import {quest} from "../../../store/interface.ts";
 import {NavLink} from "react-router-dom";
 import {setWind} from "../../../store/styleSlise.ts";
-import {setExamActiveQuest, setExamList, setGreen, setRed} from "../../../store/examSlice.ts";
+import {setExamActiveQuest, setExamList, setGreen, setRed, setTiketNumber} from "../../../store/examSlice.ts";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import * as examList from "../../../../pdd_russia/questions/A_B/tickets/allTickets.json";
 
 const cx = classNames.bind(styles);
-
 
 function Tickets(){
 
@@ -37,18 +36,10 @@ function Tickets(){
         dispatch(setExamList(examTicket));
     }
 
-    const redGreen = (UserData.entrance) ? (ind:number) => (
-        <div className={cx('exam_tickets_btnArea_btn_Content', {
-            'exam_tickets_btnArea_btn_Content-Visible': UserData.entrance
-        })}>
-
-            {UserData.examTiketsStatus[ind].red}/{UserData.examTiketsStatus[ind].green}
-
-        </div>
-    ) : (q:number)=>{('')}
-
     return (
-        <div className={cx('exam_tickets_btnArea', {})}>
+        <div className={cx('exam_tickets_btnArea', {
+
+        })}>
             {
                 allExamQwest.map((e: quest[], ind: number) => (
                     <NavLink
@@ -59,17 +50,16 @@ function Tickets(){
                             dispatch(setExamActiveQuest(0))
                             dispatch(setRed(0))
                             dispatch(setGreen(0))
+                            dispatch(setTiketNumber(ind))
                         }}
                         to={`/examticket/ticket`}
                         key={e[0].ticket_number}
-                        className={cx('exam_tickets_btnArea_btn', {})}
+                        className={cx('exam_tickets_btnArea_btn', {
+                            'exam_tickets_btnArea_RED':((UserData.userName.length)?UserData.examTiketsStatus[ind].color==='red':''),
+                            'exam_tickets_btnArea_GREEN':((UserData.userName.length)?UserData.examTiketsStatus[ind].color==='green':'')
+                        })}
                     >
                         {e[0].ticket_number}
-
-
-                        {redGreen(ind)}
-
-
                     </NavLink>
                 ))
             }

@@ -55,8 +55,15 @@ const userDataSlice = createSlice({
         pushError(state, action){
             state.errorQuestions.push(action.payload)
             console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
-
+        },
+        setRedGreen(state, action){
+            if(action.payload.result === 'sdal'){
+                state.examTiketsStatus[action.payload.tiketNumber].color = 'green'
+            } else if (action.payload.result === 'nesdal'){
+                state.examTiketsStatus[action.payload.tiketNumber].color = 'red'
+            }
         }
+
 
 
     }
@@ -68,6 +75,7 @@ export const {
     resetUserData,
     pushSelectedQuestion,
     pushError,
+    setRedGreen
 
 } = userDataSlice.actions;
 export default userDataSlice.reducer

@@ -2,10 +2,17 @@ import classNames from 'classnames/bind';
 import styles from './examArea.module.css';
 import Mission from "../../Components/Mission/Mission.tsx";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-import {resetExam, setExamActiveQuest, setExamActiveQuestPlus, setNeSdal} from "../../../store/examSlice.ts";
+import {
+    resetExam,
+    setExamActiveQuest,
+    setExamActiveQuestPlus,
+    setNeSdal,
+} from "../../../store/examSlice.ts";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Winer from '/src/assets/win.svg?react'
+import {resetUserData, setRedGreen} from "../../../store/userDataSlice.ts";
+// import Error from "*.svg?react";
 
 
 const cx = classNames.bind(styles);
@@ -15,6 +22,8 @@ function ExamArea(){
     const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
+
+    const UserData = useAppSelector(state => state.userDataSlice)
 
     const wind = useAppSelector(state => state.styleSlice.wind)
     const examActiveQuest = useAppSelector(state => state.examSlice.examActiveQuest)
@@ -32,8 +41,59 @@ function ExamArea(){
         }
     }, [red, green]);
 
+    // 'none'|'red'|'green'
+    let res:string
+
+    useEffect(()=>{
+        if(neSdal){
+            // res = 'nesdal'
+            dispatch(setRedGreen({result:'nesdal', tiketNumber:tiketNumber}))
+        }else if(sdal){
+            res = 'sdal'
+            dispatch(setRedGreen({result:'sdal', tiketNumber:tiketNumber}))
+        }
+
+        fetch(`http://localhost:3000/user/tickets/${UserData.id}`, {
+            method: 'PATCH', // Указываем метод запроса
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+                'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+            },
+            // body: JSON.stringify([res, tiketNumber]),
+            body: JSON.stringify(UserData.examTiketsStatus),
+        })
+            // .then((response) => {
+            //     if (!response.ok) {
+            //
+            //         if(response.status === 400){
+            //             console.log('TOKENS ERROR')
+            //             localStorage.removeItem('PDD_accessToken')
+            //             localStorage.removeItem('PDD_id')
+            //             dispatch(resetUserData())
+            //         }
+            //         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+            //     }
+            //     return response.json()
+            // })
+            //
+            // .then((data) => {
+            //     console.log('Данные получены', data)
+            //     localStorage.setItem('PDD_accessToken', data.accessToken)
+            // })
+            // .catch((err) => {
+            //     console.log('Произошла ошибка', err.message, err.status)
+            // })
+
+
+    },[neSdal, sdal])
+
     if (examList.length === 0) return null;
     console.log(examList)
+
+    const tiketNumber = useAppSelector(state => state.examSlice.ticketNumber)
+
+    // console.log(tiketNumber)
 
     return (
 
@@ -48,7 +108,10 @@ function ExamArea(){
 
                 <div>
                     <NavLink
-                        onClick={()=>dispatch(resetExam())}
+                        onClick={()=> {
+                            // dispatch(setTiketNumber('green'))
+                            dispatch(resetExam())
+                        }}
                         to={'/examticket'}
                     >
                         Вернуться

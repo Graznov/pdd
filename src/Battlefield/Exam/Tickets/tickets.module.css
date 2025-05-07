@@ -15,7 +15,7 @@
         text-align: center;
         cursor: pointer;
         border: 2px solid var(--color);
-        border-radius: 3px;
+        border-radius: 13px;
         padding: 5px;
 
         .exam_tickets_btnArea_btn_Content{
@@ -35,6 +35,18 @@
         /*.exam_tickets_btnArea_btn_Content{*/
         /*    display: block;*/
         /*}*/
+
+    }
+
+    .exam_tickets_btnArea_RED{
+        background-color: red;
+        color: var(--color-w-bg);
+        border: 2px solid red;
+    }
+    .exam_tickets_btnArea_GREEN{
+        background-color: green;
+        color: var(--color-w-bg);
+        border: 2px solid green;
 
     }
 }

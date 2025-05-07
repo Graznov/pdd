@@ -38,6 +38,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const red = useAppSelector(state => state.examSlice.red);
     const green = useAppSelector(state => state.examSlice.green);
 
+    // const tiketNumber = useAppSelector(state => state.examSlice.ticketNumber)
+    //
+    // console.log(tiketNumber)
+
+
+
     // const sdal = useAppSelector(state => state.examSlice.sdal)
 
     // const neSdal = useAppSelector(state => state.examSlice.neSdal)
