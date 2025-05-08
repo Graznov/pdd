@@ -32,6 +32,8 @@ function ExamArea(){
     const green = useAppSelector(state => state.examSlice.green);
     const neSdal = useAppSelector(state => state.examSlice.neSdal)
     const sdal = useAppSelector(state => state.examSlice.sdal)
+    const tiketNumber = useAppSelector(state => state.examSlice.ticketNumber)
+
 
     const [flag, setFlag] = useState(false)
     useEffect(() => {
@@ -42,27 +44,27 @@ function ExamArea(){
     }, [red, green]);
 
     // 'none'|'red'|'green'
-    let res:string
+    let res:string='none'
 
     useEffect(()=>{
         if(neSdal){
-            // res = 'nesdal'
+            res = 'red'
             dispatch(setRedGreen({result:'nesdal', tiketNumber:tiketNumber}))
         }else if(sdal){
-            res = 'sdal'
+            res = 'green'
             dispatch(setRedGreen({result:'sdal', tiketNumber:tiketNumber}))
         }
 
-        // fetch(`http://localhost:3000/user/tickets/${UserData.id}`, {
-        //     method: 'PATCH', // Указываем метод запроса
-        //     credentials: "include",
-        //     headers: {
-        //         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-        //         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
-        //     },
-        //     // body: JSON.stringify([res, tiketNumber]),
-        //     body: JSON.stringify(UserData.examTiketsStatus),
-        // })
+        fetch(`http://localhost:3000/user/settickets/${UserData.id}`, {
+            method: 'PATCH', // Указываем метод запроса
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+                'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+            },
+            // body: JSON.stringify([res, tiketNumber]),
+            body: JSON.stringify({res:res, ticketNumber:tiketNumber}),
+        })
             // .then((response) => {
             //     if (!response.ok) {
             //
@@ -91,7 +93,6 @@ function ExamArea(){
     if (examList.length === 0) return null;
     console.log(examList)
 
-    const tiketNumber = useAppSelector(state => state.examSlice.ticketNumber)
 
     // console.log(tiketNumber)
 

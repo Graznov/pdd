@@ -61,7 +61,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         number = red+green
 
         // if(red+green===20) navigate('/')
-        console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\nnumber = ${number}` , "color:#559D4CFF;font-size:17px;")
+        // console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\nnumber = ${number}` , "color:#559D4CFF;font-size:17px;")
 
     }, [red, green]);
 
@@ -70,7 +70,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     }, [number]);
     const pathToImg = image.substr(1)
 
-    console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
+    // console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
 
 
 
@@ -170,7 +170,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const [responseWind, setResponseWind] = useState(false);
 
     const pushStar = () => {
-        console.log('Push_Star')
+        // console.log('Push_Star')
         dispatch(pushSelectedQuestion(id))
 
         if(UserData.entrance){
@@ -184,7 +184,11 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 body: JSON.stringify({id:id})
             })
                 .then((response) => {
+
+                    console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
+
                     if (!response.ok) {
+                        console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
 
                         if(response.status === 400){
                             console.log('TOKENS ERROR')
@@ -194,6 +198,9 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         }
                         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
                     }
+
+                    // console.log(response.status)
+
                     return response.json()
                 })
 

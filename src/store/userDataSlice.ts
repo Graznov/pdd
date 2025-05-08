@@ -37,7 +37,7 @@ const userDataSlice = createSlice({
         },
 
         pushSelectedQuestion(state, action){
-            console.log(`action.payload: ${action.payload}`)
+            // console.log(`action.payload: ${action.payload}`)
             if(state.starQuestions.includes(action.payload)){
                 const res = state.starQuestions.reduce((r:string[],i)=>{
                     if(i!==action.payload) r.push(i)
@@ -49,12 +49,12 @@ const userDataSlice = createSlice({
                 state.starQuestions.push(action.payload)
             }
 
-            console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
+            // console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
         },
 
         pushError(state, action){
             state.errorQuestions.push(action.payload)
-            console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
+            // console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
         },
         setRedGreen(state, action){
             if(action.payload.result === 'sdal'){
@@ -62,6 +62,11 @@ const userDataSlice = createSlice({
             } else if (action.payload.result === 'nesdal'){
                 state.examTiketsStatus[action.payload.tiketNumber].color = 'red'
             }
+
+
+
+
+
         }
 
 
