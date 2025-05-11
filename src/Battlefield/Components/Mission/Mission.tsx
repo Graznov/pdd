@@ -76,7 +76,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
-        if(!isCorrect) {
+        // if(!isCorrect) {
             dispatch(pushError(id))
 
             if(UserData.entrance){
@@ -88,12 +88,13 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
                         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
                     },
-                    body: JSON.stringify({id:id})
+                    body: JSON.stringify({id:id, correct: isCorrect})
                 })
                     .then((response) => {
                         if (!response.ok) {
 
                             if(response.status === 400){
+                                // console.log('TOKENS ERROR')
                                 console.log('TOKENS ERROR')
                                 localStorage.removeItem('PDD_accessToken')
                                 localStorage.removeItem('PDD_id')
@@ -114,7 +115,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     })
 
             }
-        }
+        // }
 
 
         // console.log(`number = ${number}`)
