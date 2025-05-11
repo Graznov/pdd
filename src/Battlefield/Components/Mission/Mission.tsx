@@ -98,6 +98,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                                 localStorage.removeItem('PDD_accessToken')
                                 localStorage.removeItem('PDD_id')
                                 dispatch(resetUserData())
+                                // navigate('/login')
                             }
                             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
                         }

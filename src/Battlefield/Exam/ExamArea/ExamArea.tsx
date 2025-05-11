@@ -44,17 +44,19 @@ function ExamArea(){
     }, [red, green]);
 
     // 'none'|'red'|'green'
-    let res:string='none'
+    // let res:string='none'
 
     useEffect(()=>{
         if(neSdal){
-            res = 'red'
+            // res = 'red'
             dispatch(setRedGreen({result:'nesdal', tiketNumber:tiketNumber}))
         }else if(sdal){
-            res = 'green'
+            // res = 'green'
             dispatch(setRedGreen({result:'sdal', tiketNumber:tiketNumber}))
         }
+    },[neSdal, sdal])
 
+    function sendToDb(res:string, tiketNumber:number){
         fetch(`http://localhost:3000/user/settickets/${UserData.id}`, {
             method: 'PATCH', // Указываем метод запроса
             credentials: "include",
@@ -65,30 +67,28 @@ function ExamArea(){
             // body: JSON.stringify([res, tiketNumber]),
             body: JSON.stringify({res:res, ticketNumber:tiketNumber}),
         })
-            // .then((response) => {
-            //     if (!response.ok) {
-            //
-            //         if(response.status === 400){
-            //             console.log('TOKENS ERROR')
-            //             localStorage.removeItem('PDD_accessToken')
-            //             localStorage.removeItem('PDD_id')
-            //             dispatch(resetUserData())
-            //         }
-            //         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-            //     }
-            //     return response.json()
-            // })
-            //
-            // .then((data) => {
-            //     console.log('Данные получены', data)
-            //     localStorage.setItem('PDD_accessToken', data.accessToken)
-            // })
-            // .catch((err) => {
-            //     console.log('Произошла ошибка', err.message, err.status)
-            // })
-
-
-    },[neSdal, sdal])
+        // .then((response) => {
+        //     if (!response.ok) {
+        //
+        //         if(response.status === 400){
+        //             console.log('TOKENS ERROR')
+        //             localStorage.removeItem('PDD_accessToken')
+        //             localStorage.removeItem('PDD_id')
+        //             dispatch(resetUserData())
+        //         }
+        //         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+        //     }
+        //     return response.json()
+        // })
+        //
+        // .then((data) => {
+        //     console.log('Данные получены', data)
+        //     localStorage.setItem('PDD_accessToken', data.accessToken)
+        // })
+        // .catch((err) => {
+        //     console.log('Произошла ошибка', err.message, err.status)
+        // })
+    }
 
     if (examList.length === 0) return null;
     console.log(examList)
@@ -112,6 +112,7 @@ function ExamArea(){
                         onClick={()=> {
                             // dispatch(setTiketNumber('green'))
                             dispatch(resetExam())
+                            sendToDb('green', tiketNumber)
                         }}
                         to={'/examticket'}
                     >
@@ -132,9 +133,13 @@ function ExamArea(){
                         <button onClick={()=> {
                             dispatch(setNeSdal(false))
                             dispatch(setExamActiveQuestPlus())
+                            sendToDb('red', tiketNumber)
+
                         }}>Продолжить</button>
                         <button onClick={()=>{
                             dispatch(resetExam())
+                            sendToDb('red', tiketNumber)
+
                             navigate('/examticket')
                         }}>Закончить</button>
                     </div>
