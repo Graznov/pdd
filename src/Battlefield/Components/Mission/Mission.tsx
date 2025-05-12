@@ -76,8 +76,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
-        // if(!isCorrect) {
-            dispatch(pushError(id))
+        if(!isCorrect) dispatch(pushError(id))
 
             if(UserData.entrance){
 

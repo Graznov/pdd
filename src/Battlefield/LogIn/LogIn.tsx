@@ -113,7 +113,7 @@ function LogIn() {
 
                     .then((data) => {
 
-                        console.log('Данные получены', data, data)
+                        console.log('Данные получены', data)
 
                         setFormLogIn({
                             ...formLogIn,
@@ -171,8 +171,6 @@ function LogIn() {
                     .then((data) => {
 
                         console.log('Данные получены', data)
-                        // localStorage.setItem('accessToken', data.accessToken)
-                        // localStorage.setItem('_id', data.id)
 
                         localStorage.setItem('PDD_accessToken', data.accessToken)
                         localStorage.setItem('PDD_id', data.id)

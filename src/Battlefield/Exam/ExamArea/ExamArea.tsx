@@ -67,27 +67,27 @@ function ExamArea(){
             // body: JSON.stringify([res, tiketNumber]),
             body: JSON.stringify({res:res, ticketNumber:tiketNumber}),
         })
-        // .then((response) => {
-        //     if (!response.ok) {
-        //
-        //         if(response.status === 400){
-        //             console.log('TOKENS ERROR')
-        //             localStorage.removeItem('PDD_accessToken')
-        //             localStorage.removeItem('PDD_id')
-        //             dispatch(resetUserData())
-        //         }
-        //         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-        //     }
-        //     return response.json()
-        // })
-        //
-        // .then((data) => {
-        //     console.log('Данные получены', data)
-        //     localStorage.setItem('PDD_accessToken', data.accessToken)
-        // })
-        // .catch((err) => {
-        //     console.log('Произошла ошибка', err.message, err.status)
-        // })
+        .then((response) => {
+            // if (!response.ok) {
+            //
+            //     if(response.status === 400){
+            //         console.log('TOKENS ERROR')
+            //         localStorage.removeItem('PDD_accessToken')
+            //         localStorage.removeItem('PDD_id')
+            //         dispatch(resetUserData())
+            //     }
+            //     throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+            // }
+            return response.json()
+        })
+
+        .then((data) => {
+            // console.log('Данные получены', data)
+            // localStorage.setItem('PDD_accessToken', data.accessToken)
+        })
+        .catch((err) => {
+            console.log('Произошла ошибка', err.message, err.status)
+        })
     }
 
     if (examList.length === 0) return null;
