@@ -41,7 +41,6 @@ const router = createBrowserRouter([
                 element: <Search/>
             },
             {
-
                 path:"/examticket",
                 element: <Tickets/>,
             },
@@ -51,8 +50,17 @@ const router = createBrowserRouter([
             },
             {
                 path:"/userdata",
-                // element: <UserData/>,
-                element: <UserData/>
+                element: <UserData/>,
+                children:[
+                    {
+                        path:"/userdata/stars",
+                        element: <div>STARS</div>
+                    },
+                    {
+                        path:"/userdata/errors",
+                        element:<div>ERRORS</div>
+                    }
+                ]
 
             },
             {

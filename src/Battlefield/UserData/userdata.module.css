@@ -116,6 +116,35 @@
             }
         }
 
+        .userData_main{
+
+            .userData_main_btn-area{
+
+                display: flex;
+                justify-content: space-between;
+
+                .userData_main_btn-area_Rtn{
+                    text-decoration: none;
+                    font-family: "Roboto Light", sans-serif;
+                    color: #383737;
+
+                    cursor: pointer;
+                    display: flex;
+                    gap: 11px;
+                    font-size: 33px;
+                    align-items: center;
+                    fill: red;
+                }
+                .userData_main_btn-area_Rtn:hover{
+                    fill: red;
+                    color: red;
+                }
+                .activeBtn{
+                    color: red;
+                }
+            }
+        }
+
     }
 }
 

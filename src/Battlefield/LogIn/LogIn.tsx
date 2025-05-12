@@ -163,8 +163,6 @@ function LogIn() {
                         if (!response.ok) {
                             if(response.status === 400) alert('Логин или(и) пароль неверны')
                             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-
-
                         }
                         return response.json()
                     })
@@ -182,14 +180,12 @@ function LogIn() {
                     })
                     .catch((err) => {
                         console.log(err)
-                        console.log('Произошла ошибка', err.message)
+                        console.log('Произошла ошибка',err.status, err.message)
                     })
-
 
             } else{
                 alert('Не все поля заполнены')
             }
-
 
         }
 

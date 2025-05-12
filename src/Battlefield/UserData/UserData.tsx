@@ -1,12 +1,13 @@
 import styles from "./userdata.module.css";
 import classNames from "classnames/bind";
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {useNavigate} from "react-router-dom";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Exit from '/src/assets/exit.svg?react'
 import DeleteAcc from '/src/assets/delete-profile.svg?react'
 import Close from '/src/assets/close.svg?react'
-
+import Star from '/src/assets/star.svg?react'
+import ErrorSVG from '/src/assets/error.svg?react'
 import {resetUserData} from "../../store/userDataSlice.ts";
 
 
@@ -89,6 +90,9 @@ function UserData(){
 
     const [inputValue, setInputValue] = useState('');
 
+
+    const [activeBtn, setActiveBtn] = useState<string>('none')
+
     return (
 
         <div className={cx('container')}>
@@ -136,9 +140,32 @@ function UserData(){
                 </div>
 
                 <div className={cx("userData_main")}>
-                    <div className={cx("userData_main_stars")}>Избранные вопросы {UserData.starQuestions.length}</div>
-                    <div className={cx("userData_main_errors")}>Ошибки {UserData.errorQuestions.length}</div>
+                    <div className={cx("userData_main_btn-area")}>
+                        <NavLink
+                            onClick={()=>setActiveBtn('star')}
+                            to={'/userdata/stars'}
+                            className={cx("userData_main_btn-area_Rtn",
+                            "userData_main_stars",{
+                            'activeBtn':activeBtn==='star'
+                        })}>
+                            <Star/>
+                            {UserData.starQuestions.length}
+                        </NavLink>
+
+                        <NavLink
+                            onClick={()=>setActiveBtn('error')}
+                            to={'/userdata/errors'}
+                            className={cx("userData_main_btn-area_Rtn",
+                            "userData_main_errors",{
+                                'activeBtn':activeBtn==='error'
+                            })}>
+                            {UserData.errorQuestions.length}
+                            <ErrorSVG/>
+                        </NavLink>
+                    </div>
+                    <Outlet/>
                 </div>
+
 
             </div>
         </div>
