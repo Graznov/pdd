@@ -81,6 +81,20 @@ const marafonSlice = createSlice({
                 `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
                 "color:orange;font-size:17px;");
 
+        },
+
+        pushAnswerQuestERROR(state, action){
+
+            console.log(11111)
+            state.listQuestionError[state.activeQuestError].response = true
+            state.listQuestionError[state.activeQuestError].yourResponse = action.payload.index
+
+            state.listQuestionError[state.activeQuestError].status = (action.payload.isCorrect)?'green':'red'
+            console.log(state.listQuestionError)
+            // console.log("%c" +
+            //     `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
+            //     "color:orange;font-size:17px;");
+
         }
 
 
@@ -95,6 +109,7 @@ export const {
     pushAnswerQuest,
     setActiveQwestErrors,
     setListQuestionError,
-    setActiveQwestERRORPlus
+    setActiveQwestERRORPlus,
+    pushAnswerQuestERROR
 } = marafonSlice.actions;
 export default marafonSlice.reducer

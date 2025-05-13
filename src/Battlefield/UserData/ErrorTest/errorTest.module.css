@@ -1,6 +1,6 @@
 .all_questions{
     position: relative;
-
+    background-color: var(--color-w-bg);
     .all_questions_counter{
         position: absolute;
         /*top:0;*/

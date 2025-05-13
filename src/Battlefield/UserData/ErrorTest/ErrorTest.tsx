@@ -41,7 +41,7 @@ function ErrorTest(){
     },[])
     dispatch(setListQuestionError(ErrorsList))
 
-    console.log(ErrorsList)
+    // console.log(ErrorsList[0])
 
     //
     // console.log(JSON.stringify(list))
@@ -108,7 +108,6 @@ function ErrorTest(){
 
         <div className={cx('all_questions')}>
 
-            ERRORS
 
             <div ref={containerRef} className={cx('all_questions_numbers')}>
 

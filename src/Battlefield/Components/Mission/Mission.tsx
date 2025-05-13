@@ -3,13 +3,19 @@ import styles from './mission.module.css';
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {quest} from "../../../store/interface.ts";
-import {pushAnswerQuest, setActiveQwestERRORPlus, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
+import {
+    pushAnswerQuest,
+    pushAnswerQuestERROR,
+    setActiveQwestERRORPlus,
+    setActiveQwestPlus
+} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
 import ErrorSVG from '/src/assets/error.svg?react'
 import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
+import logIn from "../../LogIn/LogIn.tsx";
 
 
 const cx = classNames.bind(styles);
@@ -27,22 +33,27 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const wind = useAppSelector(state => state.styleSlice.wind)
     const favorits = useAppSelector(state => state.userDataSlice.starQuestions)
+
     const examActiveQuest = useAppSelector(state => state.examSlice.examActiveQuest);
     const marafonActiveQuest = useAppSelector(state => state.marafonSlice.activeQuest);
-    const activeQwest = (wind === 'exam') ? examActiveQuest : marafonActiveQuest;
+    const errorActiveQuest = useAppSelector(state => state.marafonSlice.activeQuestError)
 
     const listExam = useAppSelector(state => state.examSlice.examList)
     const listMarafon = useAppSelector(state => state.marafonSlice.listQuests)
     const listError = useAppSelector(state => state.marafonSlice.listQuestionError)
 
     let list:quest[]
+    let activeQwest:number
 
     if(wind==='exam'){
         list=listExam
+        activeQwest = examActiveQuest
     } else if (wind==='marafon'){
         list=listMarafon
+        activeQwest=marafonActiveQuest
     } else if (wind==='error'){
         list=listError
+        activeQwest=errorActiveQuest
     }
 
     const red = useAppSelector(state => state.examSlice.red);
@@ -147,8 +158,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         } else if (wind==='marafon'){
             dispatch(pushAnswerQuest({isCorrect,index}))
         } else if (wind==='error'){
-            // dispatch(pushAnswerQuest({isCorrect,index}))
-            console.log(111)
+            console.log('ERROR')
+
+            dispatch(pushError(id))
+            // dispatch(pushAnswerQuestERROR({isCorrect,index}))
+
+            // console.log(listError[activeQwest])
         }
 
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}\nlist[activeQuest]: ${list[activeQwest].yourResponse}`, "color:#559D4CFF;font-size:17px;");
