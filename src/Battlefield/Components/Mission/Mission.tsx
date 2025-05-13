@@ -3,7 +3,7 @@ import styles from './mission.module.css';
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {quest} from "../../../store/interface.ts";
-import {pushAnswerQuest, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
+import {pushAnswerQuest, setActiveQwestERRORPlus, setActiveQwestPlus} from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
 import ErrorSVG from '/src/assets/error.svg?react'
@@ -33,7 +33,17 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const listExam = useAppSelector(state => state.examSlice.examList)
     const listMarafon = useAppSelector(state => state.marafonSlice.listQuests)
-    const list = (wind==='exam')?listExam:listMarafon
+    const listError = useAppSelector(state => state.marafonSlice.listQuestionError)
+
+    let list:quest[]
+
+    if(wind==='exam'){
+        list=listExam
+    } else if (wind==='marafon'){
+        list=listMarafon
+    } else if (wind==='error'){
+        list=listError
+    }
 
     const red = useAppSelector(state => state.examSlice.red);
     const green = useAppSelector(state => state.examSlice.green);
@@ -76,7 +86,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
-        if(!isCorrect) dispatch(pushError(id))
+        if(!isCorrect && wind!=='error') dispatch(pushError(id))
 
             if(UserData.entrance){
 
@@ -87,7 +97,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
                         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
                     },
-                    body: JSON.stringify({id:id, correct: isCorrect})
+                    body: JSON.stringify({id:id, correct: isCorrect, wind:wind})
                 })
                     .then((response) => {
                         if (!response.ok) {
@@ -136,6 +146,9 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             dispatch(examPushAnswerQuest({isCorrect,index}))
         } else if (wind==='marafon'){
             dispatch(pushAnswerQuest({isCorrect,index}))
+        } else if (wind==='error'){
+            // dispatch(pushAnswerQuest({isCorrect,index}))
+            console.log(111)
         }
 
         console.log("%c" + `Mission.tsx\nisCorrect: ${isCorrect}\nlist[activeQuest]: ${list[activeQwest].yourResponse}`, "color:#559D4CFF;font-size:17px;");
@@ -147,6 +160,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 dispatch(setExamActiveQuestPlus())
             } else if (wind==='marafon'){
                 dispatch(setActiveQwestPlus())
+            } else if (wind==='error'){
+                dispatch(setActiveQwestERRORPlus())
             }
         }, 1000);
 

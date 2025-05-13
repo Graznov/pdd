@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 export interface StyleState {
-    wind:'exam'|'marafon'|null
+    wind:'exam'|'marafon'|'error'|null
 }
 
 const initialState:StyleState = {

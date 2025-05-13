@@ -17,6 +17,7 @@ import Tickets from "./Battlefield/Exam/Tickets/Tickets.tsx";
 import LogIn from "./Battlefield/LogIn/LogIn.tsx";
 import ErrorPage from "./Errorpage/ErrorPage.tsx";
 import UserData from "./Battlefield/UserData/UserData.tsx";
+import ErrorTest from "./Battlefield/UserData/ErrorTest/ErrorTest.tsx";
 
 
 const router = createBrowserRouter([
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path:"/userdata/errors",
-                        element:<div>ERRORS</div>
+                        element:<ErrorTest/>
                     }
                 ]
 

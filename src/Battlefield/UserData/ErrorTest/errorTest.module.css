@@ -1,0 +1,80 @@
+.all_questions{
+    position: relative;
+
+    .all_questions_counter{
+        position: absolute;
+        /*top:0;*/
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-size: 25px;
+        .all_questions_counter_red{
+            color: red;
+        }
+        .all_questions_counter_slash{
+            font-size: 33px;
+        }
+        .all_questions_counter_green{
+            color: green;
+        }
+    }
+
+
+    .all_questions_numbers{
+
+        display: flex;
+        /*flex-wrap: wrap;*/
+        /*display: inline;*/
+        /*height: 41px;*/
+        overflow: auto;
+        width: 100%;
+        padding-bottom: 5px;
+
+        .all_questions_numbers_qwest{
+            margin-right: 3px;
+            /*width: 39px;*/
+            /*height: 29px;*/
+            border: 2px solid silver;
+            border-radius: 5px;
+            /*text-align: left;*/
+            font-size: 15px;
+            cursor: pointer;
+            background: none;
+        }
+
+        .all_questions_numbers_qwest_red{
+            background-color: red;
+            color: white;
+        }
+        .all_questions_numbers_qwest_green{
+            background-color: green;
+        }
+        .all_questions_numbers_qwest_yellow{
+            border: 2px solid orange;
+            /*font-size: 55px;*/
+            /*padding: 35px;*/
+            font-weight: 800;
+        }
+
+        button:hover{
+            /*background: yellow;*/
+        }
+    }
+
+    .all_questions_numbers::-webkit-scrollbar {
+        /*width: 12px;               !* ширина scrollbar *!*/
+        height: 7px;
+        /*padding: 5px;*/
+    }
+    .all_questions_numbers::-webkit-scrollbar-track {
+        background: #e5e1c6;        /* цвет дорожки */
+    }
+    .all_questions_numbers::-webkit-scrollbar-thumb {
+        width: 11px;
+        background-color: silver;    /* цвет плашки */
+        border-radius: 20px;       /* закругления плашки */
+        /*border: 3px solid #2c2b2b;  !* padding вокруг плашки *!*/
+    }
+
+}

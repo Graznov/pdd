@@ -4,13 +4,17 @@ import {quest} from "./interface.ts";
 
 export interface marafonState {
     activeQuest:number,
+    activeQuestError:number,
     listQuests:quest[],
+    listQuestionError:quest[],
     green:number,
     red:number,
 }
 
 const initialState:marafonState = {
     activeQuest:0,
+    activeQuestError:0,
+    listQuestionError:[],
     listQuests:[],
     green:0,
     red:0
@@ -26,6 +30,12 @@ const marafonSlice = createSlice({
         setActiveQwest(state, action){
             state.activeQuest = action.payload
         },
+        setActiveQwestErrors(state, action){
+            state.activeQuestError = action.payload
+        },
+        setListQuestionError(state, action){
+            state.listQuestionError = action.payload
+        },
 
         setActiveQwestPlus(state){
 
@@ -38,6 +48,18 @@ const marafonSlice = createSlice({
                     nextQuest()
                 }
             }
+        },
+        setActiveQwestERRORPlus(state){
+
+            state.activeQuestError++
+            // nextQuest()
+            // function nextQuest(){
+            //     if (state.activeQuest===800) state.activeQuest=0
+            //     if (state.listQuests[state.activeQuest].response){
+            //         state.activeQuest++
+            //         nextQuest()
+            //     }
+            // }
         },
 
         setListQuest(state, action){
@@ -70,6 +92,9 @@ export const {
     setActiveQwest,
     setActiveQwestPlus,
     setListQuest,
-    pushAnswerQuest
+    pushAnswerQuest,
+    setActiveQwestErrors,
+    setListQuestionError,
+    setActiveQwestERRORPlus
 } = marafonSlice.actions;
 export default marafonSlice.reducer
