@@ -56,6 +56,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         activeQwest=errorActiveQuest
     }
 
+    console.log(`wind: ${wind}`)
+
     const red = useAppSelector(state => state.examSlice.red);
     const green = useAppSelector(state => state.examSlice.green);
 
@@ -97,7 +99,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
-        if(!isCorrect && wind!=='error') dispatch(pushError(id))
+        // if(!isCorrect && wind!=='error') dispatch(pushError(id))
 
             if(UserData.entrance){
 
@@ -159,8 +161,11 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             dispatch(pushAnswerQuest({isCorrect,index}))
         } else if (wind==='error'){
             console.log('ERROR')
+            if(!isCorrect){
+                dispatch(pushError(id))
+            }
 
-            dispatch(pushError(id))
+
             // dispatch(pushAnswerQuestERROR({isCorrect,index}))
 
             // console.log(listError[activeQwest])
@@ -176,7 +181,10 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             } else if (wind==='marafon'){
                 dispatch(setActiveQwestPlus())
             } else if (wind==='error'){
-                dispatch(setActiveQwestERRORPlus())
+                if(!isCorrect){
+                    console.log('ERRROR_PLUS')
+                    dispatch(setActiveQwestERRORPlus())
+                }
             }
         }, 1000);
 
