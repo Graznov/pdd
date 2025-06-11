@@ -9,6 +9,7 @@ import {setActiveQwest, setActiveQwestErrors, setListQuest, setListQuestionError
 import {setWind} from "../../../store/styleSlise.ts";
 import {useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
+import {resetUserData, setUserName} from "../../../store/userDataSlice.ts";
 
 const cx = classNames.bind(styles);
 
@@ -25,6 +26,12 @@ function ErrorTest(){
     const ErrorsArrayID = useAppSelector(state => state.userDataSlice.errorQuestions)
 
     const UserData = useAppSelector(state => state.userDataSlice)
+    console.log(`UserData.entrance: ${UserData.entrance}`)
+
+    // if(!UserData.entrance) {
+    //     navigate("/login")
+    //     return
+    // }
 
 
     // console.log(ErrorsArray)
@@ -49,18 +56,6 @@ function ErrorTest(){
     dispatch(setListQuestionError(ErrorsList))
 
     const LIST_ERROR = useAppSelector(state => state.marafonSlice.listQuestionError)
-
-
-
-    // console.log(ErrorsList[0])
-
-    //
-    // console.log(JSON.stringify(list))
-    // console.log(list[0].id)
-
-
-    // const red = useAppSelector(state => state.marafonSlice.red);
-    // const green = useAppSelector(state => state.marafonSlice.green);
 
     dispatch(setWind('error'))
 
@@ -116,7 +111,10 @@ function ErrorTest(){
     ////
 
 
-    if(!UserData.entrance) navigate("/login");
+    if(!UserData.entrance) {
+        // navigate("/login");
+        // return
+    }
     console.log('UserData:\n', UserData, `ERROR_QWEST\n`, ErrorsList[activeQwest], '\nlist: \n' , list[activeQwest], '\nLIST_ERROR:\n', LIST_ERROR[activeQwest], '\nErrorsArrayID:\n', ErrorsArrayID);
 
     return(

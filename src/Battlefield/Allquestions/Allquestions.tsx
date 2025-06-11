@@ -43,9 +43,9 @@ function Allquestions(){
         dispatch(setListQuest(listNumbersQuest))
     }
 
-    console.log("%c"
-        + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
-        "color:tomato;font-size:17px;");
+    // console.log("%c"
+    //     + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
+    //     "color:tomato;font-size:17px;");
 
     ///
     const containerRef = useRef(null);

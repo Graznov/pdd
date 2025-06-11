@@ -9,16 +9,19 @@ const cx = classNames.bind(styles);
 
 function Bf(){
 
+    console.log("%c"
+        + `Bf.tsx\nRENDER`,
+        "color:tomato;font-size:17px;");
+
     const dispatch = useAppDispatch()
-
     const UserData = useAppSelector(state => state.userDataSlice)
-
     const name = (UserData.entrance)?UserData.userName:'LogIn';
 
     useEffect(() => {
-        // if(!localStorage.getItem('PDD_accessToken')){
-        //     dispatch(resetUserData())
-        // } else {
+
+        console.log("%c"
+            + `Bf.tsx\nupdate UserData`,
+            "color:tomato;font-size:17px;");
             const headersToken = localStorage.getItem('PDD_accessToken') || ''
 
             fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
@@ -42,8 +45,11 @@ function Bf(){
                 })
                 .then(data=>{
 
-
                     if (data.accessToken) {
+                        // console.log('Bf.tsx, update UserData')
+                        // console.log("%c"
+                        //     + `Bf.tsx\nupdate UserData`,
+                        //     "color:tomato;font-size:17px;");
                         localStorage.setItem('PDD_accessToken', data.accessToken)
                         dispatch(setUserName(data))
                     }else {
@@ -57,7 +63,6 @@ function Bf(){
                     // dispatch(setPathImg(data.pathImg))
                     // dispatch(setNotesList(data.notes))
                 })
-        // }
     }, []);
 
     return (

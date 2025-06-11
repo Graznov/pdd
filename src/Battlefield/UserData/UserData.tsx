@@ -9,6 +9,7 @@ import Close from '/src/assets/close.svg?react'
 import Star from '/src/assets/star.svg?react'
 import ErrorSVG from '/src/assets/error.svg?react'
 import {resetUserData} from "../../store/userDataSlice.ts";
+import ErrorPage from "../../Errorpage/ErrorPage.tsx";
 
 
 const cx = classNames.bind(styles);
@@ -93,6 +94,25 @@ function UserData(){
 
     const [activeBtn, setActiveBtn] = useState<string>('none')
 
+    // const [activeUserWind, setActiveUserWind] = useState ()
+    //
+    // useEffect(() => {
+    //     if(activeBtn==='error'){
+    //         setActiveUserWind(
+    //             // <ErrorPage/>
+    //             <div>
+    //                 ERRORS
+    //             </div>
+    //         )
+    //     }else if (activeBtn==='star'){
+    //         setActiveUserWind(
+    //             <div>
+    //                 Stars
+    //             </div>
+    //         )
+    //     }
+    // }, [activeBtn]);
+
     return (
 
         <div className={cx('container')}>
@@ -153,7 +173,10 @@ function UserData(){
                         </NavLink>
 
                         <NavLink
-                            onClick={()=>setActiveBtn('error')}
+                            onClick={()=> {
+                                setActiveBtn('error')
+
+                            }}
                             to={'/userdata/errors'}
                             className={cx("userData_main_btn-area_Rtn",
                             "userData_main_errors",{
@@ -163,7 +186,12 @@ function UserData(){
                             <ErrorSVG/>
                         </NavLink>
                     </div>
+
+                    {/*{activeUserWind}*/}
+
                     <Outlet/>
+
+
                 </div>
 
 

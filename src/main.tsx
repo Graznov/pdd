@@ -18,6 +18,7 @@ import LogIn from "./Battlefield/LogIn/LogIn.tsx";
 import ErrorPage from "./Errorpage/ErrorPage.tsx";
 import UserData from "./Battlefield/UserData/UserData.tsx";
 import ErrorTest from "./Battlefield/UserData/ErrorTest/ErrorTest.tsx";
+import StarTest from "./Battlefield/UserData/StarTest/StarTest.tsx";
 
 
 const router = createBrowserRouter([
@@ -28,17 +29,14 @@ const router = createBrowserRouter([
         children:[
             {
                 index: true,
-                // element: <DefaultComponent />
                 element: <Tickets/>
             },
             {
                 path:"/allquestions",
-                // index,
                 element: <Allquestions/>
             },
             {
                 path:"/search",
-                // index,
                 element: <Search/>
             },
             {
@@ -55,22 +53,18 @@ const router = createBrowserRouter([
                 children:[
                     {
                         path:"/userdata/stars",
-                        element: <div>STARS</div>
+                        element: <StarTest/>
                     },
                     {
                         path:"/userdata/errors",
                         element:<ErrorTest/>
                     }
                 ]
-
             },
             {
                 path:"/login",
-                // element:<Login/>,
                 element: <LogIn/>
             }
-
-
         ]
     }
 ]);
