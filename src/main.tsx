@@ -22,51 +22,79 @@ import StarTest from "./Battlefield/UserData/StarTest/StarTest.tsx";
 
 
 const router = createBrowserRouter([
+    // {
+    //     path: "/",
+    //     element: <Bf/>,
+    //     errorElement:<ErrorPage/>,
+    //     children:[
+    //         {
+    //             index: true,
+    //             element: <Tickets/>
+    //         },
+    //         {
+    //             path:"/allquestions",
+    //             element: <Allquestions/>
+    //         },
+    //         {
+    //             path:"/search",
+    //             element: <Search/>
+    //         },
+    //         {
+    //             path:"/examticket",
+    //             element: <Tickets/>,
+    //         },
+    //         {
+    //             path:"/examticket/ticket",
+    //             element: <ExamArea/>,
+    //         },
+    //         {
+    //             path:"/userdata",
+    //             element: <UserData/>,
+    //             children:[
+    //                 {
+    //                     path:"/userdata/stars",
+    //                     element: <StarTest/>
+    //                 },
+    //                 {
+    //                     path:"/userdata/errors",
+    //                     element:<ErrorTest/>
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             path:"/login",
+    //             element: <LogIn/>
+    //         }
+    //     ]
+    // }
+
+    ///
+
     {
         path: "/",
         element: <Bf/>,
-        errorElement:<ErrorPage/>,
-        children:[
+        errorElement: <ErrorPage/>,
+        children: [
+            { index: true, element: <Tickets/> },
+            { path: "allquestions", element: <Allquestions/> },
+            { path: "search", element: <Search/> },
+            { path: "examticket", element: <Tickets/> },
+            { path: "examticket/ticket", element: <ExamArea/> },
             {
-                index: true,
-                element: <Tickets/>
-            },
-            {
-                path:"/allquestions",
-                element: <Allquestions/>
-            },
-            {
-                path:"/search",
-                element: <Search/>
-            },
-            {
-                path:"/examticket",
-                element: <Tickets/>,
-            },
-            {
-                path:"/examticket/ticket",
-                element: <ExamArea/>,
-            },
-            {
-                path:"/userdata",
+                path: "userdata",
                 element: <UserData/>,
-                children:[
-                    {
-                        path:"/userdata/stars",
-                        element: <StarTest/>
-                    },
-                    {
-                        path:"/userdata/errors",
-                        element:<ErrorTest/>
-                    }
+                children: [
+                    { path: "stars", element: <StarTest/> },
+                    { path: "errors", element: <ErrorTest/> }
                 ]
             },
             {
-                path:"/login",
+                path: "/login",
                 element: <LogIn/>
             }
         ]
-    }
+    },
+
 ]);
 
 createRoot(document.getElementById('root')!).render(
