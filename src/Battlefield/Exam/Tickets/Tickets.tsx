@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 function Tickets(){
 
     const dispatch = useAppDispatch()
+    dispatch(setWind('exam'))
 
     const UserData = useAppSelector(state => state.userDataSlice)
 

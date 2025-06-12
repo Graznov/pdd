@@ -1,11 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 export interface StyleState {
-    wind:'exam'|'marafon'|'error'|null
+    wind:'exam'|'marafon'|'search'|'user'|'error'|null
+    title:'Экзамен'|'Все вопросы'|'Ошибки'|'Выбранные'|'ПДД'|'Поиск'
 }
 
 const initialState:StyleState = {
-    wind:null
+    wind:null,
+    title:'ПДД'
 }
 
 const styleSlice = createSlice({
@@ -17,6 +19,9 @@ const styleSlice = createSlice({
         // },
         setWind(state, action){
             state.wind = action.payload
+        },
+        setTitle(state, action){
+            state.title = action.payload
         }
 
         // ...Redusers:...
@@ -26,7 +31,8 @@ const styleSlice = createSlice({
 
 export const {
     // styleVisibleAddTask,
-    setWind
+    setWind,
+    setTitle
 
 
 } = styleSlice.actions;

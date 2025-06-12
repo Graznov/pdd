@@ -7,6 +7,7 @@ import {useState} from "react";
 import {props_mission} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json";
 import Close from '/src/assets/close.svg?react'
+import {setTitle, setWind} from "../../store/styleSlise.ts";
 
 
 const cx = classNames.bind(styles);

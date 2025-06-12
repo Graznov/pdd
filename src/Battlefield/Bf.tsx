@@ -9,13 +9,31 @@ const cx = classNames.bind(styles);
 
 function Bf(){
 
+
+
     console.log("%c"
         + `Bf.tsx\nRENDER`,
         "color:tomato;font-size:17px;");
 
     const dispatch = useAppDispatch()
+    const wind = useAppSelector(state => state.styleSlice.wind)
+    const title = useAppSelector(state => state.styleSlice.title)
     const UserData = useAppSelector(state => state.userDataSlice)
+
     const name = (UserData.entrance)?UserData.userName:'LogIn';
+    document.title = title
+    // if(wind===null){
+    //     document.title = 'ПДД'
+    // } else if(wind==='exam'){
+    //     document.title = 'Экзамен'
+    // } else if(wind==='marafon'){
+    //     document.title = 'Все вопросы'
+    // } else if(wind==='search'){
+    //     document.title = 'Поиск'
+    // } else if(wind==='user'){
+    //     document.title = UserData.userName
+    // }
+
 
     useEffect(() => {
 

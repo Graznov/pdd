@@ -10,6 +10,7 @@ import Star from '/src/assets/star.svg?react'
 import ErrorSVG from '/src/assets/error.svg?react'
 import {resetUserData} from "../../store/userDataSlice.ts";
 import ErrorPage from "../../Errorpage/ErrorPage.tsx";
+import {setTitle, setWind} from "../../store/styleSlise.ts";
 
 
 const cx = classNames.bind(styles);
@@ -20,6 +21,7 @@ function UserData(){
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
+    // dispatch(setWind('user'))
     const UserData = useAppSelector(state => state.userDataSlice)
 
     console.log(UserData)
