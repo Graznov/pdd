@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 function ErrorPage() {
-
+    // window.location.reload()
     return (
         <div className={cx('errorpage')}>
             <h1>404</h1>

@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet, useLocation} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
 import {useEffect} from "react";
 import {resetUserData, setUserName} from "../store/userDataSlice.ts";
@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function Bf(){
 
-
+    // const { pathname } = useLocation();
 
     console.log("%c"
         + `Bf.tsx\nRENDER`,
@@ -33,6 +33,10 @@ function Bf(){
     // } else if(wind==='user'){
     //     document.title = UserData.userName
     // }
+
+    // useEffect(() => {
+    //     fetchUserData();
+    // }, [location.pathname]);
 
 
     useEffect(() => {
