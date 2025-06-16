@@ -16,6 +16,7 @@ function Search() {
 
     const dispatch = useAppDispatch()
 
+    dispatch(setWind('search'))
 
     const searchList = useAppSelector(state => state.searchSlice.searchArrQuest);
 

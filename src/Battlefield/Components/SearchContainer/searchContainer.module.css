@@ -11,6 +11,12 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
+    .searchContainer_star{
+        display: none;
+    }
+    .searchContainer_star_VISIBLE{
+        display: block;
+    }
 
     .searchContainer_question{
         font-size: large;

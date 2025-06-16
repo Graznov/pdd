@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 export interface StyleState {
-    wind:'exam'|'marafon'|'search'|'user'|'error'|null
+    wind:'exam'|'marafon'|'search'|'user'|'error'|'star'|null
     title:'Экзамен'|'Все вопросы'|'Ошибки'|'Выбранные'|'ПДД'|'Поиск'
 }
 

@@ -2,14 +2,12 @@ import classNames from 'classnames/bind';
 import styles from './errorTest.module.css';
 import Mission from "../../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../../store/interface.ts";
-
 import * as All from "../../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-import {setActiveQwest, setActiveQwestErrors, setListQuest, setListQuestionError} from "../../../store/marafonSlice.ts";
+import {setActiveQwestErrors, setListQuestionError} from "../../../store/marafonSlice.ts";
 import {setWind} from "../../../store/styleSlise.ts";
 import {useEffect, useRef} from "react";
 import {useNavigate} from "react-router-dom";
-import {resetUserData, setUserName} from "../../../store/userDataSlice.ts";
 
 const cx = classNames.bind(styles);
 
@@ -48,32 +46,6 @@ function ErrorTest(){
 
     dispatch(setWind('error'))
 
-    // if (list.length === 0) {
-    //     const allQwest:props_mission[] = All.default.sort(function(){
-    //         return Math.random() - 0.5;
-    //     });
-    //
-    //     const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
-    //
-    //         res.push({
-    //             ...elem,
-    //             number: ind,
-    //             response: false,
-    //             status: 'none',
-    //             yourResponse:null
-    //         })
-    //
-    //         return res
-    //     },[])
-    //
-    //     dispatch(setListQuest(listNumbersQuest))
-    // }
-
-    // console.log("%c"
-    //     + `ErrorTest.tsx\nlist: ${list}`,
-    //     "color:tomato;font-size:17px;");
-
-    ///
     const containerRef = useRef(null);
     const activeButtonRef = useRef(null);
 
@@ -97,50 +69,6 @@ function ErrorTest(){
             });
         }
     }, [activeQwest]);
-    ////
-
-    // useEffect(() => {
-    //
-    //     console.log("%c"
-    //         + `ErrorTest.tsx\nupdate UserData`,
-    //         "color:yellow;font-size:17px;");
-    // if(!UserData.entrance){
-    //
-    //         console.log("%c"
-    //             + `ErrorTest.tsx\nupdate UserData`,
-    //             "color:yellow;font-size:17px;");
-    //     const headersToken = localStorage.getItem('PDD_accessToken') || ''
-    //
-    //     fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
-    //         method: 'GET', // Указываем метод GET
-    //         headers: {
-    //             'Content-Type': 'application/json', // Указываем тип содержимого
-    //             'Authorization': headersToken // Если требуется авторизация
-    //         },
-    //         credentials: "include",
-    //     })
-    //         .then((response) => {
-    //             if (!response.ok) {
-    //                 // cleanData()
-    //                 dispatch(resetUserData())
-    //                 // navigate('/login')
-    //                 throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-    //             }
-    //             return response.json()
-    //         })
-    //         .then(data=>{
-    //             if (data.accessToken) {
-    //                 console.log(data)
-    //                 localStorage.setItem('PDD_accessToken', data.accessToken)
-    //                 dispatch(setUserName(data))
-    //             }else {
-    //                 console.log(`NO accessToken`)
-    //             }
-    //         })
-    // }
-
-    // }, []);
-
 
     if(!UserData.entrance) {
         navigate("/login");
@@ -155,7 +83,7 @@ function ErrorTest(){
             <div className={cx("title_text")}>
                 Работа над ошибками
             </div>
-            
+
             <div ref={containerRef} className={cx('all_questions_numbers')}>
 
             {
@@ -177,14 +105,6 @@ function ErrorTest(){
                 }
 
             </div>
-
-            {/*<div className={cx('all_questions_counter')}>*/}
-            {/*    <div className={cx('all_questions_counter_red')}>{red}</div>*/}
-            {/*    <div className={cx('all_questions_counter_slash')}>*/}
-            {/*        /!*<Slash/>*!//*/}
-            {/*    </div>*/}
-            {/*    <div className={cx('all_questions_counter_green')}>{green}</div>*/}
-            {/*</div>*/}
 
             <Mission
                 yourResponse={ErrorsList[activeQwest].yourResponse}
