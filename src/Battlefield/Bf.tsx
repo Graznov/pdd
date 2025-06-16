@@ -4,6 +4,7 @@ import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
 import {useEffect} from "react";
 import {resetUserData, setUserName} from "../store/userDataSlice.ts";
+import {setWind} from "../store/styleSlise.ts";
 
 const cx = classNames.bind(styles);
 
@@ -11,16 +12,17 @@ function Bf(){
 
     // const pathname  = useLocation();
 
-    console.log("%c"
-        + `Bf.tsx\nRENDER`,
-        "color:tomato;font-size:17px;");
+
     const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
+    // dispatch(setWind('exam'))
     const wind = useAppSelector(state => state.styleSlice.wind)
     const title = useAppSelector(state => state.styleSlice.title)
     const UserData = useAppSelector(state => state.userDataSlice)
-
+    console.log("%c"
+        + `Bf.tsx\nRENDER\nwind: ${wind}`,
+        "color:tomato;font-size:17px;");
     const name = (UserData.entrance)?UserData.userName:'LogIn';
     document.title = title
 
@@ -67,7 +69,6 @@ function Bf(){
                 })
     }, []);
 
-    console.log(`location.pathname: ${ location.pathname }`)
 
     return (
             <div className={cx('container')}>
@@ -77,9 +78,18 @@ function Bf(){
 
                         <div className={cx('header_btnArea')}>
 
-                            <NavLink to={'/examticket'}>Экзамен</NavLink>
-                            <NavLink to={'/allquestions'}>Марафон</NavLink>
-                            <NavLink to={'/search'}>Поиск</NavLink>
+                            <NavLink
+                                to={'/examticket'}
+                                onClick={()=>dispatch(setWind('exam'))
+                            }>Экзамен</NavLink>
+                            <NavLink
+                                to={'/allquestions'}
+                                onClick={()=>dispatch(setWind('marafon'))}
+                                    >Марафон</NavLink>
+                            <NavLink
+                                to={'/search'}
+                                onClick={()=>dispatch(setWind('search'))}
+                            >Поиск</NavLink>
 
                         </div>
 

@@ -13,9 +13,19 @@
 
     .searchContainer_star{
         display: none;
+        width: fit-content;
+        border: none;
+        background: none;
+        cursor: pointer;
+        fill: red;
+        stroke: red;
     }
+    /*.searchContainer_star:hover::after{*/
+    /*    content: 'Удалить из избранного';*/
+    /*    font-size: 33px;*/
+    /*}*/
     .searchContainer_star_VISIBLE{
-        display: block;
+        display: flex;
     }
 
     .searchContainer_question{

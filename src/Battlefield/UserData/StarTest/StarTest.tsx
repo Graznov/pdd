@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function StarTest(){
     const dispatch = useAppDispatch()
-dispatch(setWind('star'))
+    // dispatch(setWind('star'))
     const starID = useAppSelector(state => state.userDataSlice.starQuestions)
     const UserData = useAppSelector(state => state.userDataSlice)
 
@@ -28,12 +28,12 @@ dispatch(setWind('star'))
 
     return(
         <div>
-            {UserData.starQuestions.length}
-
+            Выбранные вопросы
             {
                 listStarID.map((qwest) => (
                     <SearchContainer
                         key={qwest.id}
+                        id={qwest.id}
                         question={qwest.question}
                         image={qwest.image}
                         correct_answer={qwest.correct_answer}
