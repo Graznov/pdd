@@ -121,7 +121,9 @@
             .userData_main_btn-area{
 
                 display: flex;
-                justify-content: space-between;
+                flex-direction: column;
+                gap: 13px;
+                /*justify-content: space-between;*/
 
                 .userData_main_btn-area_Rtn{
                     text-decoration: none;

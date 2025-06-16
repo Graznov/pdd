@@ -188,8 +188,8 @@ function UserData(){
                             "userData_main_errors",{
                                 'activeBtn':activeBtn==='error'
                             })}>
-                            {UserData.errorQuestions.length}
                             <ErrorSVG/>
+                            {UserData.errorQuestions.length}
                         </NavLink>
                     </div>
 

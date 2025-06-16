@@ -1,0 +1,6 @@
+.star_title{
+    font-family: "Roboto Light", sans-serif;
+    font-weight: 600;
+    color: var(--color);
+    border-bottom: 2px solid var(--color);
+}
