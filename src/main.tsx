@@ -75,19 +75,20 @@ const router = createBrowserRouter([
         element: <Bf/>,
         errorElement: <ErrorPage/>,
         children: [
-            { index: true, element: <Tickets/> },
+            { index: true, path: "examticket", element: <Tickets/> },
             { path: "allquestions", element: <Allquestions/> },
             { path: "search", element: <Search/> },
-            { path: "examticket", element: <Tickets/> },
             { path: "examticket/ticket", element: <ExamArea/> },
             {
                 path: "userdata",
                 element: <UserData/>,
-                children: [
-                    { path: "stars", element: <StarTest/> },
-                    { path: "errors", element: <ErrorTest/> }
-                ]
+                // children: [
+                //     { path: "stars", element: <StarTest/> },
+                //     { path: "errors", element: <ErrorTest/> }
+                // ]
             },
+            { path: "stars", element: <StarTest/> },
+            { path: "errors", element: <ErrorTest/> },
             {
                 path: "/login",
                 element: <LogIn/>

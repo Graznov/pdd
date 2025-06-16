@@ -165,7 +165,7 @@ function UserData(){
                     <div className={cx("userData_main_btn-area")}>
                         <NavLink
                             onClick={()=>setActiveBtn('star')}
-                            to={'/userdata/stars'}
+                            to={'/stars'}
                             className={cx("userData_main_btn-area_Rtn",
                             "userData_main_stars",{
                             'activeBtn':activeBtn==='star'
@@ -179,7 +179,7 @@ function UserData(){
                                 setActiveBtn('error')
 
                             }}
-                            to={'/userdata/errors'}
+                            to={'/errors'}
                             className={cx("userData_main_btn-area_Rtn",
                             "userData_main_errors",{
                                 'activeBtn':activeBtn==='error'

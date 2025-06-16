@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
-import {NavLink, Outlet, useLocation} from "react-router-dom";
+import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
 import {useEffect} from "react";
 import {resetUserData, setUserName} from "../store/userDataSlice.ts";
@@ -9,11 +9,12 @@ const cx = classNames.bind(styles);
 
 function Bf(){
 
-    // const { pathname } = useLocation();
+    // const pathname  = useLocation();
 
     console.log("%c"
         + `Bf.tsx\nRENDER`,
         "color:tomato;font-size:17px;");
+    const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
     const wind = useAppSelector(state => state.styleSlice.wind)
@@ -22,24 +23,14 @@ function Bf(){
 
     const name = (UserData.entrance)?UserData.userName:'LogIn';
     document.title = title
-    // if(wind===null){
-    //     document.title = 'ПДД'
-    // } else if(wind==='exam'){
-    //     document.title = 'Экзамен'
-    // } else if(wind==='marafon'){
-    //     document.title = 'Все вопросы'
-    // } else if(wind==='search'){
-    //     document.title = 'Поиск'
-    // } else if(wind==='user'){
-    //     document.title = UserData.userName
-    // }
-
-    // useEffect(() => {
-    //     fetchUserData();
-    // }, [location.pathname]);
-
 
     useEffect(() => {
+
+        console.log("%c"
+            + `Bf.tsx\nДо обновления UserData`,
+            "color:tomato;font-size:17px;");
+
+        if(UserData.entrance)return
 
         console.log("%c"
             + `Bf.tsx\nupdate UserData`,
@@ -59,7 +50,7 @@ function Bf(){
                     if (!response.ok) {
                         // cleanData()
                         dispatch(resetUserData())
-                        // navigate('/login')
+                        navigate('/login')
                         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
                     }
 
@@ -68,24 +59,15 @@ function Bf(){
                 .then(data=>{
 
                     if (data.accessToken) {
-                        // console.log('Bf.tsx, update UserData')
-                        // console.log("%c"
-                        //     + `Bf.tsx\nupdate UserData`,
-                        //     "color:tomato;font-size:17px;");
                         localStorage.setItem('PDD_accessToken', data.accessToken)
                         dispatch(setUserName(data))
                     }else {
                         console.log(`NO accessToken`)
                     }
-
-                    // dispatch(setTasks(data.tasks))
-                    // dispatch(setId(data.id))
-                    // dispatch(setEmail(data.email))
-                    // dispatch(setCreatDat(data.creatDat))
-                    // dispatch(setPathImg(data.pathImg))
-                    // dispatch(setNotesList(data.notes))
                 })
     }, []);
+
+    console.log(`location.pathname: ${ location.pathname }`)
 
     return (
             <div className={cx('container')}>

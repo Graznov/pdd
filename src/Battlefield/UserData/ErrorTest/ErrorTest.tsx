@@ -28,17 +28,6 @@ function ErrorTest(){
     const UserData = useAppSelector(state => state.userDataSlice)
     console.log(`UserData.entrance: ${UserData.entrance}`)
 
-    // if(!UserData.entrance) {
-    //     navigate("/login")
-    //     return
-    // }
-
-
-    // console.log(ErrorsArray)
-    // const list = useAppSelector(state => state.marafonSlice.listQuests);
-
-
-
     const list = All.default.filter(a=>ErrorsArrayID.includes(a.id));
 
     const ErrorsList:quest[] = list.reduce((res:quest[], elem:props_mission, ind:number)=>{
@@ -115,47 +104,47 @@ function ErrorTest(){
     //     console.log("%c"
     //         + `ErrorTest.tsx\nupdate UserData`,
     //         "color:yellow;font-size:17px;");
-    if(!UserData.entrance){
-
-            console.log("%c"
-                + `ErrorTest.tsx\nupdate UserData`,
-                "color:yellow;font-size:17px;");
-        const headersToken = localStorage.getItem('PDD_accessToken') || ''
-
-        fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
-            method: 'GET', // Указываем метод GET
-            headers: {
-                'Content-Type': 'application/json', // Указываем тип содержимого
-                'Authorization': headersToken // Если требуется авторизация
-            },
-            credentials: "include",
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    // cleanData()
-                    dispatch(resetUserData())
-                    // navigate('/login')
-                    throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-                }
-                return response.json()
-            })
-            .then(data=>{
-                if (data.accessToken) {
-                    console.log(data)
-                    localStorage.setItem('PDD_accessToken', data.accessToken)
-                    dispatch(setUserName(data))
-                }else {
-                    console.log(`NO accessToken`)
-                }
-            })
-    }
+    // if(!UserData.entrance){
+    //
+    //         console.log("%c"
+    //             + `ErrorTest.tsx\nupdate UserData`,
+    //             "color:yellow;font-size:17px;");
+    //     const headersToken = localStorage.getItem('PDD_accessToken') || ''
+    //
+    //     fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
+    //         method: 'GET', // Указываем метод GET
+    //         headers: {
+    //             'Content-Type': 'application/json', // Указываем тип содержимого
+    //             'Authorization': headersToken // Если требуется авторизация
+    //         },
+    //         credentials: "include",
+    //     })
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 // cleanData()
+    //                 dispatch(resetUserData())
+    //                 // navigate('/login')
+    //                 throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+    //             }
+    //             return response.json()
+    //         })
+    //         .then(data=>{
+    //             if (data.accessToken) {
+    //                 console.log(data)
+    //                 localStorage.setItem('PDD_accessToken', data.accessToken)
+    //                 dispatch(setUserName(data))
+    //             }else {
+    //                 console.log(`NO accessToken`)
+    //             }
+    //         })
+    // }
 
     // }, []);
 
 
     if(!UserData.entrance) {
-        // navigate("/login");
-        // return
+        navigate("/login");
+        return
     }
     console.log('UserData:\n', UserData, `ERROR_QWEST\n`, ErrorsList[activeQwest], '\nlist: \n' , list[activeQwest], '\nLIST_ERROR:\n', LIST_ERROR[activeQwest], '\nErrorsArrayID:\n', ErrorsArrayID);
 
@@ -163,10 +152,13 @@ function ErrorTest(){
 
         <div className={cx('all_questions')}>
 
-
+            <div className={cx("title_text")}>
+                Работа над ошибками
+            </div>
+            
             <div ref={containerRef} className={cx('all_questions_numbers')}>
 
-                {
+            {
                     ErrorsList.map((e) => (
                         <button
                             key={e.number}
