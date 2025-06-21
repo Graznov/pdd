@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
 import styles from './errorTest.module.css';
 import Mission from "../../Components/Mission/Mission.tsx";
-import {props_mission, quest} from "../../../store/interface.ts";
+import {props_mission} from "../../../store/interface.ts";
 import * as All from "../../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {setActiveQwestErrors, setListQuestionError} from "../../../store/marafonSlice.ts";
 import {setWind} from "../../../store/styleSlise.ts";
-import {useEffect, useRef} from "react";
+import {useEffect, useMemo, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 
 const cx = classNames.bind(styles);
@@ -17,38 +17,30 @@ function ErrorTest(){
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-
-
     const activeQwest = useAppSelector(state => state.marafonSlice.activeQuestError)
-
     const ErrorsArrayID = useAppSelector(state => state.userDataSlice.errorQuestions)
-
     const UserData = useAppSelector(state => state.userDataSlice)
-    console.log(`UserData.entrance: ${UserData.entrance}`)
+    const LIST_ERROR = useAppSelector(state => state.marafonSlice.listQuestionError)
 
-    const list = All.default.filter(a=>ErrorsArrayID.includes(a.id));
-
-    const ErrorsList:quest[] = list.reduce((res:quest[], elem:props_mission, ind:number)=>{
-
-        res.push({
+    const errorsList = useMemo(() => {
+        const list = All.default.filter(a => ErrorsArrayID.includes(a.id));
+        return list.map((elem:props_mission, ind:number) => ({
             ...elem,
             number: ind,
             response: false,
             status: 'none',
-            yourResponse:null
-        })
+            yourResponse: undefined
+        }));
+    }, [ErrorsArrayID]);
 
-        return res
-    },[])
-    dispatch(setListQuestionError(ErrorsList))
+    dispatch(setListQuestionError(errorsList))
 
-    const LIST_ERROR = useAppSelector(state => state.marafonSlice.listQuestionError)
+    useEffect(() => {
+        dispatch(setWind('error'))
+    }, [])
 
-    dispatch(setWind('error'))
-
-    const containerRef = useRef(null);
-    const activeButtonRef = useRef(null);
-
+    const containerRef = useRef<HTMLDivElement>(null);
+    const activeButtonRef = useRef<HTMLButtonElement>(null);
     useEffect(() => {
         if (activeButtonRef.current && containerRef.current) {
             const container = containerRef.current;
@@ -74,7 +66,11 @@ function ErrorTest(){
         navigate("/login");
         return
     }
-    console.log('UserData:\n', UserData, `ERROR_QWEST\n`, ErrorsList[activeQwest], '\nlist: \n' , list[activeQwest], '\nLIST_ERROR:\n', LIST_ERROR[activeQwest], '\nErrorsArrayID:\n', ErrorsArrayID);
+
+    console.log('UserData:\n', UserData,
+        `ERROR_QWEST\n`, LIST_ERROR[activeQwest],
+        '\nLIST_ERROR:\n', LIST_ERROR,
+        '\nErrorsArrayID:\n', ErrorsArrayID);
 
     return(
 
@@ -87,7 +83,7 @@ function ErrorTest(){
             <div ref={containerRef} className={cx('all_questions_numbers')}>
 
             {
-                    ErrorsList.map((e) => (
+                LIST_ERROR.map((e) => (
                         <button
                             key={e.number}
                             ref={e.number === activeQwest ? activeButtonRef : null}
@@ -102,25 +98,29 @@ function ErrorTest(){
                             {e.number+1}
                         </button>
                     ))
-                }
+            }
 
             </div>
 
-            <Mission
-                yourResponse={ErrorsList[activeQwest].yourResponse}
-                status={ErrorsList[activeQwest].status}
-                number={ErrorsList[activeQwest].number}
-                response={ErrorsList[activeQwest].response}
-                ticket_category={ErrorsList[activeQwest].ticket_category}
-                ticket_number={`Вопрос ${activeQwest+1}`}
-                image={ErrorsList[activeQwest].image}
-                question={ErrorsList[activeQwest].question}
-                answers={ErrorsList[activeQwest].answers}
-                correct_answer={ErrorsList[activeQwest].correct_answer}
-                answer_tip={ErrorsList[activeQwest].answer_tip}
-                topic={ErrorsList[activeQwest].topic}
-                id={ErrorsList[activeQwest].id}
-            />
+            {LIST_ERROR[activeQwest] ? (
+                <Mission
+                    yourResponse={LIST_ERROR[activeQwest].yourResponse}
+                    status={LIST_ERROR[activeQwest].status}
+                    number={LIST_ERROR[activeQwest].number}
+                    response={LIST_ERROR[activeQwest].response}
+                    ticket_category={LIST_ERROR[activeQwest].ticket_category}
+                    ticket_number={`Вопрос ${activeQwest+1}`}
+                    image={LIST_ERROR[activeQwest].image}
+                    question={LIST_ERROR[activeQwest].question}
+                    answers={LIST_ERROR[activeQwest].answers}
+                    correct_answer={LIST_ERROR[activeQwest].correct_answer}
+                    answer_tip={LIST_ERROR[activeQwest].answer_tip}
+                    topic={LIST_ERROR[activeQwest].topic}
+                    id={LIST_ERROR[activeQwest].id}
+                />
+                ) : (
+                <div>Loading...</div>
+                )}
 
         </div>
     )

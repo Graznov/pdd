@@ -16,7 +16,7 @@ export interface quest {
     number: number,
     response: boolean,
     status: 'red'|'green'|'none',
-    yourResponse:number|null,
+    yourResponse:number|undefined,
     image: string;
     question: string;
     ticket_category: string;

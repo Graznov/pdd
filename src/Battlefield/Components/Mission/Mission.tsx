@@ -54,6 +54,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     } else if (wind==='error'){
         list=listError
         activeQwest=errorActiveQuest
+        console.log(list[activeQwest])
     }
 
     console.log(`wind: ${wind}`)
@@ -254,6 +255,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         }
 
     }
+
+    console.log(`Mission`)
 
     return (
 
