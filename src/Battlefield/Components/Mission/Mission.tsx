@@ -22,7 +22,6 @@ const cx = classNames.bind(styles);
 
 let number :number = 0
 
-
 function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic, response}: quest) {
 
     // console.log(response)
@@ -96,7 +95,9 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     // console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
 
+    const [errorAnswerRed , setErrorAnswerRed] = useState(''); //окрас красным неверного ответа при работе над ошибками
 
+    const [answerIndex, setAnswerIndex] = useState(-1);
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
@@ -144,6 +145,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         // console.log(`number = ${number}`)
         console.log(`red+green = ${red+green}`)
 
+        console.log(
+            'list[activeQwest].response:\n', list[activeQwest].response, '\n',
+            'list[activeQwest].yourResponse: ', '\n', list[activeQwest].yourResponse, '\n',
+            'index: ', '\n', index, '\n',
+            'list[activeQwest].answers[index].is_correct:', '\n', list[activeQwest].answers[index].is_correct, '\n'
+        )
 
         if(wind==='exam'){
             if(red+green+1===20 && red<3) {
@@ -162,8 +169,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             dispatch(pushAnswerQuest({isCorrect,index}))
         } else if (wind==='error'){
             console.log('ERROR')
-            if(!isCorrect){
-                dispatch(pushError(id))
+            setAnswerIndex(index)
+            if(isCorrect){
+                setErrorAnswerRed('green')
+                // dispatch(pushError(id))
+            } else {
+                setErrorAnswerRed('red')
             }
 
 
@@ -178,13 +189,28 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         setTimeout(() => {
             if(wind==='exam'){
+
                 dispatch(setExamActiveQuestPlus())
             } else if (wind==='marafon'){
+
                 dispatch(setActiveQwestPlus())
             } else if (wind==='error'){
+
+                // console.log(
+                //     'list[activeQwest].response:\n', list[activeQwest].response, '\n',
+                //     'list[activeQwest].yourResponse: ', '\n', list[activeQwest].yourResponse, '\n',
+                //     'index: ', '\n', index, '\n',
+                //     'list[activeQwest].answers[index].is_correct:', '\n', list[activeQwest].answers[index].is_correct, '\n'
+                // )
+                setErrorAnswerRed('')
+                setAnswerIndex(-1)
                 if(!isCorrect){
                     console.log('ERRROR_PLUS')
                     dispatch(setActiveQwestERRORPlus())
+                } else {
+                    dispatch(pushError(id))
+
+
                 }
             }
         }, 1000);
@@ -208,6 +234,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     }, []);
 
     const [responseWind, setResponseWind] = useState(false);
+
 
     const pushStar = () => {
         // console.log('Push_Star')
@@ -323,8 +350,10 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                                 disabled={list[activeQwest].response}
                                 className={cx(`answer_Btn_${index}`, {
 
-                                    'answer_Btn_Green': list[activeQwest].response && list[activeQwest].answers[index].is_correct,
-                                    'answer_Btn_Red': list[activeQwest].response && list[activeQwest].yourResponse === index && !list[activeQwest].answers[index].is_correct,
+                                    'answer_Btn_Green': list[activeQwest].response && list[activeQwest].answers[index].is_correct ||
+                                        wind==='error' && list[activeQwest].answers[index].is_correct && errorAnswerRed === 'green',
+                                    'answer_Btn_Red': list[activeQwest].response && list[activeQwest].yourResponse === index && !list[activeQwest].answers[index].is_correct ||
+                                        wind==='error' && !list[activeQwest].answers[index].is_correct && answerIndex===index && errorAnswerRed === 'red',
 
                                 })}
                                 key={answer.answer_text}

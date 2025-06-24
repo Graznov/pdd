@@ -61,6 +61,7 @@ const userDataSlice = createSlice({
             }
             // console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
         },
+
         setRedGreen(state, action){
             if(action.payload.result === 'sdal'){
                 state.examTiketsStatus[action.payload.tiketNumber].color = 'green'

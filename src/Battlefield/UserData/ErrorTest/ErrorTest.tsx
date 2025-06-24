@@ -29,7 +29,7 @@ function ErrorTest(){
             number: ind,
             response: false,
             status: 'none',
-            yourResponse: undefined
+            yourResponse: null
         }));
     }, [ErrorsArrayID]);
 
