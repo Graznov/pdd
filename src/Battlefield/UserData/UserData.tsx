@@ -96,25 +96,6 @@ function UserData(){
 
     const [activeBtn, setActiveBtn] = useState<string>('none')
 
-    // const [activeUserWind, setActiveUserWind] = useState ()
-    //
-    // useEffect(() => {
-    //     if(activeBtn==='error'){
-    //         setActiveUserWind(
-    //             // <ErrorPage/>
-    //             <div>
-    //                 ERRORS
-    //             </div>
-    //         )
-    //     }else if (activeBtn==='star'){
-    //         setActiveUserWind(
-    //             <div>
-    //                 Stars
-    //             </div>
-    //         )
-    //     }
-    // }, [activeBtn]);
-
     return (
 
         <div className={cx('container')}>
@@ -154,7 +135,10 @@ function UserData(){
                     </div>
                 </div>
                 <div className={cx("userData-top_content")}>
-                    <div className={cx('user-name')}>{UserData.userName} <span>user_id: {UserData.id}</span></div>
+                    <div className={cx('user-name')}>
+                        {UserData.userName}
+                        {/*<span>user_id: {UserData.id}</span>*/}
+                    </div>
                     <div className={cx('btn-area')}>
                         <button onClick={logOut}><Exit/></button>
                         <button onClick={()=>setDeleteWindow(true)}><DeleteAcc/></button>
@@ -173,7 +157,8 @@ function UserData(){
                             "userData_main_stars",{
                             'activeBtn':activeBtn==='star'
                         })}>
-                            <Star/>
+                            {/*<Star/>*/}
+                            <div>Выбранные вопросы:</div>
                             {UserData.starQuestions.length}
                         </NavLink>
 
@@ -188,14 +173,15 @@ function UserData(){
                             "userData_main_errors",{
                                 'activeBtn':activeBtn==='error'
                             })}>
-                            <ErrorSVG/>
+                            {/*<ErrorSVG/>*/}
+                            <div>Ошибок:</div>
                             {UserData.errorQuestions.length}
                         </NavLink>
                     </div>
 
                     {/*{activeUserWind}*/}
 
-                    <Outlet/>
+                    {/*<Outlet/>*/}
 
 
                 </div>

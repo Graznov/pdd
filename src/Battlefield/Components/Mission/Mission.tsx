@@ -81,38 +81,82 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
             if(UserData.entrance){
 
+                // fetch(`http://localhost:3000/user/pusherror/${UserData.id}`, {
+                //     method: 'PATCH', // Указываем метод запроса
+                //     credentials: "include",
+                //     headers: {
+                //         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+                //         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+                //     },
+                //     body: JSON.stringify({id:id, correct: isCorrect, wind:wind})
+                // })
+                //     .then((response) => {
+                //         if (!response.ok) {
+                //
+                //             if(response.status === 400){
+                //                 // console.log('TOKENS ERROR')
+                //                 console.log('TOKENS ERROR')
+                //                 localStorage.removeItem('PDD_accessToken')
+                //                 localStorage.removeItem('PDD_id')
+                //                 dispatch(resetUserData())
+                //                 // navigate('/login')
+                //             }
+                //             // alert('Что то пошло не так, попробуйте еще раз')
+                //
+                //             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                //         }
+                //         return response.json()
+                //     })
+                //
+                //     .then((data) => {
+                //         console.log('Данные получены', data)
+                //         localStorage.setItem('PDD_accessToken', data.accessToken)
+                //     })
+                //     .catch((err) => {
+                //
+                //         console.log('Произошла ошибка', err.message, err.status)
+                //
+                //     })
+
+
+                //DeepS
                 fetch(`http://localhost:3000/user/pusherror/${UserData.id}`, {
-                    method: 'PATCH', // Указываем метод запроса
+                    method: 'PATCH',
                     credentials: "include",
                     headers: {
-                        'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                        'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('PDD_accessToken')!,
                     },
-                    body: JSON.stringify({id:id, correct: isCorrect, wind:wind})
+                    body: JSON.stringify({ id: id, correct: isCorrect, wind: wind })
                 })
-                    .then((response) => {
+                    .then(async (response) => {
                         if (!response.ok) {
-
-                            if(response.status === 400){
-                                // console.log('TOKENS ERROR')
-                                console.log('TOKENS ERROR')
-                                localStorage.removeItem('PDD_accessToken')
-                                localStorage.removeItem('PDD_id')
-                                dispatch(resetUserData())
-                                // navigate('/login')
+                            if (response.status === 400) {
+                                console.log('TOKENS ERROR');
+                                localStorage.removeItem('PDD_accessToken');
+                                localStorage.removeItem('PDD_id');
+                                dispatch(resetUserData());
                             }
-                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`);
                         }
-                        return response.json()
-                    })
 
+                        // Проверяем, есть ли тело ответа
+                        const text = await response.text();
+                        return text ? JSON.parse(text) : null; // Парсим JSON только если есть данные
+                    })
                     .then((data) => {
-                        console.log('Данные получены', data)
-                        localStorage.setItem('PDD_accessToken', data.accessToken)
+                        if (data && data.accessToken) {
+                            console.log('Данные получены', data);
+                            localStorage.setItem('PDD_accessToken', data.accessToken);
+                        } else {
+                            console.log('Бекенд вернул пустой ответ');
+                        }
                     })
                     .catch((err) => {
-                        console.log('Произошла ошибка', err.message, err.status)
-                    })
+                        console.log('Произошла ошибка:', err.message);
+                        alert('Что то пошло не так, попробуйте еще раз')
+                    });
+                //DeepS
 
             }
 
@@ -252,6 +296,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     localStorage.setItem('PDD_accessToken', data.accessToken)
                 })
                 .catch((err) => {
+                    alert('Что то пошло не так, попробуйте еще раз')
                     console.log('Произошла ошибка', err.message, err.status)
                 })
 
@@ -295,13 +340,19 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         {ticket_number}
                     </div>
                     {title}
-                    <button
-                        className={cx('mission_selected',{
-                            'mission_selected_actice' : favorits.includes(id)
-                        })}
-                        onClick={pushStar}>
-                        <Star/>
-                    </button>
+
+                    {
+                        (UserData.entrance) ? (
+                            <button
+                                className={cx('mission_selected', {
+                                    'mission_selected_actice': favorits.includes(id)
+                                })}
+                                onClick={pushStar}>
+                                <Star/>
+                            </button>
+                        ) : ''
+                    }
+
                     <button
                         className={cx('mission_img_text')}
                         onClick={() => {

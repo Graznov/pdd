@@ -79,20 +79,10 @@ const router = createBrowserRouter([
             { path: "allquestions", element: <Allquestions/> },
             { path: "search", element: <Search/> },
             { path: "examticket/ticket", element: <ExamArea/> },
-            {
-                path: "userdata",
-                element: <UserData/>,
-                // children: [
-                //     { path: "stars", element: <StarTest/> },
-                //     { path: "errors", element: <ErrorTest/> }
-                // ]
-            },
+            { path: "userdata", element: <UserData/> },
             { path: "stars", element: <StarTest/> },
             { path: "errors", element: <ErrorTest/> },
-            {
-                path: "/login",
-                element: <LogIn/>
-            }
+            { path: "/login", element: <LogIn/> }
         ]
     },
 

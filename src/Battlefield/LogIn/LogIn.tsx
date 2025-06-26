@@ -51,17 +51,6 @@ function LogIn() {
         console.log("%c" + `LogIn.tsx\nformRegistration: ${JSON.stringify(formRegistration)}`, "color:#559D4CFF;font-size:17px;");
     },[formRegistration])
 
-    // function validateEmail(email:string) {
-    //     if (!email) return false; // Проверка на пустую строку
-    //
-    //     // Более строгое регулярное выражение
-    //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //
-    //     return re.test(String(email).toLowerCase());
-    // }
-
-    // console.log(validateEmail(formRegistration.userEmail))
-
     const [nameError, setNameError] = useState(false);
 
 
@@ -124,6 +113,7 @@ function LogIn() {
 
                     })
                     .catch((err) => {
+                        alert('Что то пошло не так, попробуйте еще раз')
                         console.log('Произошла ошибка', err.message, err.status)
                     })
 
@@ -179,6 +169,8 @@ function LogIn() {
                         navigate('/userdata')
                     })
                     .catch((err) => {
+                        alert('Что то пошло не так, попробуйте еще раз')
+
                         console.log(err)
                         console.log('Произошла ошибка',err.status, err.message)
                     })

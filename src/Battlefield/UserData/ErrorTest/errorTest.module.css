@@ -6,11 +6,11 @@
         font-family: fantasy, serif;
         position: relative;
     }
-    .title_text::after{
-        content: 'aaaa';
-        position: absolute;
-right: 0;
-    }
+    /*.title_text::after{*/
+    /*    content: 'aaaa';*/
+    /*    position: absolute;*/
+    /*    right: 0;*/
+    /*}*/
     .all_questions_counter{
         position: absolute;
         /*top:0;*/

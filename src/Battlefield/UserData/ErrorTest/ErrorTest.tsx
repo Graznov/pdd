@@ -77,7 +77,7 @@ function ErrorTest(){
         <div className={cx('all_questions')}>
 
             <div className={cx("title_text")}>
-                Работа над ошибками
+                Работа над ошибками:
             </div>
 
             <div ref={containerRef} className={cx('all_questions_numbers')}>
