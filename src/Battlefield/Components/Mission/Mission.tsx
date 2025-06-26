@@ -61,43 +61,19 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const red = useAppSelector(state => state.examSlice.red);
     const green = useAppSelector(state => state.examSlice.green);
 
-    // const tiketNumber = useAppSelector(state => state.examSlice.ticketNumber)
-    //
-    // console.log(tiketNumber)
-
-
-
-    // const sdal = useAppSelector(state => state.examSlice.sdal)
-
-    // const neSdal = useAppSelector(state => state.examSlice.neSdal)
-
-    // const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
-    // const activeQwest = (wind==='exam')?useAppSelector(state => state.examSlice.examActiveQuest):useAppSelector(state => state.marafonSlice.activeQuest);
-
-
-    // const list = useAppSelector(state => state.marafonSlice.listQuests);
-    // const list = (wind==='exam')?useAppSelector(state => state.examSlice.examList):useAppSelector(state => state.marafonSlice.listQuests);
-
-    // let number :number
 
     useEffect(() => {
         number = red+green
-
-        // if(red+green===20) navigate('/')
-        // console.log("%c" +`red+green=${red+green}\nred = ${red}\ngreen = ${green}\nnumber = ${number}` , "color:#559D4CFF;font-size:17px;")
-
-    }, [red, green]);
+            }, [red, green]);
 
     useEffect(() => {
 
     }, [number]);
     const pathToImg = image.substr(1)
 
-    // console.log("%c" + `Mission.tsx\nactiveQwest: ${activeQwest}\nresponse: ${response}\nticket_number: ${ticket_number}\ntitle: ${title}`, "color:#559D4CFF;font-size:17px;");
-
     const [errorAnswerRed , setErrorAnswerRed] = useState(''); //окрас красным неверного ответа при работе над ошибками
-
     const [answerIndex, setAnswerIndex] = useState(-1);
+    const [crashMission, setCrashMission] = useState(false);
 
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
@@ -139,10 +115,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     })
 
             }
-        // }
 
-
-        // console.log(`number = ${number}`)
         console.log(`red+green = ${red+green}`)
 
         console.log(
@@ -171,6 +144,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             console.log('ERROR')
             setAnswerIndex(index)
             if(isCorrect){
+                setCrashMission(true)
                 setErrorAnswerRed('green')
                 // dispatch(pushError(id))
             } else {
@@ -202,6 +176,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 //     'index: ', '\n', index, '\n',
                 //     'list[activeQwest].answers[index].is_correct:', '\n', list[activeQwest].answers[index].is_correct, '\n'
                 // )
+                setCrashMission(false)
+
                 setErrorAnswerRed('')
                 setAnswerIndex(-1)
                 if(!isCorrect){
@@ -305,6 +281,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             <div
                 className={cx('mission', {
                     'mission_inposible': response || responseWind,
+                    'mission_hidden' : crashMission
                 })}>
 
 
