@@ -6,7 +6,13 @@ import EyeHidden from '/src/assets/eye-hidden.svg?react'
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setUserName} from "../../store/userDataSlice.ts";
-import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
+import {
+    cleanError,
+    setErrorStatus,
+    setErrorText,
+    setErrorTitle,
+    setErrortWindWisible
+} from "../../store/backErrorSlise.ts";
 
 const cx = classNames.bind(styles);
 
@@ -72,62 +78,146 @@ function LogIn() {
 
                 //отправка на сервер
 
+                // fetch(`http://localhost:3000/user/register`, {
+                //     method: 'POST', // Указываем метод запроса
+                //     headers: {
+                //         'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
+                //     },
+                //     body: JSON.stringify({
+                //         name:formRegistration.userName,
+                //         password:formRegistration.password_1,
+                //     })
+                // })
+                //     .then((response) => {
+                //         if (!response.ok) {
+                //
+                //             if(response.status === 409){
+                //                 console.log('Имя занято')
+                //
+                //                 setNameError(true)
+                //
+                //                 setTimeout(()=>{
+                //                     setNameError(false)
+                //                 },1000)
+                //             }
+                //             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                //
+                //         }
+                //
+                //         return response.json()
+                //     })
+                //
+                //     .then((data) => {
+                //
+                //         console.log('Данные получены', data)
+                //
+                //         setFormLogIn({
+                //             ...formLogIn,
+                //             name: formRegistration.userName
+                //         })
+                //         setIsLoginVisible(!isLoginVisible);
+                //         setFormRegistration(FORM_REGISTRATION);
+                //
+                //     })
+                //     .catch((err) => {
+                //         alert('Что то пошло не так, попробуйте еще раз')
+                //         console.log('Произошла ошибка', err.message, err.status)
+                //     })
+
                 fetch(`http://localhost:3000/user/register`, {
-                    method: 'POST', // Указываем метод запроса
+                    method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name:formRegistration.userName,
-                        password:formRegistration.password_1,
+                        name: formRegistration.userName,
+                        password: formRegistration.password_1,
                     })
                 })
-                    .then((response) => {
+                    .then(async (response) => {
                         if (!response.ok) {
+                            const errorData = await response.json().catch(() => ({}));
+                            const errorMessage = errorData.message || response.statusText || 'Ошибка регистрации';
 
-                            if(response.status === 409){
-                                console.log('Имя занято')
+                            // Обработка специфических статусов
+                            switch(response.status) {
+                                case 409: // Конфликт (имя занято)
+                                    setNameError(true);
+                                    setTimeout(() => setNameError(false), 1000);
+                                    throw new Error('Это имя пользователя уже занято');
 
-                                setNameError(true)
+                                case 400: // Неверный запрос
+                                    throw new Error(errorData.errors?.join(', ') || 'Некорректные данные');
 
-                                setTimeout(()=>{
-                                    setNameError(false)
-                                },1000)
+                                default:
+                                    throw new Error(errorMessage);
                             }
-                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        // Проверка наличия необходимых данных
+                        if (!data || (!data.id && !data.name)) {
+                            throw new Error('Сервер не вернул данные пользователя');
                         }
 
-                        return response.json()
-                    })
+                        console.log('Регистрация успешна', data);
 
-                    .then((data) => {
-
-                        console.log('Данные получены', data)
-
-                        setFormLogIn({
-                            ...formLogIn,
+                        // Обновление состояния формы
+                        setFormLogIn(prev => ({
+                            ...prev,
                             name: formRegistration.userName
-                        })
+                        }));
+
                         setIsLoginVisible(!isLoginVisible);
                         setFormRegistration(FORM_REGISTRATION);
 
+                        // Можно добавить автоматический логин после регистрации
+                        // dispatch(autoLoginAfterRegistration(data));
                     })
                     .catch((err) => {
-                        alert('Что то пошло не так, попробуйте еще раз')
-                        console.log('Произошла ошибка', err.message, err.status)
-                    })
+                        console.error('Ошибка регистрации:', err);
+
+                        // Улучшенное отображение ошибок пользователю
+                        const userFriendlyMessage = err.message.includes('занято') ? 'Это имя пользователя уже занято' : 'Произошла ошибка при регистрации';
+                            // err.message.includes('already') ? 'Это имя пользователя уже занято' :
+                            //     err.message.includes('Некорректные') ? 'Проверьте введённые данные' :
+                            //         'Произошла ошибка при регистрации';
+
+                        // Вместо alert используем ваш механизм отображения ошибок
+                        dispatch(setErrorTitle('Ошибка регистрации'));
+                        dispatch(setErrorText(userFriendlyMessage));
+                        dispatch(setErrorStatus(err.status));
+                        dispatch(setErrortWindWisible());
+                    });
 
                 // setFormRegistration(FORM_REGISTRATION);
 
             } else if(formRegistration.userName.length<=5){
-                alert('Имя должно содержать более 5 символов')
+                // alert('Имя должно содержать более 5 символов')
+                dispatch(setErrortWindWisible());
+                dispatch(setErrorTitle(''));
+                dispatch(setErrorText('Имя должно содержать более 5 символов'));
+
+
+
             } else if(formRegistration.password_1.length<=7){
-                alert('Пароль должен содержать ,больше 7 символов')
+                // alert('Пароль должен содержать ,больше 7 символов')
+                dispatch(setErrortWindWisible());
+                dispatch(setErrorTitle(''));
+                dispatch(setErrorText('Пароль должен содержать ,больше 7 символов'));
             }else if (formRegistration.password_1!==formRegistration.password_2){
-                alert('Пароли не совпадают')
+                // alert('Пароли не совпадают')
+                dispatch(setErrortWindWisible());
+                dispatch(setErrorTitle(''));
+                dispatch(setErrorText('Пароли не совпадают'));
+
             } else {
-                alert('Не все поля заполнены')
+                // alert('Не все поля заполнены')
+
+                dispatch(setErrortWindWisible());
+                dispatch(setErrorTitle(''));
+                dispatch(setErrorText('Не все поля заполнены'));
             }
 
 
@@ -236,10 +326,18 @@ function LogIn() {
                     });
 
             } else{
-                alert('Не все поля заполнены')
+                // alert('Не все поля заполнены')
+                dispatch(setErrortWindWisible());
+                dispatch(setErrorTitle(''));
+                dispatch(setErrorText('Не все поля заполнены'));
+
             }
 
         }
+
+        setTimeout(()=>{
+            dispatch(cleanError(null))
+        },5000)
 
     };
 
