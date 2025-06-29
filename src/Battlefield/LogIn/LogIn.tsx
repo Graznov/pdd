@@ -6,6 +6,7 @@ import EyeHidden from '/src/assets/eye-hidden.svg?react'
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setUserName} from "../../store/userDataSlice.ts";
+import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
 
 const cx = classNames.bind(styles);
 
@@ -140,40 +141,99 @@ function LogIn() {
 
                 //отправка на сервер
 
+                // fetch(`http://localhost:3000/user/login`, {
+                //     method: 'POST', // Указываем метод запроса
+                //     headers: {
+                //         'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
+                //     },
+                //     credentials: "include",
+                //     body: JSON.stringify(formLogIn)
+                // })
+                //     .then((response) => {
+                //
+                //         if (!response.ok) {
+                //
+                //             if(response.status === 400) {
+                //                 // alert('Логин или(и) пароль неверны')
+                //                 dispatch(setErrortWindWisible())
+                //                 dispatch(setErrorTitle('Логин или(и) пароль неверны'))
+                //                 dispatch(setErrorStatus(response.status))
+                //                 dispatch(setErrorText(response.statusText))
+                //
+                //             }
+                //             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                //
+                //
+                //         }
+                //         return response.json()
+                //     })
+                //     .then((data) => {
+                //
+                //         console.log('Данные получены', data)
+                //
+                //         localStorage.setItem('PDD_accessToken', data.accessToken)
+                //         localStorage.setItem('PDD_id', data.id)
+                //
+                //         dispatch(setUserName(data))
+                //         // dispatch(setEmail(data.email))
+                //
+                //         navigate('/userdata')
+                //     })
+                //     .catch((err) => {
+                //         // alert('Что то пошло не так, попробуйте еще раз')
+                //
+                //         // dispatch(setErrortWindWisible())
+                //         // dispatch(setErrorTitle('Произошла ошибка'))
+                //         // dispatch(setErrorStatus('504 Gateway Timeout'))
+                //         // dispatch(setErrorText(err.message))
+                //         console.log(err)
+                //         console.log('Произошла ошибка',err.status, err.message)
+                //     })
+
                 fetch(`http://localhost:3000/user/login`, {
-                    method: 'POST', // Указываем метод запроса
-                    headers: {
-                        'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
-                    },
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
                     credentials: "include",
                     body: JSON.stringify(formLogIn)
                 })
-                    .then((response) => {
-
+                    .then(async (response) => {
                         if (!response.ok) {
-                            if(response.status === 400) alert('Логин или(и) пароль неверны')
-                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                            const errorData = await response.json().catch(() => ({}));
+                            const message = errorData.message || response.statusText || 'Ошибка авторизации';
+
+                            dispatch(setErrortWindWisible());
+                            dispatch(setErrorTitle(
+                                response.status === 401 || response.status === 400
+                                    ? 'Неверный логин или пароль'
+                                    : `Ошибка сервера (${response.status})`
+                            ));
+                            dispatch(setErrorStatus(response.status));
+                            dispatch(setErrorText(message));
+
+                            throw new Error(message);
                         }
-                        return response.json()
+                        return response.json();
                     })
                     .then((data) => {
+                        if (!data.accessToken || !data.id) {
+                            throw new Error('Неполные данные от сервера');
+                        }
 
-                        console.log('Данные получены', data)
-
-                        localStorage.setItem('PDD_accessToken', data.accessToken)
-                        localStorage.setItem('PDD_id', data.id)
-
-                        dispatch(setUserName(data))
-                        // dispatch(setEmail(data.email))
-
-                        navigate('/userdata')
+                        localStorage.setItem('PDD_accessToken', data.accessToken);
+                        localStorage.setItem('PDD_id', data.id);
+                        dispatch(setUserName(data));
+                        navigate('/userdata');
                     })
                     .catch((err) => {
-                        alert('Что то пошло не так, попробуйте еще раз')
-
-                        console.log(err)
-                        console.log('Произошла ошибка',err.status, err.message)
-                    })
+                        console.error('Auth error:', err);
+                        dispatch(setErrortWindWisible());
+                        dispatch(setErrorTitle(
+                            err.message.includes('Failed to fetch')
+                                ? 'Сервер недоступен'
+                                : 'Ошибка авторизации'
+                        ));
+                        dispatch(setErrorText(err.message));
+                    });
 
             } else{
                 alert('Не все поля заполнены')

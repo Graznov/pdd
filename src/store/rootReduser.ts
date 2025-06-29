@@ -4,6 +4,7 @@ import marafonSlice from "./marafonSlice.ts";
 import styleSlice from "./styleSlise.ts";
 import examSlice from "./examSlice.ts";
 import userDataSlice from "./userDataSlice.ts";
+import backErrorSlice from "./backErrorSlise.ts"
 
 export const rootReduser = combineReducers({
     // defSlice,
@@ -11,5 +12,6 @@ export const rootReduser = combineReducers({
     marafonSlice,
     searchSlice,
     examSlice,
-    userDataSlice
+    userDataSlice,
+    backErrorSlice
 })

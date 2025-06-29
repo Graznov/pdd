@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
 import {useEffect} from "react";
 import {resetUserData, setUserName} from "../store/userDataSlice.ts";
 import {setWind} from "../store/styleSlise.ts";
+import BackError from "./UserData/BackError/BackError.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -73,6 +74,8 @@ function Bf(){
     return (
             <div className={cx('container')}>
 
+                <BackError/>
+
                 <header>
                     <div className={cx('content')}>
 
@@ -109,6 +112,7 @@ function Bf(){
                     <div className={cx('content')}>
 
                         <Outlet/>
+
 
                     </div>
                 </main>
