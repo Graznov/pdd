@@ -124,10 +124,80 @@ function LogIn() {
                 //         console.log('Произошла ошибка', err.message, err.status)
                 //     })
 
+                // fetch(`http://localhost:3000/user/register`, {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     },
+                //     body: JSON.stringify({
+                //         name: formRegistration.userName,
+                //         password: formRegistration.password_1,
+                //     })
+                // })
+                //     .then(async (response) => {
+                //         if (!response.ok) {
+                //             const errorData = await response.json().catch(() => ({}));
+                //             const errorMessage = errorData.message || response.statusText || 'Ошибка регистрации';
+                //
+                //             // Обработка специфических статусов
+                //             switch(response.status) {
+                //                 case 409: // Конфликт (имя занято)
+                //                     setNameError(true);
+                //                     setTimeout(() => setNameError(false), 1000);
+                //                     throw new Error('Это имя пользователя уже занято');
+                //
+                //                 case 400: // Неверный запрос
+                //                     throw new Error(errorData.errors?.join(', ') || 'Некорректные данные');
+                //
+                //                 default:
+                //                     throw new Error(errorMessage);
+                //             }
+                //         }
+                //         return response.json();
+                //     })
+                //     .then((data) => {
+                //         // Проверка наличия необходимых данных
+                //         if (!data || (!data.id && !data.name)) {
+                //             throw new Error('Сервер не вернул данные пользователя');
+                //         }
+                //
+                //         console.log('Регистрация успешна', data);
+                //
+                //         // Обновление состояния формы
+                //         setFormLogIn(prev => ({
+                //             ...prev,
+                //             name: formRegistration.userName
+                //         }));
+                //
+                //         setIsLoginVisible(!isLoginVisible);
+                //         setFormRegistration(FORM_REGISTRATION);
+                //
+                //
+                //
+                //         // Можно добавить автоматический логин после регистрации
+                //         // dispatch(autoLoginAfterRegistration(data));
+                //     })
+                //     .catch((err) => {
+                //         console.error('Ошибка регистрации:', err);
+                //
+                //         // Улучшенное отображение ошибок пользователю
+                //         const userFriendlyMessage = err.message.includes('занято') ? 'Это имя пользователя уже занято' : 'Произошла ошибка при регистрации';
+                //             // err.message.includes('already') ? 'Это имя пользователя уже занято' :
+                //             //     err.message.includes('Некорректные') ? 'Проверьте введённые данные' :
+                //             //         'Произошла ошибка при регистрации';
+                //
+                //         // Вместо alert используем ваш механизм отображения ошибок
+                //         dispatch(setErrorTitle('Ошибка регистрации'));
+                //         dispatch(setErrorText(userFriendlyMessage));
+                //         dispatch(setErrorStatus(err.status));
+                //         dispatch(setErrortWindWisible());
+                //     });
+
                 fetch(`http://localhost:3000/user/register`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
                         name: formRegistration.userName,
@@ -136,19 +206,24 @@ function LogIn() {
                 })
                     .then(async (response) => {
                         if (!response.ok) {
-                            const errorData = await response.json().catch(() => ({}));
+                            const contentType = response.headers.get('content-type');
+                            let errorData = {};
+
+                            if (contentType?.includes('application/json')) {
+                                errorData = await response.json().catch(() => ({}));
+                            } else {
+                                errorData.message = await response.text();
+                            }
+
                             const errorMessage = errorData.message || response.statusText || 'Ошибка регистрации';
 
-                            // Обработка специфических статусов
                             switch(response.status) {
-                                case 409: // Конфликт (имя занято)
+                                case 409:
                                     setNameError(true);
                                     setTimeout(() => setNameError(false), 1000);
                                     throw new Error('Это имя пользователя уже занято');
-
-                                case 400: // Неверный запрос
+                                case 400:
                                     throw new Error(errorData.errors?.join(', ') || 'Некорректные данные');
-
                                 default:
                                     throw new Error(errorMessage);
                             }
@@ -156,38 +231,24 @@ function LogIn() {
                         return response.json();
                     })
                     .then((data) => {
-                        // Проверка наличия необходимых данных
                         if (!data || (!data.id && !data.name)) {
                             throw new Error('Сервер не вернул данные пользователя');
                         }
 
                         console.log('Регистрация успешна', data);
-
-                        // Обновление состояния формы
-                        setFormLogIn(prev => ({
-                            ...prev,
-                            name: formRegistration.userName
-                        }));
-
+                        setFormLogIn(prev => ({ ...prev, name: formRegistration.userName }));
                         setIsLoginVisible(!isLoginVisible);
                         setFormRegistration(FORM_REGISTRATION);
-
-                        // Можно добавить автоматический логин после регистрации
-                        // dispatch(autoLoginAfterRegistration(data));
                     })
                     .catch((err) => {
                         console.error('Ошибка регистрации:', err);
+                        const userFriendlyMessage = err.message.includes('занято')
+                            ? 'Это имя пользователя уже занято'
+                            : 'Произошла ошибка при регистрации';
 
-                        // Улучшенное отображение ошибок пользователю
-                        const userFriendlyMessage = err.message.includes('занято') ? 'Это имя пользователя уже занято' : 'Произошла ошибка при регистрации';
-                            // err.message.includes('already') ? 'Это имя пользователя уже занято' :
-                            //     err.message.includes('Некорректные') ? 'Проверьте введённые данные' :
-                            //         'Произошла ошибка при регистрации';
-
-                        // Вместо alert используем ваш механизм отображения ошибок
                         dispatch(setErrorTitle('Ошибка регистрации'));
                         dispatch(setErrorText(userFriendlyMessage));
-                        dispatch(setErrorStatus(err.status));
+                        dispatch(setErrorStatus(err.status || 500));
                         dispatch(setErrortWindWisible());
                     });
 
