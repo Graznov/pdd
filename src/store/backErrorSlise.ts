@@ -18,6 +18,7 @@ const backErrorSlice = createSlice({
     name: 'styleSlice',
     initialState,
     reducers: {
+
         setErrortWindWisible(state){
             state.backErrorWindVisible = true
         },
