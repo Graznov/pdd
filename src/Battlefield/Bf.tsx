@@ -34,6 +34,7 @@ function Bf(){
     const name = (UserData.entrance)?UserData.userName:'LogIn';
     document.title = title
 
+    let errorTimer:number|undefined
     useEffect(() => {
 
         console.log("%c"
@@ -41,6 +42,7 @@ function Bf(){
             "color:tomato;font-size:17px;");
 
         if(UserData.entrance)return
+        clearTimeout(errorTimer)
 
         console.log("%c"
             + `Bf.tsx\nupdate UserData`,
@@ -103,7 +105,7 @@ function Bf(){
                     dispatch(setErrortWindWisible());
                 });
 
-        setTimeout(()=>{
+        errorTimer = setTimeout(()=>{
             dispatch(cleanError(null))
         },5000)
     }, []);

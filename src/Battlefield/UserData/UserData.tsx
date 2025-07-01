@@ -54,17 +54,24 @@ let errorTimer:number|undefined
             .then(response => {
                 // response.text()
                 // console.log(response)
+                if (!response.ok) {
+                    throw new Error(`${response.status}: ${response.statusText}`);
+                }
                 dispatch(setErrorTitle(response.ok?'Good':'Error...'));
                 dispatch(setErrorStatus(response.status || 500));
                 dispatch(setErrorText(response.statusText));
                 dispatch(setErrortWindWisible());
+
+                return response.text();
+
             }) // Читаем ответ как текст
             .then(data => {
                 console.log(data); // Выводим ответ сервера ("Cookie has been set!")
             })
             .catch(error => {
                 console.error('Ошибка:', error);
-                dispatch(setErrorTitle('______'));
+                console.log(error)
+                dispatch(setErrorTitle('Error'));
                 dispatch(setErrorStatus(error.status || 500));
                 dispatch(setErrorText(error.statusText));
                 dispatch(setErrortWindWisible());
@@ -79,6 +86,8 @@ let errorTimer:number|undefined
     const deleteAccount = () => {
         console.log('delete Account');
 
+        clearTimeout(errorTimer)
+
         fetch(`http://localhost:3000/user/delete/${UserData.id}`, {
             method: 'DELETE', // Метод запроса
             credentials: 'include', // Важно для отправки/получения cookie
@@ -88,27 +97,72 @@ let errorTimer:number|undefined
             },
         })
             .then(response => {
-                response.text()
+                // response.text()
                 console.log(response)
-                if(response.status === 200){
-                    dispatch(resetUserData())
-                    localStorage.removeItem('PDD_accessToken');
-                    localStorage.removeItem('PDD_id');
-                    navigate('/login')
-                } else if (response.status === 401){
-                    dispatch(resetUserData())
-                    localStorage.removeItem('PDD_accessToken');
-                    localStorage.removeItem('PDD_id');
-                    navigate('/login')
-                    alert('Авторизуйтесь и повторите попытку')
+                if (!response.ok) {
+
+                    if (response.status === 401){
+
+                        console.log(response.status)
+                        dispatch(resetUserData())
+                        localStorage.removeItem('PDD_accessToken');
+                        localStorage.removeItem('PDD_id');
+
+                        dispatch(setErrorTitle('Error...'));
+                        dispatch(setErrorStatus(response.status));
+                        dispatch(setErrorText('Токены недействительны\nПовторите попытку'));
+                        dispatch(setErrortWindWisible());
+                        // alert('Авторизуйтесь и повторите попытку')
+                        return
+                    }
+
+                    throw new Error(`${response.status}: ${response.statusText}`);
+
+                } else {
+
+                    if(response.status === 200){
+                        dispatch(resetUserData())
+                        localStorage.removeItem('PDD_accessToken');
+                        localStorage.removeItem('PDD_id');
+
+                        dispatch(setErrorTitle('The account is deleted'));
+                        dispatch(setErrorStatus(response.status || 500));
+                        dispatch(setErrorText(response.statusText));
+                        dispatch(setErrortWindWisible());
+
+                        navigate('/login')
+
+                    }
+
                 }
+
+                return response.text();
+
             }) // Читаем ответ как текст
             .then(data => {
                 console.log(data); // Выводим ответ сервера ("Cookie has been set!")
             })
             .catch(error => {
                 console.error('Ошибка:', error);
+                console.log(error)
+                dispatch(resetUserData())
+                localStorage.removeItem('PDD_accessToken');
+                localStorage.removeItem('PDD_id');
+
+                dispatch(setErrorTitle('Error...'));
+                dispatch(setErrorStatus(error.status || 500));
+                dispatch(setErrorText('Аккаунт не удален\nПовторите попытку'));
+                dispatch(setErrortWindWisible());
+
+                navigate('/login')
+
+
             });
+
+        errorTimer = setTimeout(()=>{
+            dispatch(cleanError(null))
+        },5000)
+
     }
 
     const [deleteWindow, setDeleteWindow] = useState<boolean>(false)
