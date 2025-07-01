@@ -11,6 +11,13 @@ import ErrorSVG from '/src/assets/error.svg?react'
 import {resetUserData} from "../../store/userDataSlice.ts";
 import ErrorPage from "../../Errorpage/ErrorPage.tsx";
 import {setTitle, setWind} from "../../store/styleSlise.ts";
+import {
+    cleanError,
+    setErrorStatus,
+    setErrorText,
+    setErrorTitle,
+    setErrortWindWisible
+} from "../../store/backErrorSlise.ts";
 
 
 const cx = classNames.bind(styles);
@@ -33,10 +40,10 @@ function UserData(){
     console.log(UserData)
 
 
-
+let errorTimer:number|undefined
     const logOut = () => {
         console.log('Exit Account');
-
+        clearTimeout(errorTimer)
         localStorage.removeItem('PDD_accessToken');
         localStorage.removeItem('PDD_id');
         dispatch(resetUserData())
@@ -44,13 +51,28 @@ function UserData(){
             method: 'POST', // Метод запроса
             credentials: 'include' // Важно для отправки/получения cookie
         })
-            .then(response => response.text()) // Читаем ответ как текст
+            .then(response => {
+                // response.text()
+                // console.log(response)
+                dispatch(setErrorTitle(response.ok?'Good':'Error...'));
+                dispatch(setErrorStatus(response.status || 500));
+                dispatch(setErrorText(response.statusText));
+                dispatch(setErrortWindWisible());
+            }) // Читаем ответ как текст
             .then(data => {
                 console.log(data); // Выводим ответ сервера ("Cookie has been set!")
             })
             .catch(error => {
                 console.error('Ошибка:', error);
+                dispatch(setErrorTitle('______'));
+                dispatch(setErrorStatus(error.status || 500));
+                dispatch(setErrorText(error.statusText));
+                dispatch(setErrortWindWisible());
             });
+
+        errorTimer = setTimeout(()=>{
+            dispatch(cleanError(null))
+        },5000)
 
     }
 
