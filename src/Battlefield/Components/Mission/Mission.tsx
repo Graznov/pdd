@@ -16,6 +16,13 @@ import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from ".
 import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
 import logIn from "../../LogIn/LogIn.tsx";
+import {
+    cleanError,
+    setErrorStatus,
+    setErrorText,
+    setErrorTitle,
+    setErrortWindWisible
+} from "../../../store/backErrorSlise.ts";
 
 
 const cx = classNames.bind(styles);
@@ -75,49 +82,13 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const [answerIndex, setAnswerIndex] = useState(-1);
     const [crashMission, setCrashMission] = useState(false);
 
+    let errorTimer:number|undefined
     const handleAnswerClick = (index:number, isCorrect:boolean) => {
 
+        clearTimeout(errorTimer)
         // if(!isCorrect && wind!=='error') dispatch(pushError(id))
 
             if(UserData.entrance){
-
-                // fetch(`http://localhost:3000/user/pusherror/${UserData.id}`, {
-                //     method: 'PATCH', // Указываем метод запроса
-                //     credentials: "include",
-                //     headers: {
-                //         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                //         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
-                //     },
-                //     body: JSON.stringify({id:id, correct: isCorrect, wind:wind})
-                // })
-                //     .then((response) => {
-                //         if (!response.ok) {
-                //
-                //             if(response.status === 400){
-                //                 // console.log('TOKENS ERROR')
-                //                 console.log('TOKENS ERROR')
-                //                 localStorage.removeItem('PDD_accessToken')
-                //                 localStorage.removeItem('PDD_id')
-                //                 dispatch(resetUserData())
-                //                 // navigate('/login')
-                //             }
-                //             // alert('Что то пошло не так, попробуйте еще раз')
-                //
-                //             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-                //         }
-                //         return response.json()
-                //     })
-                //
-                //     .then((data) => {
-                //         console.log('Данные получены', data)
-                //         localStorage.setItem('PDD_accessToken', data.accessToken)
-                //     })
-                //     .catch((err) => {
-                //
-                //         console.log('Произошла ошибка', err.message, err.status)
-                //
-                //     })
-
 
                 //DeepS
                 fetch(`http://localhost:3000/user/pusherror/${UserData.id}`, {
@@ -130,15 +101,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     body: JSON.stringify({ id: id, correct: isCorrect, wind: wind })
                 })
                     .then(async (response) => {
+
+                        // console.log(response)
                         if (!response.ok) {
-                            if (response.status === 400) {
-                                console.log('TOKENS ERROR');
-                                localStorage.removeItem('PDD_accessToken');
-                                localStorage.removeItem('PDD_id');
-                                dispatch(resetUserData());
-                            }
                             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`);
                         }
+                        // console.log(response)
 
                         // Проверяем, есть ли тело ответа
                         const text = await response.text();
@@ -150,12 +118,27 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                             localStorage.setItem('PDD_accessToken', data.accessToken);
                         } else {
                             console.log('Бекенд вернул пустой ответ');
+                            dispatch(setErrorTitle('Ok'));
+                            dispatch(setErrorStatus('204'));
+                            dispatch(setErrorText('Бекенд вернул пустой ответ'));
+                            dispatch(setErrortWindWisible());
                         }
                     })
                     .catch((err) => {
+                        console.log(err)
                         console.log('Произошла ошибка:', err.message);
-                        alert('Что то пошло не так, попробуйте еще раз')
+
+                        dispatch(setErrorTitle('Fetch error:'));
+                        dispatch(setErrorStatus(err.status));
+                        dispatch(setErrorText('Чтото пошло не так\nВойдите чтобы продолжить'));
+                        dispatch(setErrortWindWisible());
+                        dispatch(resetUserData());
+
                     });
+
+                errorTimer = setTimeout(()=>{
+                    dispatch(cleanError(null))
+                },700)
                 //DeepS
 
             }

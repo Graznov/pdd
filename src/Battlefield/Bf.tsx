@@ -35,13 +35,14 @@ function Bf(){
     document.title = title
 
     let errorTimer:number|undefined
+
     useEffect(() => {
 
         console.log("%c"
             + `Bf.tsx\nДо обновления UserData`,
             "color:tomato;font-size:17px;");
 
-        if(UserData.entrance)return
+        // if(!UserData.entrance)return
         clearTimeout(errorTimer)
 
         console.log("%c"
@@ -49,6 +50,9 @@ function Bf(){
             "color:tomato;font-size:17px;");
             const headersToken = localStorage.getItem('PDD_accessToken') || ''
 
+        // if(UserData.entrance){
+
+            console.log('FETCH')
             fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
                 method: 'GET', // Указываем метод GET
                 headers: {
@@ -62,13 +66,14 @@ function Bf(){
                     if (!response.ok) {
                         // cleanData()
                         dispatch(resetUserData())
-                        navigate('/login')
-                        console.log(response)
+                        // console.log(response)
+                        //
+                        // dispatch(setErrorTitle('Ошибка'));
+                        // dispatch(setErrorStatus(response.status || 500));
+                        // dispatch(setErrorText(response.statusText));
+                        // dispatch(setErrortWindWisible());
+                        // navigate('/login')
 
-                        dispatch(setErrorTitle('Ошибка'));
-                        dispatch(setErrorStatus(response.status || 500));
-                        dispatch(setErrorText(response.statusText));
-                        dispatch(setErrortWindWisible());
                         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
                     }
 
@@ -104,6 +109,9 @@ function Bf(){
                     dispatch(setErrorText(error.statusText));
                     dispatch(setErrortWindWisible());
                 });
+        // }
+
+
 
         errorTimer = setTimeout(()=>{
             dispatch(cleanError(null))
