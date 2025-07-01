@@ -60,10 +60,14 @@ function LogIn() {
 
     const [nameError, setNameError] = useState(false);
 
-
+    let errorTimer:number|undefined
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(isLoginVisible ? "Login form submitted" : "Register form submitted");
+
+
+        clearTimeout(errorTimer)
+
         // Здесь можно добавить логику отправки данных на сервер
         if(!isLoginVisible){
 
@@ -172,55 +176,6 @@ function LogIn() {
 
                 //отправка на сервер
 
-                // fetch(`http://localhost:3000/user/login`, {
-                //     method: 'POST', // Указываем метод запроса
-                //     headers: {
-                //         'Content-Type': 'application/json' // Устанавливаем заголовок Content-Type для указания типа данных
-                //     },
-                //     credentials: "include",
-                //     body: JSON.stringify(formLogIn)
-                // })
-                //     .then((response) => {
-                //
-                //         if (!response.ok) {
-                //
-                //             if(response.status === 400) {
-                //                 // alert('Логин или(и) пароль неверны')
-                //                 dispatch(setErrortWindWisible())
-                //                 dispatch(setErrorTitle('Логин или(и) пароль неверны'))
-                //                 dispatch(setErrorStatus(response.status))
-                //                 dispatch(setErrorText(response.statusText))
-                //
-                //             }
-                //             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-                //
-                //
-                //         }
-                //         return response.json()
-                //     })
-                //     .then((data) => {
-                //
-                //         console.log('Данные получены', data)
-                //
-                //         localStorage.setItem('PDD_accessToken', data.accessToken)
-                //         localStorage.setItem('PDD_id', data.id)
-                //
-                //         dispatch(setUserName(data))
-                //         // dispatch(setEmail(data.email))
-                //
-                //         navigate('/userdata')
-                //     })
-                //     .catch((err) => {
-                //         // alert('Что то пошло не так, попробуйте еще раз')
-                //
-                //         // dispatch(setErrortWindWisible())
-                //         // dispatch(setErrorTitle('Произошла ошибка'))
-                //         // dispatch(setErrorStatus('504 Gateway Timeout'))
-                //         // dispatch(setErrorText(err.message))
-                //         console.log(err)
-                //         console.log('Произошла ошибка',err.status, err.message)
-                //     })
-
                 fetch(`http://localhost:3000/user/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -276,10 +231,11 @@ function LogIn() {
 
         }
 
-        setTimeout(()=>{
+
+        errorTimer = setTimeout(()=>{
             dispatch(cleanError(null))
         },5000)
-
+        // clearTimeout(errorTimer)
     };
 
     // console.log(`isLoginVisible: ${isLoginVisible}`);

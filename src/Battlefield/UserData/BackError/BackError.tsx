@@ -16,23 +16,18 @@ function BackError(){
 
     return(
         <div className={cx('backError',
-            {'backError_visible' : errorData.backErrorWindVisible})}
-
-        >
-            {/*<button onClick={dispatch(cleanError(null))}>*/}
-            {/*    X*/}
-            {/*</button>*/}
-            <div className={cx('backError_title')}>
-                {/*Не удалось сохранить данные*/}
-                {errorData.title}
+            {'backError_visible' : errorData.backErrorWindVisible})}>
+            <div className={cx('string', 'backError_title')}>
+                <div>title:</div>
+                <span>{errorData.title}</span>
             </div>
-            <div className={cx('backError_status')}>
-                {/*400-BAD_REQUEST*/}
-                {errorData.status}
+            <div className={cx('string', 'backError_status')}>
+                <div>status:</div>
+                <span>{errorData.status}</span>
             </div>
-            <div className={cx('backError_text')}>
-                {/*Попробуйте позже или напишите в поддержку: support@example.com*/}
-                {errorData.text}
+            <div className={cx('string', 'backError_text')}>
+                <div>text:</div>
+                <span>{errorData.text}</span>
             </div>
 
         </div>

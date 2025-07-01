@@ -6,11 +6,25 @@
     width: 300px;
     /*height: 100px;*/
     background: rgba(37, 37, 37, 0.6);
-    color: #ffff00;
+    /*color: #ffff00;*/
     padding: 15px;
     font-size: 25px;
 
     display: none;
+
+    .string{
+        display: flex;
+        gap: 5px;
+        span{
+            font-size: 17px;
+            font-family: Verdana, sans-serif;
+        }
+        div{
+            color: #262626;
+            font-size: 14px;
+            font-family: "Roboto Light", sans-serif;
+        }
+    }
 }
 
 .backError_visible{

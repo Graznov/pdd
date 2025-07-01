@@ -6,6 +6,13 @@ import {useEffect} from "react";
 import {resetUserData, setUserName} from "../store/userDataSlice.ts";
 import {setWind} from "../store/styleSlise.ts";
 import BackError from "./UserData/BackError/BackError.tsx";
+import {
+    cleanError,
+    setErrorStatus,
+    setErrorText,
+    setErrorTitle,
+    setErrortWindWisible
+} from "../store/backErrorSlise.ts";
 
 const cx = classNames.bind(styles);
 
@@ -54,8 +61,19 @@ function Bf(){
                         // cleanData()
                         dispatch(resetUserData())
                         navigate('/login')
+                        console.log(response)
+
+                        dispatch(setErrorTitle('Ошибка'));
+                        dispatch(setErrorStatus(response.status || 500));
+                        dispatch(setErrorText(response.statusText));
+                        dispatch(setErrortWindWisible());
                         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
                     }
+
+                    dispatch(setErrorTitle('данные получены'));
+                    dispatch(setErrorStatus(response.status || 500));
+                    dispatch(setErrorText(response.statusText));
+                    dispatch(setErrortWindWisible());
 
                     return response.json()
                 })
@@ -64,10 +82,30 @@ function Bf(){
                     if (data.accessToken) {
                         localStorage.setItem('PDD_accessToken', data.accessToken)
                         dispatch(setUserName(data))
+
+                        // dispatch(setErrorTitle('данные обновлены'));
+                        // dispatch(setErrorText(err));
+                        // dispatch(setErrorStatus(err.status || 500));
+                        // dispatch(setErrortWindWisible());
                     }else {
                         console.log(`NO accessToken`)
+                        // dispatch(setErrorTitle('Ошибка'));
+                        // dispatch(setErrorText(err));
+                        // dispatch(setErrorStatus(err.status || 500));
+                        // dispatch(setErrortWindWisible());
                     }
                 })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                    dispatch(setErrorTitle('Fetch error:'));
+                    dispatch(setErrorStatus(error.status || 500));
+                    dispatch(setErrorText(error.statusText));
+                    dispatch(setErrortWindWisible());
+                });
+
+        setTimeout(()=>{
+            dispatch(cleanError(null))
+        },5000)
     }, []);
 
 
