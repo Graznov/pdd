@@ -147,6 +147,9 @@ function Bf(){
                         <div className={cx('header_User', 'header_btnArea')}>
                             <NavLink
                                 to={(UserData.entrance)?'/userdata':'/login'}
+                                onClick={()=>{
+                                    if(!UserData.entrance) dispatch(setWind('user'))
+                                }}
                                 className={cx('header_User_Name')}>
                                 {name}
                             </NavLink>

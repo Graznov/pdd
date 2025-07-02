@@ -9,7 +9,8 @@ const cx = classNames.bind(styles);
 function BackError(){
 
     const dispatch = useAppDispatch()
-
+    const entrance = useAppSelector(state => state.userDataSlice.entrance)
+    const wind = useAppSelector(state => state.styleSlice.wind)
     const errorData = useAppSelector(state => state.backErrorSlice);
 
     console.log(errorData)
