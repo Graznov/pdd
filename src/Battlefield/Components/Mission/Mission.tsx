@@ -243,7 +243,12 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         // console.log('Push_Star')
         dispatch(pushSelectedQuestion(id))
 
+        let errorTimer:number|undefined
+
+        clearTimeout(errorTimer)
+
         if(UserData.entrance){
+
             fetch(`http://localhost:3000/user/redactstar/${UserData.id}`, {
                 method: 'PATCH', // Указываем метод запроса
                 credentials: "include",
@@ -257,6 +262,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
                     console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
 
+                    console.log('response:\n', response)
                     if (!response.ok) {
                         console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
 
@@ -265,13 +271,24 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                             localStorage.removeItem('PDD_accessToken')
                             localStorage.removeItem('PDD_id')
                             dispatch(resetUserData())
+
+                            dispatch(setErrorTitle('Ошибка токена'));
+                            dispatch(setErrorText(`${response.statusText}, \nвойдите в учетную запись`));
+                            dispatch(setErrorStatus(response.status || 500));
+                            dispatch(setErrortWindWisible());
                         }
                         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                    } else {
+                        if(response.status === 200 || response.status === 204){
+                            dispatch(setErrorTitle('Успешно'));
+                            dispatch(setErrorText(response.statusText));
+                            dispatch(setErrorStatus(response.status || 500));
+                            dispatch(setErrortWindWisible());
+                        }
                     }
 
-                    // console.log(response.status)
-
                     return response.json()
+
                 })
 
                 .then((data) => {
@@ -279,9 +296,14 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     localStorage.setItem('PDD_accessToken', data.accessToken)
                 })
                 .catch((err) => {
-                    alert('Что то пошло не так, попробуйте еще раз')
-                    console.log('Произошла ошибка', err.message, err.status)
+                    console.log('Произошла ошибка', err)
+
+
                 })
+
+            errorTimer = setTimeout(()=>{
+                dispatch(cleanError(null))
+            },5000)
 
         }
 
