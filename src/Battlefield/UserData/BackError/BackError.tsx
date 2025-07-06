@@ -20,15 +20,15 @@ function BackError(){
             {'backError_visible' : errorData.backErrorWindVisible})}>
             <div className={cx('string', 'backError_title')}>
                 <div>title:</div>
-                <span>{errorData.title}</span>
+                <div className={cx('span')}>{errorData.title}</div>
             </div>
             <div className={cx('string', 'backError_status')}>
                 <div>status:</div>
-                <span>{errorData.status}</span>
+                <div className={cx('span')}>{errorData.status}</div>
             </div>
             <div className={cx('string', 'backError_text')}>
                 <div>text:</div>
-                <span>{errorData.text}</span>
+                <div className={cx('span')}>{errorData.text}</div>
             </div>
 
         </div>

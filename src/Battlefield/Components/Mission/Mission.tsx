@@ -279,6 +279,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         }
                         throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
                     } else {
+                        console.log(response)
                         if(response.status === 200 || response.status === 204){
                             dispatch(setErrorTitle('Успешно'));
                             dispatch(setErrorText(response.statusText));
@@ -287,17 +288,26 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         }
                     }
 
-                    return response.json()
-
+                    // return response.json()
+                    return response.text()
                 })
 
                 .then((data) => {
                     console.log('Данные получены', data)
                     localStorage.setItem('PDD_accessToken', data.accessToken)
+                    if (!data) {
+                        throw new Error("Empty response");
+                    }
+                    return JSON.parse(data); // Парсим JSON только если есть данные
+
                 })
                 .catch((err) => {
                     console.log('Произошла ошибка', err)
 
+                    dispatch(setErrorTitle('Ошибка'));
+                    dispatch(setErrorText(err.toString()));
+                    dispatch(setErrorStatus(err.status || 500));
+                    dispatch(setErrortWindWisible());
 
                 })
 

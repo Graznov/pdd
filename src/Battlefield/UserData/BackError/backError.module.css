@@ -16,7 +16,7 @@
     .string{
         display: flex;
         gap: 5px;
-        span{
+        .span{
             font-size: 17px;
             font-family: Verdana, sans-serif;
         }
