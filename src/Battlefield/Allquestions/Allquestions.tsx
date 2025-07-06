@@ -15,17 +15,20 @@ function Allquestions(){
 
     const dispatch = useAppDispatch()
 
-
+    const isEntered = useAppSelector(state => state.userDataSlice.entrance)
     const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
     const list = useAppSelector(state => state.marafonSlice.listQuests);
     const red = useAppSelector(state => state.marafonSlice.red);
     const green = useAppSelector(state => state.marafonSlice.green);
 
     dispatch(setWind('marafon'))
+
     if (list.length === 0) {
         const allQwest:props_mission[] = All.default.sort(function(){
             return Math.random() - 0.5;
         });
+
+
 
         const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
 
@@ -40,8 +43,42 @@ function Allquestions(){
             return res
         },[])
 
+
+
+        if(isEntered){
+
+            const bcndArr = listNumbersQuest.reduce((x:{}[], el, z)=>{
+                x.push({
+                    id:el.id,
+                    yourResponse:el.yourResponse,
+                    status:el.status
+                })
+                return x
+            },[])
+            console.log(bcndArr)
+
+        }
+
+
+        // answer_tip
+        // answers
+        // correct_answer
+        // id: "51626a271b7cc0a56285573791689c24"
+        // image
+        // number
+        // question
+        // response
+        // status
+        // ticket_category
+        // ticket_number
+        // title
+        // topic
+        // yourResponse: null
+
         dispatch(setListQuest(listNumbersQuest))
     }
+
+    console.log()
 
     // console.log("%c"
     //     + `Allquestions.tsx\nlist: ${list[activeQwest]}`,

@@ -98,7 +98,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         'Content-Type': 'application/json',
                         'Authorization': localStorage.getItem('PDD_accessToken')!,
                     },
-                    body: JSON.stringify({ id: id, correct: isCorrect, wind: wind })
+                    body: JSON.stringify({ id: id, correct: isCorrect, wind: wind, yourResponse: index })
                 })
                     .then(async (response) => {
 
