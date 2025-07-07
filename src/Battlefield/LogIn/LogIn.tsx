@@ -2,6 +2,7 @@ import styles from "./login.module.css";
 import classNames from "classnames/bind";
 import {useEffect, useState} from "react";
 import Eye from '/src/assets/eye.svg?react'
+import Close from '/src/assets/close.svg?react'
 import EyeHidden from '/src/assets/eye-hidden.svg?react'
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
@@ -241,6 +242,7 @@ function LogIn() {
 
     // console.log(`isLoginVisible: ${isLoginVisible}`);
 
+    const [zachemVisible, setZachemVisible] = useState(false);
     return (
         <div className={cx("login-page")}>
             <div className={cx("form")}>
@@ -249,8 +251,8 @@ function LogIn() {
                 })}>
 
                     <input
-                        className={cx('input',{'error-name':nameError})}
-                        onChange={(event)=>{
+                        className={cx('input', {'error-name': nameError})}
+                        onChange={(event) => {
                             setFormRegistration({
                                 ...formRegistration,
                                 userName: event.target.value
@@ -275,7 +277,7 @@ function LogIn() {
                     <div className={cx('login-form_passContainer')}>
 
                         <input
-                            onChange={(event)=>{
+                            onChange={(event) => {
                                 setFormRegistration({
                                     ...formRegistration,
                                     password_1: event.target.value
@@ -293,9 +295,9 @@ function LogIn() {
                     <div className={cx('login-form_passContainer')}>
                         <input
                             className={cx({
-                                'passTwo-red':formRegistration.password_1!==formRegistration.password_2
+                                'passTwo-red': formRegistration.password_1 !== formRegistration.password_2
                             })}
-                            onChange={(event)=>{
+                            onChange={(event) => {
                                 setFormRegistration({
                                     ...formRegistration,
                                     password_2: event.target.value
@@ -327,32 +329,37 @@ function LogIn() {
                 })}>
 
                     <input
-                        className={cx({'error':error.name})}
+                        className={cx({'error': error.name})}
                         value={formLogIn.name}
-                        onChange={(event)=>{setFormLogIn({
-                            ...formLogIn,
-                            name: event.target.value
-                        })}}
+                        onChange={(event) => {
+                            setFormLogIn({
+                                ...formLogIn,
+                                name: event.target.value
+                            })
+                        }}
                         type="text"
                         placeholder="Имя"/>
                     <div className={cx('login-form_passContainer')}>
                         <input
-                            className={cx({'error':error.password})}
+                            className={cx({'error': error.password})}
                             value={formLogIn.password}
-                            onChange={(event)=>{setFormLogIn({
-                                ...formLogIn,
-                                password: event.target.value
-                            })}}
+                            onChange={(event) => {
+                                setFormLogIn({
+                                    ...formLogIn,
+                                    password: event.target.value
+                                })
+                            }}
                             type={(passVisible) ? "text" : "password"}
                             placeholder="Пароль"/>
                         <button className={cx('pass-visible-switch')} onClick={() => setPassVisible(!passVisible)}>
-                            {(passVisible)?<Eye/>:<EyeHidden/>}
+                            {(passVisible) ? <Eye/> : <EyeHidden/>}
                         </button>
                     </div>
 
                     <button
                         onClick={handleSubmit}
-                        className={cx('form-button')}>Войти</button>
+                        className={cx('form-button')}>Войти
+                    </button>
                     <p className={cx("message")}>
                         Нет аккаунта?
                         <button onClick={() => {
@@ -362,7 +369,29 @@ function LogIn() {
                         }}>Зарегестрироваться</button>
                     </p>
                 </div>
+                <button
+                    className={cx('zachem')}
+                    onClick={() => {setZachemVisible(true)}}
+                >
+                    Зачем регистрироваться?
+                </button>
+
             </div>
+
+            <div className={cx('zachem-text',{
+                'zachem-text_visible':zachemVisible
+            })}>
+                <button
+                    onClick={()=>{setZachemVisible(false)}}
+                ><Close/></button>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
+                ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
+                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            </div>
+
         </div>
     )
 }
