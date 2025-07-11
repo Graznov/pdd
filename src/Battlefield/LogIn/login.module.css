@@ -131,12 +131,32 @@
         font-family: Roboto, sans-serif;
         font-size: 19px;
         position: absolute;
+        width: 100%;
+        height: max-content;
         top: 0;
         bottom: 0;
         z-index: 10;
         border: 1px solid black;
         padding: 35px 5px 5px 5px;
         background: rgba(122,122,121, 0.9);
+
+        .zachem-text_title{
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+        .zachem-text_content{
+            font-size: 17px;
+            margin: 5px 0 0 15px;
+        }
+        .zachem-text_content:before{
+            content: "-";
+            position: absolute;
+            left: 5px;
+        }
+        .zachem-text_content_cookie{
+            margin-top: 7px;
+            font-size: 18px;
+        }
 
         button{
             position: absolute;

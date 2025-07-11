@@ -384,13 +384,15 @@ function LogIn() {
                 <button
                     onClick={()=>{setZachemVisible(false)}}
                 ><Close/></button>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
-                labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et
-                ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum
-                dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore
-                magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-            </div>
+                    <div className={cx('zachem-text_title')}>Зарегестрированные пользователи получают возможность:</div>
+                    <div className={cx('zachem-text_content')}>видеть статистику решения экзаменационных билетов</div>
+                    <div className={cx('zachem-text_content')}>добавлять вопросы в избранное</div>
+                    {/*<div className={cx('zachem-text_content')}>марафон</div>*/}
+                    <div className={cx('zachem-text_content')}>вопросы в которых были допущены ошибки будут сохраняться для последующего повторения</div>
+                    <div className={cx('zachem-text_content')}>входить в свою учетную запись с разных устройств</div>
+                    <div className={cx('zachem-text_content_cookie')}>Предупреждине мелким шрифтом: на сайте используются файлы cookie. Они используются исключительно для обеспечения базового функционала сайта. Мы не осуществляем сбор аналитической информации о действиях пользователей на сайте</div>
+
+                </div>
 
         </div>
     )
