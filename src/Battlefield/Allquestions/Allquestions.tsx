@@ -24,9 +24,10 @@ function Allquestions(){
     dispatch(setWind('marafon'))
 
     if (list.length === 0) {
-        const allQwest:props_mission[] = All.default.sort(function(){
-            return Math.random() - 0.5;
-        });
+        const allQwest:props_mission[] = All.default
+            // .sort(function(){
+            //     return Math.random() - 0.5;
+            // });
 
 
 
