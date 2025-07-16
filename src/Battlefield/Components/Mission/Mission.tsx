@@ -141,6 +141,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 },700)
                 //DeepS
 
+            } else {
+
             }
 
         console.log(`red+green = ${red+green}`)

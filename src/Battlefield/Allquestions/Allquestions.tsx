@@ -6,7 +6,7 @@ import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 
 const cx = classNames.bind(styles);
 
@@ -21,62 +21,76 @@ function Allquestions(){
     const red = useAppSelector(state => state.marafonSlice.red);
     const green = useAppSelector(state => state.marafonSlice.green);
 
+    console.log('list.length:\n',list.length)
+
+
     dispatch(setWind('marafon'))
 
-    if (list.length === 0) {
-        const allQwest:props_mission[] = All.default
-            // .sort(function(){
-            //     return Math.random() - 0.5;
-            // });
+    const [startWindMarafon, setStartWindMarafon] = useState<boolean>(true);
 
+    function startMarafon(){
 
+        if(!isEntered) {
+            console.log('list.length:\n',list.length)
+            dispatch(setListQuest(localStorage.getItem('PDD_marafon')))
 
-        const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
+            console.log('list.length:\n',list.length,'/n######/n',
+                'localStorage.getItem(\'PDD_marafon\'):\n',JSON.stringify(localStorage.getItem('PDD_marafon')))
 
-            res.push({
-                ...elem,
-                number: ind,
-                response: false,
-                status: 'none',
-                yourResponse:null
-            })
+            if(!list.length){
+                const allQwest:props_mission[] = All.default
 
-            return res
-        },[])
+                const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
 
+                    res.push({
+                        ...elem,
+                        number: ind,
+                        response: false,
+                        status: 'none',
+                        yourResponse:null
+                    })
 
+                    return res
+                },[])
 
-        if(isEntered){
+                localStorage.setItem('PDD_marafon', JSON.stringify(listNumbersQuest))
 
-            const bcndArr = listNumbersQuest.reduce((x:{}[], el, z)=>{
-                x.push({
-                    id:el.id,
-                    yourResponse:el.yourResponse,
-                    status:el.status
-                })
-                return x
-            },[])
-            console.log(bcndArr)
-
+                dispatch(setListQuest(listNumbersQuest))
+                console.log('start')
+            } else {
+                // const listNumbersQuest:quest[] = localStorage.getItem('PDD_marafon')
+                // dispatch(setListQuest(listNumbersQuest))
+                console.log('prodolzh')
+            }
         }
 
+        // if (list.length === 0) {
+        //
+        //     const allQwest:props_mission[] = All.default
+        //
+        //     const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
+        //
+        //         res.push({
+        //             ...elem,
+        //             number: ind,
+        //             response: false,
+        //             status: 'none',
+        //             yourResponse:null
+        //         })
+        //
+        //         return res
+        //     },[])
+        //
+        //     localStorage.setItem('PDD_marafon', JSON.stringify(listNumbersQuest))
+        //
+        //
+        //     dispatch(setListQuest(listNumbersQuest))
+        // } else {
+        //     const listNumbersQuest:quest[] = localStorage.getItem('PDD_marafon')
+        //     dispatch(setListQuest(listNumbersQuest))
+        //
+        // }
 
-        // answer_tip
-        // answers
-        // correct_answer
-        // id: "51626a271b7cc0a56285573791689c24"
-        // image
-        // number
-        // question
-        // response
-        // status
-        // ticket_category
-        // ticket_number
-        // title
-        // topic
-        // yourResponse: null
-
-        dispatch(setListQuest(listNumbersQuest))
     }
 
     console.log()
@@ -113,55 +127,93 @@ function Allquestions(){
 
     return(
 
-        <div className={cx('all_questions')}>
+        <>
 
-            <div ref={containerRef} className={cx('all_questions_numbers')}>
-
-                {
-                    list.map((e) => (
-                            <button
-                                key={e.number}
-                                ref={e.number === activeQwest ? activeButtonRef : null}
-                                className={cx('all_questions_numbers_qwest',{
-                                    'all_questions_numbers_qwest_red': e.status === 'red',
-                                    'all_questions_numbers_qwest_green': e.status === 'green',
-                                    'all_questions_numbers_qwest_yellow': e.number === activeQwest,
-                                })}
-                                onClick={()=> {
-                                    dispatch(setActiveQwest(e.number))
-                                }}>
-                                {e.number+1}
-                            </button>
-                        ))
-                }
-
-            </div>
-
-            <div className={cx('all_questions_counter')}>
-                <div className={cx('all_questions_counter_red')}>{red}</div>
-                <div className={cx('all_questions_counter_slash')}>
-                    {/*<Slash/>*/}/
+            <div className={cx('all_questions_start-wind',{
+                'all_questions_start-wind_VISIBLE':startWindMarafon
+            })}>
+                <div className={cx("title")}>
+                    Марафон. Все 800 вопросов
                 </div>
-                <div className={cx('all_questions_counter_green')}>{green}</div>
+
+                <div className={cx("all_questions_start-wind_btnArea")}>
+                    <button onClick={()=> {
+                        setStartWindMarafon(!startWindMarafon)
+                        startMarafon()
+                    }}>Начать</button>
+
+                    {
+                        (localStorage.getItem('PDD_marafon')) ? <button
+                            onClick={() => {
+                                setStartWindMarafon(!startWindMarafon)
+                                startMarafon()
+                            }}>Продолжить</button> : ''
+                    }
+
+                </div>
+
             </div>
 
-            <Mission
-                yourResponse={list[activeQwest].yourResponse}
-                status={list[activeQwest].status}
-                number={list[activeQwest].number}
-                response={list[activeQwest].response}
-                ticket_category={list[activeQwest].ticket_category}
-                ticket_number={`Вопрос ${activeQwest+1}`}
-                image={list[activeQwest].image}
-                question={list[activeQwest].question}
-                answers={list[activeQwest].answers}
-                correct_answer={list[activeQwest].correct_answer}
-                answer_tip={list[activeQwest].answer_tip}
-                topic={list[activeQwest].topic}
-                id={list[activeQwest].id}
-            />
 
-        </div>
+            {
+                (list.length) ? <div className={cx('all_questions', {
+                    'all_questions_VISIBLE': !startWindMarafon
+                })}>
+
+
+                <div ref={containerRef} className={cx('all_questions_numbers')}>
+
+                        {
+                            list.map((e) => (
+                                <button
+                                    key={e.number}
+                                    ref={e.number === activeQwest ? activeButtonRef : null}
+                                    className={cx('all_questions_numbers_qwest', {
+                                        'all_questions_numbers_qwest_red': e.status === 'red',
+                                        'all_questions_numbers_qwest_green': e.status === 'green',
+                                        'all_questions_numbers_qwest_yellow': e.number === activeQwest,
+                                    })}
+                                    onClick={() => {
+                                        dispatch(setActiveQwest(e.number))
+                                    }}>
+                                    {e.number + 1}
+                                </button>
+                            ))
+                        }
+
+                    </div>
+
+                    <div className={cx('all_questions_counter')}>
+                        <div className={cx('all_questions_counter_red')}>{red}</div>
+                        <div className={cx('all_questions_counter_slash')}>
+                            {/*<Slash/>*/}/
+                        </div>
+                        <div className={cx('all_questions_counter_green')}>{green}</div>
+                    </div>
+
+
+                    <Mission
+                        yourResponse={list[activeQwest].yourResponse}
+                        status={list[activeQwest].status}
+                        number={list[activeQwest].number}
+                        response={list[activeQwest].response}
+                        ticket_category={list[activeQwest].ticket_category}
+                        ticket_number={`Вопрос ${activeQwest + 1}`}
+                        image={list[activeQwest].image}
+                        question={list[activeQwest].question}
+                        answers={list[activeQwest].answers}
+                        correct_answer={list[activeQwest].correct_answer}
+                        answer_tip={list[activeQwest].answer_tip}
+                        topic={list[activeQwest].topic}
+                        id={list[activeQwest].id}
+                    />
+
+                </div> : ''
+            }
+
+
+        </>
     )
 }
+
 export default Allquestions;

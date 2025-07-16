@@ -77,6 +77,9 @@ const marafonSlice = createSlice({
             state.listQuests[state.activeQuest].yourResponse = action.payload.index
 
             state.listQuests[state.activeQuest].status = (action.payload.isCorrect)?'green':'red'
+
+            localStorage.setItem('PDD_marafon', JSON.stringify(state.listQuests))
+
             console.log("%c" +
                 `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
                 "color:orange;font-size:17px;");
