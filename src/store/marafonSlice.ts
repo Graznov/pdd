@@ -11,8 +11,24 @@ export interface marafonState {
     red:number,
 }
 
+let numberLocalStor:number = 0
+
+if(localStorage.getItem('PDD_marafon')){
+    const str  = localStorage.getItem('PDD_marafon')
+    if(str) {
+        JSON.parse(str)
+        for(let i=0; i<800; i++){
+            if(!JSON.parse(str)[i].response){
+                numberLocalStor = i
+                break
+            }
+        }
+    }
+
+}
+
 const initialState:marafonState = {
-    activeQuest:0,
+    activeQuest:numberLocalStor,
     activeQuestError:0,
     listQuestionError:[],
     listQuests:[],
