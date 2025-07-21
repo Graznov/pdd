@@ -28,20 +28,15 @@ function Allquestions(){
 
     const [startWindMarafon, setStartWindMarafon] = useState<boolean>(true);
 
-    function startMarafon(){
+    function startMarafon(e:'start'|'ext'){
+
+
 
         if(!isEntered) {
-            console.log('list.length:\n',list.length)
-            dispatch(setListQuest(localStorage.getItem('PDD_marafon')))
 
-            console.log('list.length:\n',list.length,'/n######/n',
-                'localStorage.getItem(\'PDD_marafon\'):\n',JSON.stringify(localStorage.getItem('PDD_marafon')))
-
-            if(!list.length){
+            if(e==='start'){
                 const allQwest:props_mission[] = All.default
-
                 const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
-
                     res.push({
                         ...elem,
                         number: ind,
@@ -49,18 +44,18 @@ function Allquestions(){
                         status: 'none',
                         yourResponse:null
                     })
-
                     return res
                 },[])
-
                 localStorage.setItem('PDD_marafon', JSON.stringify(listNumbersQuest))
-
                 dispatch(setListQuest(listNumbersQuest))
                 console.log('start')
-            } else {
-                // const listNumbersQuest:quest[] = localStorage.getItem('PDD_marafon')
-                // dispatch(setListQuest(listNumbersQuest))
+            } else if(e==='ext'){
                 console.log('prodolzh')
+                const strList = localStorage.getItem('PDD_marafon')
+                const objList = (typeof strList === 'string') ? JSON.parse(strList) : []
+                // dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))))
+                dispatch(setListQuest(objList))
+
             }
         }
 
@@ -139,14 +134,14 @@ function Allquestions(){
                 <div className={cx("all_questions_start-wind_btnArea")}>
                     <button onClick={()=> {
                         setStartWindMarafon(!startWindMarafon)
-                        startMarafon()
+                        startMarafon('start')
                     }}>Начать</button>
 
                     {
                         (localStorage.getItem('PDD_marafon')) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
-                                startMarafon()
+                                startMarafon('ext')
                             }}>Продолжить</button> : ''
                     }
 

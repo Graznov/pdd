@@ -57,6 +57,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     } else if (wind==='marafon'){
         list=listMarafon
         activeQwest=marafonActiveQuest
+
     } else if (wind==='error'){
         list=listError
         activeQwest=errorActiveQuest
@@ -169,6 +170,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
             dispatch(examPushAnswerQuest({isCorrect,index}))
         } else if (wind==='marafon'){
             dispatch(pushAnswerQuest({isCorrect,index}))
+
+
         } else if (wind==='error'){
             console.log('ERROR')
             setAnswerIndex(index)
