@@ -30,24 +30,27 @@ function Allquestions(){
 
     function startMarafon(e:'start'|'ext'){
 
+        function list(){
+            const allQwest:props_mission[] = All.default
+            const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
+                res.push({
+                    ...elem,
+                    number: ind,
+                    response: false,
+                    status: 'none',
+                    yourResponse:null
+                })
+                return res
+            },[])
+            return listNumbersQuest
+        }
 
-
-        if(!isEntered) {
+        // if(!isEntered) {
 
             if(e==='start'){
-                const allQwest:props_mission[] = All.default
-                const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
-                    res.push({
-                        ...elem,
-                        number: ind,
-                        response: false,
-                        status: 'none',
-                        yourResponse:null
-                    })
-                    return res
-                },[])
-                localStorage.setItem('PDD_marafon', JSON.stringify(listNumbersQuest))
-                dispatch(setListQuest(listNumbersQuest))
+                localStorage.setItem('PDD_marafon', JSON.stringify(list()))
+                dispatch(setListQuest(list()))
+                dispatch(setActiveQwest(0))
                 console.log('start')
             } else if(e==='ext'){
                 console.log('prodolzh')
@@ -57,32 +60,9 @@ function Allquestions(){
                 dispatch(setListQuest(objList))
 
             }
-        }
-
-        // if (list.length === 0) {
-        //
-        //     const allQwest:props_mission[] = All.default
-        //
-        //     const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
-        //
-        //         res.push({
-        //             ...elem,
-        //             number: ind,
-        //             response: false,
-        //             status: 'none',
-        //             yourResponse:null
-        //         })
-        //
-        //         return res
-        //     },[])
-        //
-        //     localStorage.setItem('PDD_marafon', JSON.stringify(listNumbersQuest))
-        //
-        //
-        //     dispatch(setListQuest(listNumbersQuest))
         // } else {
-        //     const listNumbersQuest:quest[] = localStorage.getItem('PDD_marafon')
-        //     dispatch(setListQuest(listNumbersQuest))
+        //
+        //
         //
         // }
 
