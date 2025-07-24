@@ -35,6 +35,7 @@ function Tickets(){
         },[])
         console.log(examTicket[0].response)
         dispatch(setExamList(examTicket));
+        localStorage.setItem("PDD_examTicket", JSON.stringify(examTicket));
     }
 
     return (

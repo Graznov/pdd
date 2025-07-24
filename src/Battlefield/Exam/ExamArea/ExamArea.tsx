@@ -5,13 +5,14 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {
     resetExam,
     setExamActiveQuest,
-    setExamActiveQuestPlus,
+    setExamActiveQuestPlus, setExamList,
     setNeSdal,
 } from "../../../store/examSlice.ts";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Winer from '/src/assets/win.svg?react'
 import {resetUserData, setRedGreen} from "../../../store/userDataSlice.ts";
+import {setWind} from "../../../store/styleSlise.ts";
 // import Error from "*.svg?react";
 
 
@@ -36,6 +37,23 @@ function ExamArea(){
     const entrance = useAppSelector(state => state.userDataSlice.entrance)
 
     const [flag, setFlag] = useState(false)
+
+    useEffect(() => {
+        dispatch(setWind('exam'))
+
+        if(localStorage.getItem('PDD_examTicket')){
+            const list = localStorage.getItem('PDD_examTicket')
+            let listObj
+            if(list) listObj = JSON.parse(list);
+            console.log(listObj)
+
+            dispatch(setExamList(listObj));
+
+        }
+
+    }, []);
+
+
     useEffect(() => {
         if(!flag && red===3){
             dispatch(setNeSdal(true))
@@ -112,6 +130,8 @@ function ExamArea(){
                         onClick={()=> {
                             // dispatch(setTiketNumber('green'))
                             dispatch(resetExam())
+                            localStorage.removeItem('PDD_examTicket')
+
                             sendToDb('green', tiketNumber)
                         }}
                         to={'/examticket'}
@@ -133,12 +153,15 @@ function ExamArea(){
                         <button onClick={()=> {
                             dispatch(setNeSdal(false))
                             dispatch(setExamActiveQuestPlus())
+                            localStorage.removeItem('PDD_examTicket')
+
                             sendToDb('red', tiketNumber)
 
                         }}>Продолжить</button>
                         <button onClick={()=>{
                             dispatch(resetExam())
                             sendToDb('red', tiketNumber)
+                            localStorage.removeItem('PDD_examTicket')
 
                             navigate('/examticket')
                         }}>Закончить</button>

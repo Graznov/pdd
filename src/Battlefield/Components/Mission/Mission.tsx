@@ -23,6 +23,7 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../../store/backErrorSlise.ts";
+import {setWind} from "../../../store/styleSlise.ts";
 
 
 const cx = classNames.bind(styles);
@@ -64,6 +65,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         console.log(list[activeQwest])
     }
 
+
+    // dispatch(setWind('exam'))
     console.log(`wind: ${wind}`)
 
     const red = useAppSelector(state => state.examSlice.red);
@@ -156,6 +159,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         )
 
         if(wind==='exam'){
+
             if(red+green+1===20 && red<3) {
                 console.log('CONGRAT...')
                 dispatch(examPushAnswerQuest({isCorrect,index}))
@@ -168,6 +172,9 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 },1000)
             }
             dispatch(examPushAnswerQuest({isCorrect,index}))
+            localStorage.setItem("PDD_examTicket", JSON.stringify(list))
+
+
         } else if (wind==='marafon'){
             dispatch(pushAnswerQuest({isCorrect,index}))
 
