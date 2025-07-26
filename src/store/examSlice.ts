@@ -77,6 +77,8 @@ const examSlice = createSlice({
             //     `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
             //     "color:orange;font-size:17px;");
             console.log(`examSlice.ts`)
+            localStorage.setItem("PDD_examTicket", JSON.stringify(state.examList))
+
 
         },
 

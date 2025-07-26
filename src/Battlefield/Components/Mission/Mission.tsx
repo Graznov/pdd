@@ -172,7 +172,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 },1000)
             }
             dispatch(examPushAnswerQuest({isCorrect,index}))
-            localStorage.setItem("PDD_examTicket", JSON.stringify(list))
+            // localStorage.setItem("PDD_examTicket", JSON.stringify(list))
 
 
         } else if (wind==='marafon'){
