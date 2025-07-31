@@ -5,14 +5,21 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {quest} from "../../../store/interface.ts";
 import {
     pushAnswerQuest,
-    pushAnswerQuestERROR,
+    pushAnswerQuestERROR, setActiveQwest,
     setActiveQwestERRORPlus,
     setActiveQwestPlus
 } from "../../../store/marafonSlice.ts";
 import Star from '/src/assets/star.svg?react'
 import Question from '/src/assets/question.svg?react'
 import ErrorSVG from '/src/assets/error.svg?react'
-import {examPushAnswerQuest, resetExam, setExamActiveQuestPlus, setSdal} from "../../../store/examSlice.ts";
+import {
+    examPushAnswerQuest,
+    resetExam, setExamActiveQuest,
+    setExamActiveQuestPlus,
+    setGreen,
+    setRed,
+    setSdal
+} from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
 import logIn from "../../LogIn/LogIn.tsx";
@@ -72,6 +79,35 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     const red = useAppSelector(state => state.examSlice.red);
     const green = useAppSelector(state => state.examSlice.green);
 
+    useEffect(() => {
+
+        if(localStorage.getItem('PDD_examTicket')){
+            console.log('!!!!')
+
+            const storedData = localStorage.getItem('PDD_examTicket');
+            const parsedData = storedData ? JSON.parse(storedData) : null;
+            console.log(parsedData)
+
+            let red = 0
+            let green = 0
+            let active = 0
+
+            parsedData.forEach((el: { status: string; }, ind: number)=>{
+                if(el.status==='red'){
+                    red++
+                } else if(el.status==='green'){
+                    green++
+                } else {
+                    // if(!active) active=ind
+                }
+            })
+
+            dispatch(setRed(red))
+            dispatch(setGreen(green))
+            // dispatch(setExamActiveQuest(active))
+
+        }
+    }, []);
 
     useEffect(() => {
         number = red+green
@@ -160,14 +196,18 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         if(wind==='exam'){
 
+            console.log('#####\n', "EXAM", '\n', 'red: ', red, '\n', 'green: ', green, '\n#####')
+
             if(red+green+1===20 && red<3) {
                 console.log('CONGRAT...')
                 dispatch(examPushAnswerQuest({isCorrect,index}))
                 dispatch(setSdal(true))
+                // localStorage.removeItem('PDD_examTicket')
                 return
             } else if (red+green+1===20){
                 setTimeout(()=>{
                     dispatch(resetExam())
+
                     navigate('/examticket')
                 },1000)
             }
