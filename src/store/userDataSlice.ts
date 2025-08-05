@@ -8,7 +8,8 @@ const initialState:userData = {
     userPassword: '',
     starQuestions: [],
     errorQuestions: [],
-    examTiketsStatus:[]
+    examTiketsStatus:[],
+    marafon:[]
 }
 
 const userDataSlice = createSlice({

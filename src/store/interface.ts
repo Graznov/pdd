@@ -50,4 +50,5 @@ export interface userData {
     starQuestions: string[],
     errorQuestions: string[],
     examTiketsStatus:{color:'none'|'red'|'green'}[]
+    marafon:[]
 }

@@ -7,6 +7,9 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
 import {useEffect, useRef, useState} from "react";
+import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
+import {resetUserData, setUserName} from "../../store/userDataSlice.ts";
+import {valueOf} from "@eslint/js";
 
 const cx = classNames.bind(styles);
 
@@ -15,13 +18,14 @@ function Allquestions(){
 
     const dispatch = useAppDispatch()
 
+    const UserDataID = useAppSelector(state => state.userDataSlice.id)
     const isEntered = useAppSelector(state => state.userDataSlice.entrance)
     const activeQwest = useAppSelector(state => state.marafonSlice.activeQuest)
     const list = useAppSelector(state => state.marafonSlice.listQuests);
     const red = useAppSelector(state => state.marafonSlice.red);
     const green = useAppSelector(state => state.marafonSlice.green);
 
-    console.log('list.length:\n',list.length)
+    // console.log('list.length:\n',list.length)
 
 
     dispatch(setWind('marafon'))
@@ -45,7 +49,7 @@ function Allquestions(){
             return listNumbersQuest
         }
 
-        // if(!isEntered) {
+        if(!isEntered) {
 
             if(e==='start'){
                 localStorage.setItem('PDD_marafon', JSON.stringify(list()))
@@ -60,11 +64,155 @@ function Allquestions(){
                 dispatch(setListQuest(objList))
 
             }
-        // } else {
-        //
-        //
-        //
-        // }
+        } else {
+
+            console.log('isEntered')
+            if(e==='start'){
+
+                const arr = list()
+                localStorage.setItem('PDD_marafon', JSON.stringify(arr))
+                dispatch(setListQuest(arr))
+
+                const arrToBd = []
+
+                arr.forEach((e) => {
+                    arrToBd.push({
+                        id:e.id,
+                        number:e.number,
+                        response:e.response,
+                        status:e.status,
+                        yourResponse:e.yourResponse
+                    })
+                })
+
+                console.log(arrToBd)
+
+
+                dispatch(setActiveQwest(0))
+                console.log('start_Entered')
+
+                fetch(`http://localhost:3000/user/startmarafon/${UserDataID}`, {
+                    method: 'PATCH',
+                    credentials: "include",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('PDD_accessToken')!,
+                    },
+                    body: JSON.stringify(arrToBd)
+                })
+                    .then(async (response) => {
+
+                        // console.log(response)
+                        if (!response.ok) {
+                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`);
+                        }
+                        // console.log(response)
+
+                        // Проверяем, есть ли тело ответа
+                        const text = await response.text();
+                        return text ? JSON.parse(text) : null; // Парсим JSON только если есть данные
+                    })
+                    .then((data) => {
+                        if (data && data.accessToken) {
+                            console.log('Данные получены', data);
+                            localStorage.setItem('PDD_accessToken', data.accessToken);
+                        } else {
+                            console.log('Бекенд вернул пустой ответ');
+                            dispatch(setErrorTitle('Ok'));
+                            dispatch(setErrorStatus('204'));
+                            dispatch(setErrorText('Бекенд вернул пустой ответ'));
+                            dispatch(setErrortWindWisible());
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        console.log('Произошла ошибка:', err.message);
+
+                        dispatch(setErrorTitle('Fetch error:'));
+                        dispatch(setErrorStatus(err.status));
+                        dispatch(setErrorText('Чтото пошло не так\nВойдите чтобы продолжить'));
+                        dispatch(setErrortWindWisible());
+                        dispatch(resetUserData());
+
+                    });
+
+            } else if(e==='ext'){
+
+                ///
+                // const headersToken = localStorage.getItem('PDD_accessToken') || ''
+                const headersToken = localStorage.getItem('PDD_accessToken') || ''
+
+                fetch(`http://localhost:3000/user/setmarafon/${localStorage.getItem('PDD_id')}`, {
+                    method: 'GET', // Указываем метод GET
+                    headers: {
+                        'Content-Type': 'application/json', // Указываем тип содержимого
+                        'Authorization': headersToken // Если требуется авторизация
+                    },
+                    credentials: "include",
+                })
+                    .then((response) => {
+
+                        if (!response.ok) {
+                            throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+                        }
+
+                        dispatch(setErrorTitle('данные получены'));
+                        dispatch(setErrorStatus(response.status || 500));
+                        dispatch(setErrorText(response.statusText));
+                        dispatch(setErrortWindWisible());
+
+                        return response.json()
+                    })
+                    .then(data=>{
+
+                        console.log(data)
+
+                        const arr = list()
+
+                        arr.forEach((e, i) => {
+                            e.response = data[i].response
+                            e.status = data[i].status
+                            e.yourResponse = data[i].yourResponse
+                        })
+
+                        localStorage.setItem('PDD_marafon', JSON.stringify(arr))
+                        dispatch(setListQuest(arr))
+
+                        // if (data.accessToken) {
+                            // localStorage.setItem('PDD_accessToken', data.accessToken)
+                            // dispatch(setUserName(data))
+
+                            // dispatch(setErrorTitle('данные обновлены'));
+                            // dispatch(setErrorText(err));
+                            // dispatch(setErrorStatus(err.status || 500));
+                            // dispatch(setErrortWindWisible());
+                        // }else {
+                            // console.log(`NO accessToken`)
+                            // dispatch(setErrorTitle('Ошибка'));
+                            // dispatch(setErrorText(err));
+                            // dispatch(setErrorStatus(err.status || 500));
+                            // dispatch(setErrortWindWisible());
+                        // }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        dispatch(setErrorTitle('Fetch error:'));
+                        dispatch(setErrorStatus(error.status || 500));
+                        dispatch(setErrorText(error.statusText));
+                        dispatch(setErrortWindWisible());
+                    });
+
+                console.log('prodolzh_Entered')
+                // const strList = localStorage.getItem('PDD_marafon')
+                // const objList = (typeof strList === 'string') ? JSON.parse(strList) : []
+                // dispatch(setListQuest(objList))
+
+
+
+            }
+
+
+        }
 
     }
 

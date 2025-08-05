@@ -14,6 +14,7 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../store/backErrorSlise.ts";
+import {setListQuest} from "../../store/marafonSlice.ts";
 
 const cx = classNames.bind(styles);
 
@@ -209,7 +210,13 @@ function LogIn() {
 
                         localStorage.setItem('PDD_accessToken', data.accessToken);
                         localStorage.setItem('PDD_id', data.id);
+                        // dispatch(setListQuest(data.marafon))
                         dispatch(setUserName(data));
+                        // console.log(data.marafon)
+                        localStorage.setItem('PDD_marafon', JSON.stringify(data.marafon))
+
+
+
                         navigate('/userdata');
                     })
                     .catch((err) => {
