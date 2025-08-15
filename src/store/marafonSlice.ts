@@ -15,8 +15,16 @@ let numberLocalStor:number = 0
 
 if(localStorage.getItem('PDD_marafon')){
     const str  = localStorage.getItem('PDD_marafon')
-    if(str) {
-        JSON.parse(str)
+    let strArr
+    if(typeof str === 'string'){
+        strArr = JSON.parse(str)
+    }
+
+
+    console.log(strArr.length)
+
+    if(strArr.length) {
+        // JSON.parse(str)
         for(let i=0; i<800; i++){
             if(!JSON.parse(str)[i].response){
                 numberLocalStor = i
