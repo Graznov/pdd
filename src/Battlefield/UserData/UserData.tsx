@@ -45,6 +45,7 @@ let errorTimer:number|undefined
         console.log('Exit Account');
         clearTimeout(errorTimer)
         localStorage.removeItem('PDD_accessToken');
+        localStorage.removeItem('PDD_marafon');
         localStorage.removeItem('PDD_id');
         dispatch(resetUserData())
         fetch('http://localhost:3000/del-cookie', {

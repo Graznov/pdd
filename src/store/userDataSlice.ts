@@ -58,7 +58,9 @@ const userDataSlice = createSlice({
             if(state.errorQuestions.includes(action.payload)){
                 state.errorQuestions.splice(state.errorQuestions.indexOf(action.payload), 1)
             }else{
-                // state.errorQuestions.push(action.payload)
+
+                state.errorQuestions.push(action.payload)
+
             }
             // console.log("%c" + `userDataSlice.ts\nselected: ${state.starQuestions}\nerror: ${state.errorQuestions}`, "color:white;font-size:17px;");
         },
