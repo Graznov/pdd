@@ -110,6 +110,16 @@ const marafonSlice = createSlice({
 
         },
 
+        setRed(state){
+            state.red++
+            console.log(`red: ${state.red}\ngreen: ${state.green}`);
+        },
+        setGreen(state){
+            state.green++
+            console.log(`red: ${state.red}\ngreen: ${state.green}`);
+
+        },
+
         pushAnswerQuestERROR(state, action){
 
             console.log(11111)
@@ -137,6 +147,8 @@ export const {
     setActiveQwestErrors,
     setListQuestionError,
     setActiveQwestERRORPlus,
+    setRed,
+    setGreen,
     pushAnswerQuestERROR
 } = marafonSlice.actions;
 export default marafonSlice.reducer

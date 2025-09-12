@@ -4,12 +4,11 @@ import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {setActiveQwest, setListQuest} from "../../store/marafonSlice.ts";
+import {setActiveQwest, setGreen, setRed, setListQuest} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
 import {useEffect, useRef, useState} from "react";
 import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
 import {resetUserData, setUserName} from "../../store/userDataSlice.ts";
-import {valueOf} from "@eslint/js";
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +25,8 @@ function Allquestions(){
     const green = useAppSelector(state => state.marafonSlice.green);
 
     // console.log('list.length:\n',list.length)
+
+    console.log(`red: ${red}\ngreen: ${green}`);
 
 
     dispatch(setWind('marafon'))
@@ -169,10 +170,19 @@ function Allquestions(){
 
                         const arr = list()
 
+                        console.log(arr)
+
                         arr.forEach((e, i) => {
                             e.response = data[i].response
                             e.status = data[i].status
                             e.yourResponse = data[i].yourResponse
+                            if(e.status==='red'){
+                                setRed()
+                            } else if (e.status==='green'){
+                                setGreen()
+                            }
+
+
                         })
 
                         localStorage.setItem('PDD_marafon', JSON.stringify(arr))
