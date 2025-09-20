@@ -4,7 +4,7 @@ import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {setActiveQwest, setGreen, setRed, setListQuest} from "../../store/marafonSlice.ts";
+import {setActiveQwest, setListQuest, setColorNumbers} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
 import {useEffect, useRef, useState} from "react";
 import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
@@ -172,18 +172,26 @@ function Allquestions(){
 
                         console.log(arr)
 
+                        let red = 0
+                        let green = 0
+
                         arr.forEach((e, i) => {
                             e.response = data[i].response
                             e.status = data[i].status
                             e.yourResponse = data[i].yourResponse
                             if(e.status==='red'){
-                                setRed()
+                                red++
                             } else if (e.status==='green'){
-                                setGreen()
+                                green++
                             }
 
 
                         })
+
+                        // console.log(`red: ${red}\ngreen: ${green}`)
+                        dispatch(setColorNumbers({red:red, green:green}))
+                        // setColorNumbers({red:red, green:green})
+
 
                         localStorage.setItem('PDD_marafon', JSON.stringify(arr))
                         dispatch(setListQuest(arr))

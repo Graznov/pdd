@@ -16,7 +16,10 @@ let numberLocalStor:number = 0
 if(localStorage.getItem('PDD_marafon')){
     const str  = localStorage.getItem('PDD_marafon')
     let strArr
-    if(typeof str === 'string'){
+    // if(typeof str === 'string'){
+    //     strArr = JSON.parse(str)
+    // }
+    if(str){
         strArr = JSON.parse(str)
     }
 
@@ -26,7 +29,7 @@ if(localStorage.getItem('PDD_marafon')){
     if(strArr.length) {
         // JSON.parse(str)
         for(let i=0; i<800; i++){
-            if(!JSON.parse(str)[i].response){
+            if(str && !JSON.parse(str)[i].response){
                 numberLocalStor = i
                 break
             }
@@ -110,15 +113,15 @@ const marafonSlice = createSlice({
 
         },
 
-        setRed(state){
-            state.red++
-            console.log(`red: ${state.red}\ngreen: ${state.green}`);
-        },
-        setGreen(state){
-            state.green++
-            console.log(`red: ${state.red}\ngreen: ${state.green}`);
+        setColorNumbers(state, action){
+            console.log("%c"
+                + `marafonSlice.ts\nsetColors\naction: ${action.payload}`,
+                "color:yellow;font-size:17px;");
 
+            state.red = action.payload.red
+            state.green = action.payload.green
         },
+
 
         pushAnswerQuestERROR(state, action){
 
@@ -147,8 +150,9 @@ export const {
     setActiveQwestErrors,
     setListQuestionError,
     setActiveQwestERRORPlus,
-    setRed,
-    setGreen,
+    // setRed,
+    // setGreen,
+    setColorNumbers,
     pushAnswerQuestERROR
 } = marafonSlice.actions;
 export default marafonSlice.reducer
