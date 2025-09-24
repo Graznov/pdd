@@ -13,8 +13,17 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../store/backErrorSlise.ts";
+import logIn from "./LogIn/LogIn.tsx";
 
 const cx = classNames.bind(styles);
+
+function cleanLS(){
+    localStorage.removeItem('PDD_accessToken')
+    localStorage.removeItem('PDD_examTicket')
+    localStorage.removeItem('PDD_id')
+    localStorage.removeItem('PDD_marafon')
+}
+
 
 function Bf(){
 
@@ -86,6 +95,8 @@ function Bf(){
                 })
                 .then(data=>{
 
+                    console.log(data)
+
                     if (data.accessToken) {
                         localStorage.setItem('PDD_accessToken', data.accessToken)
                         dispatch(setUserName(data))
@@ -103,6 +114,12 @@ function Bf(){
                     }
                 })
                 .catch(error => {
+                    // localStorage.removeItem('PDD_accessToken')
+                    // localStorage.removeItem('PDD_examTicket')
+                    // localStorage.removeItem('PDD_id')
+                    // localStorage.removeItem('PDD_marafon')
+                    cleanLS()
+
                     console.error('Fetch error:', error);
                     dispatch(setErrorTitle('Fetch error:'));
                     dispatch(setErrorStatus(error.status || 500));

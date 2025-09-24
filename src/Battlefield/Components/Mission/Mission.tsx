@@ -168,6 +168,13 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         console.log(err)
                         console.log('Произошла ошибка:', err.message);
 
+                        localStorage.removeItem('PDD_accessToken')
+                        localStorage.removeItem('PDD_examTicket')
+                        localStorage.removeItem('PDD_id')
+                        localStorage.removeItem('PDD_marafon')
+
+                        navigate('/login')
+
                         dispatch(setErrorTitle('Fetch error:'));
                         dispatch(setErrorStatus(err.status));
                         dispatch(setErrorText('Чтото пошло не так\nВойдите чтобы продолжить'));
