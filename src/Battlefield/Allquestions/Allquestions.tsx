@@ -26,7 +26,9 @@ function Allquestions(){
 
     // console.log('list.length:\n',list.length)
 
-    console.log(`red: ${red}\ngreen: ${green}`);
+    console.log(`list:\n${list}\ngreen: ${green}\nred: ${red}`);
+
+    // console.log(`red: ${red}\ngreen: ${green}`);
 
 
     dispatch(setWind('marafon'))
@@ -234,7 +236,7 @@ function Allquestions(){
 
     }
 
-    console.log()
+    console.log(typeof JSON.stringify(localStorage.getItem('PDD_marafon')))
 
     // console.log("%c"
     //     + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
@@ -284,7 +286,9 @@ function Allquestions(){
                     }}>Начать</button>
 
                     {
-                        (localStorage.getItem('PDD_marafon')) ? <button
+                        // (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
+                        // (red+green!==0) ? <button
+                        (list.length) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
                                 startMarafon('ext')

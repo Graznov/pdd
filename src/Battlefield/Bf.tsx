@@ -38,7 +38,7 @@ function Bf(){
     const title = useAppSelector(state => state.styleSlice.title)
     const UserData = useAppSelector(state => state.userDataSlice)
     console.log("%c"
-        + `Bf.tsx\nRENDER\nwind: ${wind}`,
+        + `Bf.tsx\nRENDER\nwind: ${wind}\nUserData: ${UserData.marafon}`,
         "color:tomato;font-size:17px;");
     const name = (UserData.entrance)?UserData.userName:'LogIn';
     document.title = title

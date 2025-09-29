@@ -119,6 +119,8 @@ function LogIn() {
                             ...prev,
                             name: formRegistration.userName
                         }));
+
+                        console.log(data)
                         setIsLoginVisible(!isLoginVisible);
                         setFormRegistration(FORM_REGISTRATION);
 
@@ -213,7 +215,11 @@ function LogIn() {
                         // dispatch(setListQuest(data.marafon))
                         dispatch(setUserName(data));
                         // console.log(data.marafon)
-                        localStorage.setItem('PDD_marafon', JSON.stringify(data.marafon))
+                        if(JSON.stringify(data.marafon)){
+                            localStorage.setItem('PDD_marafon', JSON.stringify(data.marafon))
+                        } else {
+                            localStorage.setItem('PDD_marafon', undefined)
+                        }
 
 
 
