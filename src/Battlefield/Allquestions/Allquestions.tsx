@@ -66,6 +66,7 @@ function Allquestions(){
                 // dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))))
                 dispatch(setListQuest(objList))
 
+
             }
         } else {
 
@@ -181,6 +182,10 @@ function Allquestions(){
                             e.response = data[i].response
                             e.status = data[i].status
                             e.yourResponse = data[i].yourResponse
+
+                            if((e.response && !activeQwest)) dispatch((setActiveQwest(i+1)))
+                            // if((e.response)) dispatch((setActiveQwest(i)))
+
                             if(e.status==='red'){
                                 red++
                             } else if (e.status==='green'){
@@ -197,6 +202,8 @@ function Allquestions(){
 
                         localStorage.setItem('PDD_marafon', JSON.stringify(arr))
                         dispatch(setListQuest(arr))
+
+
 
                         // if (data.accessToken) {
                             // localStorage.setItem('PDD_accessToken', data.accessToken)
@@ -286,9 +293,9 @@ function Allquestions(){
                     }}>Начать</button>
 
                     {
-                        // (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
+                        (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
                         // (red+green!==0) ? <button
-                        (list.length) ? <button
+                        // (list.length) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
                                 startMarafon('ext')
