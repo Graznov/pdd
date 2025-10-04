@@ -26,14 +26,26 @@ function Allquestions(){
 
     // console.log('list.length:\n',list.length)
 
-    console.log(`list:\n${list}\ngreen: ${green}\nred: ${red}`);
+    console.log(`list:\n${list}\nlist[0]:\n${JSON.stringify(list[0])}\ngreen: ${green}\nred: ${red}`);
 
     // console.log(`red: ${red}\ngreen: ${green}`);
+
+    useEffect(() => {
+
+        if(localStorage.getItem('PDD_marafon')){
+            
+
+            dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
+
+        }
+    }, []);
 
 
     dispatch(setWind('marafon'))
 
     const [startWindMarafon, setStartWindMarafon] = useState<boolean>(true);
+
+    console.log(localStorage.getItem('PDD_examTicket'));
 
     function startMarafon(e:'start'|'ext'){
 
@@ -293,9 +305,10 @@ function Allquestions(){
                     }}>Начать</button>
 
                     {
-                        (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
+                        // (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
                         // (red+green!==0) ? <button
                         // (list.length) ? <button
+                        (list.length) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
                                 startMarafon('ext')
