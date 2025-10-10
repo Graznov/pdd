@@ -90,6 +90,8 @@ const marafonSlice = createSlice({
         },
 
         setListQuest(state, action){
+            console.log(state.listQuests)
+
             state.listQuests = action.payload
         },
 

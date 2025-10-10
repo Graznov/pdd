@@ -26,18 +26,20 @@ function Allquestions(){
 
     // console.log('list.length:\n',list.length)
 
-    console.log(`list:\n${list}\nlist[0]:\n${JSON.stringify(list[0])}\ngreen: ${green}\nred: ${red}`);
+    console.log(`list[0]:\n${JSON.stringify(list[0])}\ngreen: ${green}\nred: ${red}`);
 
     // console.log(`red: ${red}\ngreen: ${green}`);
+
+
 
     useEffect(() => {
 
         if(localStorage.getItem('PDD_marafon')){
-            
 
             dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
 
         }
+
     }, []);
 
 
@@ -322,6 +324,8 @@ function Allquestions(){
 
             {
                 (list.length) ? <div className={cx('all_questions', {
+
+                // (list[1].image !== undefined ) ? <div className={cx('all_questions', {
                     'all_questions_VISIBLE': !startWindMarafon
                 })}>
 

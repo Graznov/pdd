@@ -116,6 +116,9 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
     useEffect(() => {
 
     }, [number]);
+
+    console.log(`image: ${image}`)
+
     const pathToImg = image.substr(1)
 
     const [errorAnswerRed , setErrorAnswerRed] = useState(''); //окрас красным неверного ответа при работе над ошибками
