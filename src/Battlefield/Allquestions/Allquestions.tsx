@@ -30,24 +30,31 @@ function Allquestions(){
 
     // console.log(`red: ${red}\ngreen: ${green}`);
 
+    // console.log(list)
+    //
+    // if(localStorage.getItem('PDD_marafon')){
+    //
+    //     console.log(list)
+    //
+    //     dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
+    //     console.log(list)
+    //
+    // }
 
+    console.log(`EFFECT_0`);
 
     useEffect(() => {
 
-        if(localStorage.getItem('PDD_marafon')){
+        console.log(`EFFECT_1`);
 
-            dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
-
-        }
-
-    }, []);
-
+    },[]);
 
     dispatch(setWind('marafon'))
 
+
     const [startWindMarafon, setStartWindMarafon] = useState<boolean>(true);
 
-    console.log(localStorage.getItem('PDD_examTicket'));
+    // console.log(localStorage.getItem('PDD_marafon'));
 
     function startMarafon(e:'start'|'ext'){
 
@@ -257,7 +264,13 @@ function Allquestions(){
 
     }
 
-    console.log(typeof JSON.stringify(localStorage.getItem('PDD_marafon')))
+    // console.log(typeof JSON.stringify(localStorage.getItem('PDD_marafon')))
+    //
+    // console.log(JSON.parse(localStorage.getItem('PDD_marafon'))[0].image)
+    // if(JSON.parse(localStorage.getItem('PDD_marafon'))[0].image){
+    //     dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
+    // }
+    // console.log(list[0])
 
     // console.log("%c"
     //     + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
@@ -288,6 +301,8 @@ function Allquestions(){
         }
     }, [activeQwest]);
     ////
+
+
 
     return(
 
@@ -323,7 +338,7 @@ function Allquestions(){
 
 
             {
-                (list.length) ? <div className={cx('all_questions', {
+                (list[0].image) ? <div className={cx('all_questions', {
 
                 // (list[1].image !== undefined ) ? <div className={cx('all_questions', {
                     'all_questions_VISIBLE': !startWindMarafon
