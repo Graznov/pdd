@@ -312,22 +312,18 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
         if(UserData.entrance){
 
             fetch(`http://localhost:3000/user/redactstar/${UserData.id}`, {
-                method: 'PATCH', // Указываем метод запроса
+                method: 'PATCH',
                 credentials: "include",
                 headers: {
-                    'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                    'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.getItem('PDD_accessToken')!,
                 },
                 body: JSON.stringify({id:id})
             })
-                .then((response) => {
+                .then(async (response) => {
+                    console.log("Response status:", response.status);
 
-                    console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
-
-                    console.log('response:\n', response)
                     if (!response.ok) {
-                        console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
-
                         if(response.status === 400){
                             console.log('TOKENS ERROR')
                             localStorage.removeItem('PDD_accessToken')
@@ -336,42 +332,112 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
                             dispatch(setErrorTitle('Ошибка токена'));
                             dispatch(setErrorText(`${response.statusText}, \nвойдите в учетную запись`));
-                            dispatch(setErrorStatus(response.status || 500));
+                            dispatch(setErrorStatus(response.status));
                             dispatch(setErrortWindWisible());
                         }
-                        throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-                    } else {
-                        console.log(response)
-                        if(response.status === 200 || response.status === 204){
-                            dispatch(setErrorTitle('Успешно'));
-                            dispatch(setErrorText(response.statusText));
-                            dispatch(setErrorStatus(response.status || 500));
-                            dispatch(setErrortWindWisible());
-                        }
+                        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
                     }
 
-                    // return response.json()
-                    return response.text()
+                    // Для статусов 200/204 показываем успех
+                    if(response.status === 200 || response.status === 204){
+                        dispatch(setErrorTitle('Успешно'));
+                        dispatch(setErrorText(response.statusText));
+                        dispatch(setErrorStatus(response.status));
+                        dispatch(setErrortWindWisible());
+                    }
+
+                    // Парсим ответ только один раз
+                    const text = await response.text();
+
+                    if (!text.trim()) {
+                        console.log('Пустой ответ от сервера');
+                        return null;
+                    }
+
+                    try {
+                        return JSON.parse(text);
+                    } catch (error) {
+                        console.error('JSON Parse Error:', error);
+                        return null;
+                    }
                 })
-
                 .then((data) => {
-                    console.log('Данные получены', data)
-                    localStorage.setItem('PDD_accessToken', data.accessToken)
-                    if (!data) {
-                        throw new Error("Empty response");
+                    if (data && data.accessToken) {
+                        console.log('Данные получены', data.accessToken);
+                        localStorage.setItem('PDD_accessToken', data.accessToken);
+                    } else {
+                        console.log('Нет accessToken в ответе');
                     }
-                    return JSON.parse(data); // Парсим JSON только если есть данные
-
                 })
                 .catch((err) => {
-                    console.log('Произошла ошибка', err)
-
+                    console.log('Произошла ошибка', err);
                     dispatch(setErrorTitle('Ошибка'));
                     dispatch(setErrorText(err.toString()));
-                    dispatch(setErrorStatus(err.status || 500));
+                    dispatch(setErrorStatus(err.status));
                     dispatch(setErrortWindWisible());
+                });
 
-                })
+            // fetch(`http://localhost:3000/user/redactstar/${UserData.id}`, {
+            //     method: 'PATCH', // Указываем метод запроса
+            //     credentials: "include",
+            //     headers: {
+            //         'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
+            //         'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+            //     },
+            //     body: JSON.stringify({id:id})
+            // })
+            //     .then((response) => {
+            //
+            //         console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
+            //
+            //         console.log('response:\n', response)
+            //         if (!response.ok) {
+            //             console.log("%c" + `Mission.tsx\nresponse.status: ${response.status}`, "color:#559D4CFF;font-size:17px;");
+            //
+            //             if(response.status === 400){
+            //                 console.log('TOKENS ERROR')
+            //                 localStorage.removeItem('PDD_accessToken')
+            //                 localStorage.removeItem('PDD_id')
+            //                 dispatch(resetUserData())
+            //
+            //                 dispatch(setErrorTitle('Ошибка токена'));
+            //                 dispatch(setErrorText(`${response.statusText}, \nвойдите в учетную запись`));
+            //                 dispatch(setErrorStatus(response.status || 500));
+            //                 dispatch(setErrortWindWisible());
+            //             }
+            //             throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+            //         } else {
+            //             console.log(response)
+            //             if(response.status === 200 || response.status === 204){
+            //                 dispatch(setErrorTitle('Успешно'));
+            //                 dispatch(setErrorText(response.statusText));
+            //                 dispatch(setErrorStatus(response.status || 500));
+            //                 dispatch(setErrortWindWisible());
+            //             }
+            //         }
+            //
+            //         // return response.json()
+            //         return response.text()
+            //     })
+            //
+            //     .then((data) => {
+            //         console.log('Данные получены', JSON.parse(data).accessToken)
+            //         localStorage.setItem('PDD_accessToken', JSON.parse(data).accessToken)
+            //         if (!data) {
+            //             throw new Error("Empty response");
+            //         }
+            //         return JSON.parse(data); // Парсим JSON только если есть данные
+            //
+            //     })
+            //     .catch((err) => {
+            //         console.log('Произошла ошибка', err)
+            //
+            //         dispatch(setErrorTitle('Ошибка'));
+            //         dispatch(setErrorText(err.toString()));
+            //         dispatch(setErrorStatus(err.status));
+            //         dispatch(setErrortWindWisible());
+            //
+            //     })
 
             errorTimer = setTimeout(()=>{
                 dispatch(cleanError(null))
