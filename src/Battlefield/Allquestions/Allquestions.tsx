@@ -4,7 +4,7 @@ import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {setActiveQwest, setListQuest, setColorNumbers} from "../../store/marafonSlice.ts";
+import {setActiveQwest, setListQuest, setColorNumbers, resetMarafon} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
 import {useEffect, useRef, useState} from "react";
 import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
@@ -90,6 +90,8 @@ function Allquestions(){
         if(!isEntered) {
 
             if(e==='start'){
+
+                dispatch(resetMarafon())
                 localStorage.setItem('PDD_marafon', JSON.stringify(list()))
                 dispatch(setListQuest(list()))
                 dispatch(setActiveQwest(0))
@@ -107,6 +109,8 @@ function Allquestions(){
 
             console.log('isEntered')
             if(e==='start'){
+
+                dispatch(resetMarafon())
 
                 const arr = list()
                 localStorage.setItem('PDD_marafon', JSON.stringify(arr))
@@ -339,7 +343,7 @@ function Allquestions(){
                         // (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
                         // (red+green!==0) ? <button
                         // (list.length) ? <button
-                        (list.length) ? <button
+                        (list.length && isEntered) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
                                 startMarafon('ext')

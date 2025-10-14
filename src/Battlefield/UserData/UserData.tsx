@@ -18,6 +18,8 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../store/backErrorSlise.ts";
+import {resetExam} from "../../store/examSlice.ts";
+import {resetMarafon} from "../../store/marafonSlice.ts";
 
 
 const cx = classNames.bind(styles);
@@ -48,6 +50,9 @@ let errorTimer:number|undefined
         localStorage.removeItem('PDD_marafon');
         localStorage.removeItem('PDD_id');
         dispatch(resetUserData())
+        dispatch(resetExam())
+        dispatch(resetMarafon())
+
         fetch('http://localhost:3000/del-cookie', {
             method: 'POST', // Метод запроса
             credentials: 'include' // Важно для отправки/получения cookie

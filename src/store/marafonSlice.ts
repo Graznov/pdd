@@ -137,6 +137,15 @@ const marafonSlice = createSlice({
             //     `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
             //     "color:orange;font-size:17px;");
 
+        },
+
+        resetMarafon(state){
+            state.activeQuest = numberLocalStor
+            state.activeQuestError = 0
+            state.listQuestionError = []
+            state.listQuests = []
+            state.red = 0
+            state.green = 0
         }
 
 
@@ -155,6 +164,7 @@ export const {
     // setRed,
     // setGreen,
     setColorNumbers,
-    pushAnswerQuestERROR
+    pushAnswerQuestERROR,
+    resetMarafon
 } = marafonSlice.actions;
 export default marafonSlice.reducer
