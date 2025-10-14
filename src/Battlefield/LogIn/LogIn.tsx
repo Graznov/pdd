@@ -14,7 +14,6 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../store/backErrorSlise.ts";
-import {setListQuest} from "../../store/marafonSlice.ts";
 
 const cx = classNames.bind(styles);
 
@@ -218,7 +217,8 @@ function LogIn() {
                         if(JSON.stringify(data.marafon)){
                             localStorage.setItem('PDD_marafon', JSON.stringify(data.marafon))
                         } else {
-                            localStorage.setItem('PDD_marafon', undefined)
+                            // localStorage.setItem('PDD_marafon', undefined)
+                            // localStorage.setItem('PDD_marafon', '')
                         }
 
 

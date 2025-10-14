@@ -27,6 +27,7 @@ function Allquestions(){
     const green = useAppSelector(state => state.marafonSlice.green);
 
     // console.log('list.length:\n',list.length)
+    console.log(`activeQwest: ${activeQwest}`);
 
     useEffect(() => {
 

@@ -11,7 +11,7 @@ import {
 import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Winer from '/src/assets/win.svg?react'
-import {resetUserData, setRedGreen} from "../../../store/userDataSlice.ts";
+import {setRedGreen} from "../../../store/userDataSlice.ts";
 import {setWind} from "../../../store/styleSlise.ts";
 // import Error from "*.svg?react";
 
@@ -100,6 +100,8 @@ function ExamArea(){
         })
 
         .then((data) => {
+
+            console.log(data)
             // console.log('Данные получены', data)
             // localStorage.setItem('PDD_accessToken', data.accessToken)
         })

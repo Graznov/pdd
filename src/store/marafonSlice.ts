@@ -117,7 +117,7 @@ const marafonSlice = createSlice({
 
         setColorNumbers(state, action){
             console.log("%c"
-                + `marafonSlice.ts\nsetColors\naction: ${action.payload}`,
+                + `marafonSlice.ts\nsetColors\naction: ${JSON.stringify(action.payload)}`,
                 "color:yellow;font-size:17px;");
 
             state.red = action.payload.red
@@ -139,16 +139,18 @@ const marafonSlice = createSlice({
 
         },
 
-        resetMarafon(state){
-            state.activeQuest = numberLocalStor
+        resetMarafon(state) {
+            state.activeQuest = 0
             state.activeQuestError = 0
             state.listQuestionError = []
             state.listQuests = []
             state.red = 0
             state.green = 0
+            console.log("%c" +
+                `marafonSlice.ts\n${JSON.stringify(state)}`,
+                "color:orange;font-size:17px;");
+
         }
-
-
     }
 
 })
