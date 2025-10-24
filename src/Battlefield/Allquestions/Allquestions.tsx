@@ -4,19 +4,16 @@ import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
 import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {setActiveQwest, setListQuest, setColorNumbers, resetMarafon} from "../../store/marafonSlice.ts";
+import {resetMarafon, setActiveQwest, setColorNumbers, setListQuest} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
 import {useEffect, useRef, useState} from "react";
 import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
-import {resetUserData, setUserName} from "../../store/userDataSlice.ts";
+import {resetUserData} from "../../store/userDataSlice.ts";
 
 const cx = classNames.bind(styles);
 
 function Allquestions(){
-
-    console.log(`EFFECT_0`);
-
-
+    
     const dispatch = useAppDispatch()
 
     const UserDataID = useAppSelector(state => state.userDataSlice.id)
@@ -26,66 +23,43 @@ function Allquestions(){
     const red = useAppSelector(state => state.marafonSlice.red);
     const green = useAppSelector(state => state.marafonSlice.green);
 
-    // console.log('list.length:\n',list.length)
     console.log(`activeQwest: ${activeQwest}`);
 
     useEffect(() => {
 
-        if(localStorage.getItem('PDD_marafon')){
+        // if(localStorage.getItem('PDD_marafon')){
+        //
+        //     dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
+        //
+        // }
 
-            // console.log(list)
-            //
-            dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
-            //
-            // console.log(list)
-
+        const storedData = localStorage.getItem('PDD_marafon');
+        if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            dispatch(setListQuest(parsedData));
         }
 
-        // console.log(`EFFECT_1`);
-
-    },[]);
-
-    // console.log('list.length:\n',list.length)
-    //
-    // console.log(`list[0]:\n${JSON.stringify(list[0])}\ngreen: ${green}\nred: ${red}`);
-
-    // console.log(`red: ${red}\ngreen: ${green}`);
-
-    // console.log(list)
-    //
-    // if(localStorage.getItem('PDD_marafon')){
-    //
-    //     console.log(list)
-    //
-    //     dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
-    //     console.log(list)
-    //
-    // }
-
-
+    },[])
 
     dispatch(setWind('marafon'))
 
-
     const [startWindMarafon, setStartWindMarafon] = useState<boolean>(true);
-
-    // console.log(localStorage.getItem('PDD_marafon'));
 
     function startMarafon(e:'start'|'ext'){
 
         function list(){
-            const allQwest:props_mission[] = All.default
-            const listNumbersQuest:quest[] = allQwest.reduce((res:quest[], elem, ind)=>{
+            // const allQwest:props_mission[] = All.default
+            const allQwest:props_mission[] = All
+            return allQwest.reduce((res: quest[], elem, ind) => {
                 res.push({
                     ...elem,
                     number: ind,
                     response: false,
                     status: 'none',
-                    yourResponse:null
+                    yourResponse: null
                 })
                 return res
-            },[])
-            return listNumbersQuest
+            }, [])
         }
 
         if(!isEntered) {
@@ -117,7 +91,12 @@ function Allquestions(){
                 localStorage.setItem('PDD_marafon', JSON.stringify(arr))
                 dispatch(setListQuest(arr))
 
-                const arrToBd = []
+                const arrToBd: {
+                    id: string;
+                    number: number;
+                    response: boolean;
+                    status: "none" | "red" | "green";
+                    yourResponse: number | null; }[] = []
 
                 arr.forEach((e) => {
                     arrToBd.push({
@@ -270,34 +249,15 @@ function Allquestions(){
                     });
 
                 console.log('prodolzh_Entered')
-                // const strList = localStorage.getItem('PDD_marafon')
-                // const objList = (typeof strList === 'string') ? JSON.parse(strList) : []
-                // dispatch(setListQuest(objList))
-
-
 
             }
-
 
         }
 
     }
 
-    // console.log(typeof JSON.stringify(localStorage.getItem('PDD_marafon')))
-    //
-    // console.log(JSON.parse(localStorage.getItem('PDD_marafon'))[0].image)
-    // if(JSON.parse(localStorage.getItem('PDD_marafon'))[0].image){
-    //     dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
-    // }
-    // console.log(list[0])
-
-    // console.log("%c"
-    //     + `Allquestions.tsx\nlist: ${list[activeQwest]}`,
-    //     "color:tomato;font-size:17px;");
-
-    ///
-    const containerRef = useRef(null);
-    const activeButtonRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const activeButtonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         if (activeButtonRef.current && containerRef.current) {
@@ -320,8 +280,6 @@ function Allquestions(){
         }
     }, [activeQwest]);
     ////
-
-
 
     return(
 
@@ -413,7 +371,6 @@ function Allquestions(){
 
                 </div> : ''
             }
-
 
         </>
     )
