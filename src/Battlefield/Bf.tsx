@@ -38,7 +38,7 @@ function Bf(){
     const title = useAppSelector(state => state.styleSlice.title)
     const UserData = useAppSelector(state => state.userDataSlice)
     console.log("%c"
-        + `Bf.tsx\nRENDER\nwind: ${wind}\nUserData: ${UserData.marafon}`,
+        + `Bf.tsx\nRENDER\nwind: ${wind}\nUserData.entrance: ${UserData.entrance}`,
         "color:tomato;font-size:17px;");
     const name = (UserData.entrance)?UserData.userName:'LogIn';
     document.title = title
@@ -62,6 +62,7 @@ function Bf(){
         // if(UserData.entrance){
 
             console.log('FETCH')
+        if(localStorage.getItem('PDD_accessToken')){
             fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
                 method: 'GET', // Указываем метод GET
                 headers: {
@@ -126,6 +127,8 @@ function Bf(){
                     dispatch(setErrorText(error.statusText));
                     dispatch(setErrortWindWisible());
                 });
+        }
+
         // }
 
 

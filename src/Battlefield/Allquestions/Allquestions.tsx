@@ -2,7 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './allquestions.module.css';
 import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
-import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
+// import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
+import All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {resetMarafon, setActiveQwest, setColorNumbers, setListQuest} from "../../store/marafonSlice.ts";
 import {setWind} from "../../store/styleSlise.ts";
@@ -13,7 +14,7 @@ import {resetUserData} from "../../store/userDataSlice.ts";
 const cx = classNames.bind(styles);
 
 function Allquestions(){
-    
+
     const dispatch = useAppDispatch()
 
     const UserDataID = useAppSelector(state => state.userDataSlice.id)
@@ -26,12 +27,6 @@ function Allquestions(){
     console.log(`activeQwest: ${activeQwest}`);
 
     useEffect(() => {
-
-        // if(localStorage.getItem('PDD_marafon')){
-        //
-        //     dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))));
-        //
-        // }
 
         const storedData = localStorage.getItem('PDD_marafon');
         if (storedData) {
@@ -64,6 +59,9 @@ function Allquestions(){
 
         if(!isEntered) {
 
+            console.log('No_Entered')
+
+
             if(e==='start'){
 
                 dispatch(resetMarafon())
@@ -71,6 +69,7 @@ function Allquestions(){
                 dispatch(setListQuest(list()))
                 dispatch(setActiveQwest(0))
                 console.log('start')
+
             } else if(e==='ext'){
                 console.log('prodolzh')
                 const strList = localStorage.getItem('PDD_marafon')
