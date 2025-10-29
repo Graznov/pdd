@@ -301,7 +301,7 @@ function Allquestions(){
                         // (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
                         // (red+green!==0) ? <button
                         // (list.length) ? <button
-                        (list.length && isEntered) ? <button
+                        (list.length && isEntered || localStorage.getItem('PDD_marafon')) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
                                 startMarafon('ext')
