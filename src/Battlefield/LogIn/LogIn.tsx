@@ -1,6 +1,6 @@
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Eye from '/src/assets/eye.svg?react'
 import Close from '/src/assets/close.svg?react'
 import EyeHidden from '/src/assets/eye-hidden.svg?react'
@@ -50,7 +50,8 @@ function LogIn() {
 
     const [formRegistration, setFormRegistration] = useState(FORM_REGISTRATION);
 
-    const [error, setError] = useState(ERROR);
+    // const [error, setError] = useState(ERROR);
+    const error = ERROR;
 
     useEffect(() => {
         if(UserData.entrance) navigate('/userdata')
@@ -63,7 +64,7 @@ function LogIn() {
     const [nameError, setNameError] = useState(false);
 
     let errorTimer:number|undefined
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:React.MouseEvent) => {
         e.preventDefault();
         console.log(isLoginVisible ? "Login form submitted" : "Register form submitted");
 

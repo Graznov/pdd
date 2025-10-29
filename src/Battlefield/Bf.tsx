@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './bf.module.css';
-import {NavLink, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../store/hooks.ts";
 import {useEffect} from "react";
 import {resetUserData, setUserName} from "../store/userDataSlice.ts";
@@ -13,7 +13,6 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../store/backErrorSlise.ts";
-import logIn from "./LogIn/LogIn.tsx";
 
 const cx = classNames.bind(styles);
 
@@ -30,7 +29,7 @@ function Bf(){
     // const pathname  = useLocation();
 
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
     // dispatch(setWind('exam'))
