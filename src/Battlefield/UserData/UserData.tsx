@@ -1,16 +1,13 @@
 import styles from "./userdata.module.css";
 import classNames from "classnames/bind";
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
-import {NavLink, Outlet, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Exit from '/src/assets/exit.svg?react'
 import DeleteAcc from '/src/assets/delete-profile.svg?react'
 import Close from '/src/assets/close.svg?react'
-import Star from '/src/assets/star.svg?react'
-import ErrorSVG from '/src/assets/error.svg?react'
 import {resetUserData} from "../../store/userDataSlice.ts";
-import ErrorPage from "../../Errorpage/ErrorPage.tsx";
-import {setTitle, setWind} from "../../store/styleSlise.ts";
+import {setWind} from "../../store/styleSlise.ts";
 import {
     cleanError,
     setErrorStatus,

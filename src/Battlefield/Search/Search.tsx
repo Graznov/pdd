@@ -5,10 +5,9 @@ import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {setSearchArrQuest} from "../../store/searchSlice.ts";
 import {useState} from "react";
 import {props_mission} from "../../store/interface.ts";
-import * as All from "../../../pdd_russia/questions/A_B/All/all.json";
+// import * as All from "../../../pdd_russia/questions/A_B/All/all.json";
+import All from "../../../pdd_russia/questions/A_B/All/all.json";
 import Close from '/src/assets/close.svg?react'
-import {setTitle, setWind} from "../../store/styleSlise.ts";
-
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +21,7 @@ function Search() {
 
     const [vallueSearch, setVallueSearch] = useState('')
 
-    const enterTextSearch = (e) => {
+    const enterTextSearch = (e : React.ChangeEvent<HTMLInputElement>) => {
 
         setVallueSearch(e.target.value)
 
@@ -33,7 +32,7 @@ function Search() {
 
             const searchArr:props_mission[] = []
 
-            All.default.forEach((elem:props_mission)=>{
+            All.forEach((elem:props_mission)=>{
                 if(elem.question.toLowerCase().includes(searchText.toLowerCase())) {
                     searchArr.push(elem)
                 }
@@ -53,6 +52,8 @@ function Search() {
         }
 
     }
+
+    console.log(searchList[0])
 
     return(
 
@@ -79,9 +80,9 @@ function Search() {
                     searchList.map((qwest) => (
                         <SearchContainer
                             key={qwest.id}
+                            id={qwest.id}
                             question={qwest.question}
                             image={qwest.image}
-                            correct_answer={qwest.correct_answer}
                             answers={qwest.answers}
                         />
                     ))

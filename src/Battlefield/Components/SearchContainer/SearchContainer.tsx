@@ -6,10 +6,12 @@ import {pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.
 
 const cx = classNames.bind(styles);
 
-function SearchContainer({id, question, image, answers}: {id:string, question:string,image:string,correct_answer:string, answers:{is_correct:string, answer_text:string}[]}) {
+function SearchContainer({id, question, image, answers}: {id:string, question:string,image:string, answers:{is_correct:boolean, answer_text:string}[]}) {
     const dispatch = useAppDispatch()
 
     const UserData = useAppSelector(state => state.userDataSlice)
+
+    console.log(JSON.stringify(UserData))
 
     const wind = useAppSelector(state => state.styleSlice.wind)
 
@@ -17,7 +19,7 @@ function SearchContainer({id, question, image, answers}: {id:string, question:st
         answers.forEach((a) => {
             if(a.is_correct) textCorrectAnsw = a.answer_text
         })
-
+    console.log(answers)
     const pathToImg = `../../../pdd_russia${image.substr(1)}`
 
     const delStar = () => {
@@ -68,15 +70,16 @@ function SearchContainer({id, question, image, answers}: {id:string, question:st
     return(
         <div className={cx('searchContainer')}>
 
-            <button
+            {
+                (UserData.starQuestions.includes(id))?<button
                 onClick={delStar}
-                className={cx('searchContainer_star',{
-                    'searchContainer_star_VISIBLE':wind==='star',
-            })}>
+                className={cx('searchContainer_star', {
+                    'searchContainer_star_VISIBLE': wind === 'star',
+                })}>
 
                 <Star/>
 
-            </button>
+            </button>:''}
 
             <div className={cx('searchContainer_question')}>
                 {question}

@@ -1,22 +1,23 @@
 import classNames from 'classnames/bind';
 import styles from "./backError.module.css";
-import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-import {cleanError} from "../../../store/backErrorSlise.ts";
+import { useAppSelector} from "../../../store/hooks.ts";
+// import {cleanError} from "../../../store/backErrorSlise.ts";
 
 
 const cx = classNames.bind(styles);
 
 function BackError(){
 
-    const dispatch = useAppDispatch()
-    const entrance = useAppSelector(state => state.userDataSlice.entrance)
-    const wind = useAppSelector(state => state.styleSlice.wind)
+    // const dispatch = useAppDispatch()
+    // const entrance = useAppSelector(state => state.userDataSlice.entrance)
+    // const wind = useAppSelector(state => state.styleSlice.wind)
     const errorData = useAppSelector(state => state.backErrorSlice);
 
     console.log(errorData)
 
     return(
         <div className={cx('backError',
+
             {'backError_visible' : errorData.backErrorWindVisible})}>
             <div className={cx('string', 'backError_title')}>
                 <div>title:</div>

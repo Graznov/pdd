@@ -2,7 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './errorTest.module.css';
 import Mission from "../../Components/Mission/Mission.tsx";
 import {props_mission} from "../../../store/interface.ts";
-import * as All from "../../../../pdd_russia/questions/A_B/All/all.json"
+import All from "../../../../pdd_russia/questions/A_B/All/all.json"
+// import * as All from "../../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {setActiveQwestErrors, setListQuestionError} from "../../../store/marafonSlice.ts";
 import {setWind} from "../../../store/styleSlise.ts";
@@ -23,7 +24,7 @@ function ErrorTest(){
     const LIST_ERROR = useAppSelector(state => state.marafonSlice.listQuestionError)
 
     const errorsList = useMemo(() => {
-        const list = All.default.filter(a => ErrorsArrayID.includes(a.id));
+        const list = All.filter(a => ErrorsArrayID.includes(a.id));
         return list.map((elem:props_mission, ind:number) => ({
             ...elem,
             number: ind,
