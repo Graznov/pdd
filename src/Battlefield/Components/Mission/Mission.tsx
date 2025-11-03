@@ -5,7 +5,6 @@ import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import {quest} from "../../../store/interface.ts";
 import {
     pushAnswerQuest,
-    pushAnswerQuestERROR, setActiveQwest,
     setActiveQwestERRORPlus,
     setActiveQwestPlus
 } from "../../../store/marafonSlice.ts";
@@ -14,7 +13,7 @@ import Question from '/src/assets/question.svg?react'
 import ErrorSVG from '/src/assets/error.svg?react'
 import {
     examPushAnswerQuest,
-    resetExam, setExamActiveQuest,
+    resetExam,
     setExamActiveQuestPlus,
     setGreen,
     setRed,
@@ -22,7 +21,6 @@ import {
 } from "../../../store/examSlice.ts";
 import {pushError, pushSelectedQuestion, resetUserData} from "../../../store/userDataSlice.ts";
 import {useNavigate} from "react-router-dom";
-import logIn from "../../LogIn/LogIn.tsx";
 import {
     cleanError,
     setErrorStatus,
@@ -30,7 +28,6 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../../store/backErrorSlise.ts";
-import {setWind} from "../../../store/styleSlise.ts";
 
 
 const cx = classNames.bind(styles);
@@ -90,9 +87,9 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
             let red = 0
             let green = 0
-            let active = 0
+            // let active = 0
 
-            parsedData.forEach((el: { status: string; }, ind: number)=>{
+            parsedData.forEach((el: { status: string; })=>{
                 if(el.status==='red'){
                     red++
                 } else if(el.status==='green'){
@@ -190,8 +187,6 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     dispatch(cleanError(null))
                 },700)
                 //DeepS
-
-            } else {
 
             }
 

@@ -5,9 +5,25 @@ import {NavLink} from "react-router-dom";
 import {setWind} from "../../../store/styleSlise.ts";
 import {setExamActiveQuest, setExamList, setGreen, setRed, setTiketNumber} from "../../../store/examSlice.ts";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
-import * as examList from "../../../../pdd_russia/questions/A_B/tickets/allTickets.json";
+import examList from "../../../../pdd_russia/questions/A_B/tickets/allTickets.json";
 
 const cx = classNames.bind(styles);
+
+interface answer{
+    title: string,
+    ticket_number: string,
+    ticket_category: string,
+    image: string,
+    question: string,
+    answers: {
+        answer_text: string,
+        is_correct: boolean
+    }[],
+    correct_answer: string,
+    answer_tip: string,
+    topic: string[],
+    id: string
+}
 
 function Tickets(){
 
@@ -16,12 +32,13 @@ function Tickets(){
 
     const UserData = useAppSelector(state => state.userDataSlice)
 
-    console.log(UserData)
-    const allExamQwest = examList.default
+    const allExamQwest = examList
+
+    console.log(allExamQwest[0])
 
     function setTicket (e:number) {
 
-        const examTicket:quest[] = allExamQwest[e].reduce((res:quest[], elem:quest, ind:number)=>{
+        const examTicket:quest[] = allExamQwest[e].reduce((res:quest[], elem:answer, ind:number)=>{
 
             res.push({
                 ...elem,
@@ -33,17 +50,19 @@ function Tickets(){
 
             return res
         },[])
-        console.log(examTicket[0].response)
+        console.log(examTicket[0])
         dispatch(setExamList(examTicket));
         localStorage.setItem("PDD_examTicket", JSON.stringify(examTicket));
     }
+
+    console.log(allExamQwest[0])
 
     return (
         <div className={cx('exam_tickets_btnArea', {
 
         })}>
             {
-                allExamQwest.map((e: quest[], ind: number) => (
+                allExamQwest.map((e: answer[], ind: number) => (
                     <NavLink
                         onClick={() => {
                             console.log(111)
