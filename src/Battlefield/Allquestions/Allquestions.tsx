@@ -29,12 +29,16 @@ function Allquestions(){
     useEffect(() => {
 
         const storedData = localStorage.getItem('PDD_marafon');
+
+        if(storedData && storedData.length===2)localStorage.removeItem('PDD_marafon')
+
         if (storedData) {
             const parsedData = JSON.parse(storedData);
             dispatch(setListQuest(parsedData));
         }
 
     },[])
+
 
     dispatch(setWind('marafon'))
 
@@ -279,6 +283,8 @@ function Allquestions(){
         }
     }, [activeQwest]);
     ////
+
+
 
     return(
 
