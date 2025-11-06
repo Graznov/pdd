@@ -47,9 +47,10 @@ let errorTimer:number|undefined
         // localStorage.removeItem('PDD_accessToken');
         // localStorage.removeItem('PDD_marafon');
         // localStorage.removeItem('PDD_id');
-        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
-        localStorage.removeItem(STORAGE_KEYS.PDD_MARAFON);
-        localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+        // localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+        // localStorage.removeItem(STORAGE_KEYS.PDD_MARAFON);
+        // localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+        STORAGE_KEYS.PDD_REMOVE_LS()
         dispatch(resetUserData())
         dispatch(resetExam())
         dispatch(resetMarafon())
@@ -115,8 +116,9 @@ let errorTimer:number|undefined
                         // localStorage.removeItem('PDD_accessToken');
                         // localStorage.removeItem('PDD_id');
 
-                        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
-                        localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+                        // localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                        // localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+                        STORAGE_KEYS.PDD_REMOVE_LS()
 
                         dispatch(setErrorTitle('Error...'));
                         dispatch(setErrorStatus(response.status));
@@ -132,8 +134,10 @@ let errorTimer:number|undefined
 
                     if(response.status === 200){
                         dispatch(resetUserData())
-                        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
-                        localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+                        // localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                        // localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+
+                        STORAGE_KEYS.PDD_REMOVE_LS()
 
                         dispatch(setErrorTitle('The account is deleted'));
                         dispatch(setErrorStatus(response.status || 500));
@@ -156,8 +160,10 @@ let errorTimer:number|undefined
                 console.error('Ошибка:', error);
                 console.log(error)
                 dispatch(resetUserData())
-                localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
-                localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+                // localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                // localStorage.removeItem(STORAGE_KEYS.PDD_ID);
+
+                STORAGE_KEYS.PDD_REMOVE_LS()
 
                 dispatch(setErrorTitle('Error...'));
                 dispatch(setErrorStatus(error.status || 500));

@@ -88,7 +88,7 @@ function ExamArea(){
             body: JSON.stringify({res:res, ticketNumber:tiketNumber}),
         })
         .then((response) => {
-            // if (!response.ok) {
+            if (!response.ok) {
             //
             //     if(response.status === 400){
             //         console.log('TOKENS ERROR')
@@ -96,8 +96,9 @@ function ExamArea(){
             //         localStorage.removeItem('PDD_id')
             //         dispatch(resetUserData())
             //     }
-            //     throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
-            // }
+                STORAGE_KEYS.PDD_REMOVE_LS()
+                throw new Error(`Ошибка HTTP: ${response.status} ${response.statusText}`)
+            }
             return response.json()
         })
 

@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {userData} from "./interface.ts";
+import {STORAGE_KEYS} from "./constants.ts";
 
 const initialState:userData = {
     entrance:false,
@@ -35,6 +36,8 @@ const userDataSlice = createSlice({
             state.errorQuestions = []
             state.entrance = false
             state.examTiketsStatus = []
+
+            STORAGE_KEYS.PDD_REMOVE_LS()
         },
 
         pushSelectedQuestion(state, action){

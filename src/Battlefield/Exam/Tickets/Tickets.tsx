@@ -6,7 +6,7 @@ import {setWind} from "../../../store/styleSlise.ts";
 import {setExamActiveQuest, setExamList, setGreen, setRed, setTiketNumber} from "../../../store/examSlice.ts";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import examList from "../../../../pdd_russia/questions/A_B/tickets/allTickets.json";
-import {STORAGE_KEYS} from "../../../store/constants.ts";
+// import {STORAGE_KEYS} from "../../../store/constants.ts";
 
 const cx = classNames.bind(styles);
 
@@ -37,6 +37,12 @@ function Tickets(){
 
     console.log(allExamQwest[0])
 
+    if(!UserData.entrance){
+        console.log('NOT ENTERED')
+
+
+    }
+
     function setTicket (e:number) {
 
         const examTicket:quest[] = allExamQwest[e].reduce((res:quest[], elem:answer, ind:number)=>{
@@ -53,7 +59,7 @@ function Tickets(){
         },[])
         console.log(examTicket[0])
         dispatch(setExamList(examTicket));
-        localStorage.setItem(STORAGE_KEYS.PDD_EXAM, JSON.stringify(examTicket));
+        // localStorage.setItem(STORAGE_KEYS.PDD_EXAM, JSON.stringify(examTicket));
     }
 
     console.log(allExamQwest[0])

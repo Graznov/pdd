@@ -60,11 +60,12 @@ function Bf(){
             // const headersToken = localStorage.getItem('PDD_accessToken') || ''
             const headersToken = localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN) || ''
 
+
         // if(UserData.entrance){
 
             console.log('FETCH')
         if(localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)){
-            fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
+            fetch(`http://localhost:3000/user/${localStorage.getItem(STORAGE_KEYS.PDD_ID)}`, {
                 method: 'GET', // Указываем метод GET
                 headers: {
                     'Content-Type': 'application/json', // Указываем тип содержимого
