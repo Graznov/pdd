@@ -14,6 +14,7 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../store/backErrorSlise.ts";
+import {STORAGE_KEYS} from "../../store/constants.ts";
 
 const cx = classNames.bind(styles);
 
@@ -210,13 +211,15 @@ function LogIn() {
                             throw new Error('Неполные данные от сервера');
                         }
 
-                        localStorage.setItem('PDD_accessToken', data.accessToken);
-                        localStorage.setItem('PDD_id', data.id);
+                        // localStorage.setItem('PDD_accessToken', data.accessToken);
+                        // localStorage.setItem('PDD_id', data.id);
+                        localStorage.setItem(STORAGE_KEYS.PDD_ACCESSTOKEN, data.accessToken);
+                        localStorage.setItem(STORAGE_KEYS.PDD_ID, data.id);
                         // dispatch(setListQuest(data.marafon))
                         dispatch(setUserName(data));
                         // console.log(data.marafon)
                         if(JSON.stringify(data.marafon)){
-                            localStorage.setItem('PDD_marafon', JSON.stringify(data.marafon))
+                            localStorage.setItem(STORAGE_KEYS.PDD_MARAFON, JSON.stringify(data.marafon))
                         } else {
                             // localStorage.setItem('PDD_marafon', undefined)
                             // localStorage.setItem('PDD_marafon', '')

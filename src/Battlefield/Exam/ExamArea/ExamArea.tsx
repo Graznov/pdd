@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import Winer from '/src/assets/win.svg?react'
 import {setRedGreen} from "../../../store/userDataSlice.ts";
 import {setWind} from "../../../store/styleSlise.ts";
+import {STORAGE_KEYS} from "../../../store/constants.ts";
 // import Error from "*.svg?react";
 
 
@@ -41,8 +42,9 @@ function ExamArea(){
     useEffect(() => {
         dispatch(setWind('exam'))
 
-        if(localStorage.getItem('PDD_examTicket')){
-            const list = localStorage.getItem('PDD_examTicket')
+        // if(localStorage.getItem('PDD_examTicket')){
+        if(localStorage.getItem(STORAGE_KEYS.PDD_EXAM)){
+            const list = localStorage.getItem(STORAGE_KEYS.PDD_EXAM)
             let listObj
             if(list) listObj = JSON.parse(list);
             console.log(listObj)
@@ -80,7 +82,7 @@ function ExamArea(){
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+                'Authorization': localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)!, // Токен передаётся в заголовке
             },
             // body: JSON.stringify([res, tiketNumber]),
             body: JSON.stringify({res:res, ticketNumber:tiketNumber}),
@@ -132,7 +134,7 @@ function ExamArea(){
                         onClick={()=> {
                             // dispatch(setTiketNumber('green'))
                             dispatch(resetExam())
-                            localStorage.removeItem('PDD_examTicket')
+                            localStorage.removeItem(STORAGE_KEYS.PDD_EXAM)
 
                             sendToDb('green', tiketNumber)
                         }}
@@ -155,7 +157,7 @@ function ExamArea(){
                         <button onClick={()=> {
                             dispatch(setNeSdal(false))
                             dispatch(setExamActiveQuestPlus())
-                            localStorage.removeItem('PDD_examTicket')
+                            localStorage.removeItem(STORAGE_KEYS.PDD_EXAM)
 
                             sendToDb('red', tiketNumber)
 
@@ -163,7 +165,7 @@ function ExamArea(){
                         <button onClick={()=>{
                             dispatch(resetExam())
                             sendToDb('red', tiketNumber)
-                            localStorage.removeItem('PDD_examTicket')
+                            localStorage.removeItem(STORAGE_KEYS.PDD_EXAM)
 
                             navigate('/examticket')
                         }}>Закончить</button>

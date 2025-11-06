@@ -10,6 +10,7 @@ import {setWind} from "../../store/styleSlise.ts";
 import {useEffect, useRef, useState} from "react";
 import {setErrorStatus, setErrorText, setErrorTitle, setErrortWindWisible} from "../../store/backErrorSlise.ts";
 import {resetUserData} from "../../store/userDataSlice.ts";
+import {STORAGE_KEYS} from "../../store/constants.ts";
 
 const cx = classNames.bind(styles);
 
@@ -28,9 +29,11 @@ function Allquestions(){
 
     useEffect(() => {
 
-        const storedData = localStorage.getItem('PDD_marafon');
+        // const storedData = localStorage.getItem('PDD_marafon');
+        const storedData = localStorage.getItem(STORAGE_KEYS.PDD_MARAFON);
 
-        if(storedData && storedData.length===2)localStorage.removeItem('PDD_marafon')
+        if(storedData && storedData.length===2)localStorage.removeItem(STORAGE_KEYS.PDD_MARAFON);
+        // if(storedData && storedData.length===2)localStorage.removeItem('PDD_marafon')
 
         if (storedData) {
             const parsedData = JSON.parse(storedData);
@@ -69,14 +72,16 @@ function Allquestions(){
             if(e==='start'){
 
                 dispatch(resetMarafon())
-                localStorage.setItem('PDD_marafon', JSON.stringify(list()))
+                // localStorage.setItem('PDD_marafon', JSON.stringify(list()))
+                localStorage.setItem(STORAGE_KEYS.PDD_MARAFON, JSON.stringify(list()))
                 dispatch(setListQuest(list()))
                 dispatch(setActiveQwest(0))
                 console.log('start')
 
             } else if(e==='ext'){
                 console.log('prodolzh')
-                const strList = localStorage.getItem('PDD_marafon')
+                // const strList = localStorage.getItem('PDD_marafon')
+                const strList = localStorage.getItem(STORAGE_KEYS.PDD_MARAFON)
                 const objList = (typeof strList === 'string') ? JSON.parse(strList) : []
                 // dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))))
                 dispatch(setListQuest(objList))
@@ -91,7 +96,8 @@ function Allquestions(){
                 dispatch(resetMarafon())
 
                 const arr = list()
-                localStorage.setItem('PDD_marafon', JSON.stringify(arr))
+                // localStorage.setItem('PDD_marafon', JSON.stringify(arr))
+                localStorage.setItem(STORAGE_KEYS.PDD_MARAFON, JSON.stringify(arr))
                 dispatch(setListQuest(arr))
 
                 const arrToBd: {
@@ -122,7 +128,8 @@ function Allquestions(){
                     credentials: "include",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': localStorage.getItem('PDD_accessToken')!,
+                        // 'Authorization': localStorage.getItem('PDD_accessToken')!,
+                        'Authorization': localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)!,
                     },
                     body: JSON.stringify(arrToBd)
                 })
@@ -141,7 +148,8 @@ function Allquestions(){
                     .then((data) => {
                         if (data && data.accessToken) {
                             console.log('Данные получены', data);
-                            localStorage.setItem('PDD_accessToken', data.accessToken);
+                            // localStorage.setItem('PDD_accessToken', data.accessToken);
+                            localStorage.setItem(STORAGE_KEYS.PDD_ACCESSTOKEN, data.accessToken);
                         } else {
                             console.log('Бекенд вернул пустой ответ');
                             dispatch(setErrorTitle('Ok'));
@@ -166,7 +174,8 @@ function Allquestions(){
 
                 ///
                 // const headersToken = localStorage.getItem('PDD_accessToken') || ''
-                const headersToken = localStorage.getItem('PDD_accessToken') || ''
+                // const headersToken = localStorage.getItem('PDD_accessToken') || ''
+                const headersToken = localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN) || ''
 
                 fetch(`http://localhost:3000/user/setmarafon/${localStorage.getItem('PDD_id')}`, {
                     method: 'GET', // Указываем метод GET
@@ -222,7 +231,8 @@ function Allquestions(){
                         // setColorNumbers({red:red, green:green})
 
 
-                        localStorage.setItem('PDD_marafon', JSON.stringify(arr))
+                        // localStorage.setItem('PDD_marafon', JSON.stringify(arr))
+                        localStorage.setItem(STORAGE_KEYS.PDD_MARAFON, JSON.stringify(arr))
                         dispatch(setListQuest(arr))
 
 
@@ -307,7 +317,8 @@ function Allquestions(){
                         // (JSON.stringify(localStorage.getItem('PDD_marafon').length)>0) ? <button
                         // (red+green!==0) ? <button
                         // (list.length) ? <button
-                        (list.length && isEntered || localStorage.getItem('PDD_marafon')) ? <button
+                        // (list.length && isEntered || localStorage.getItem('PDD_marafon')) ? <button
+                        (list.length && isEntered || localStorage.getItem(STORAGE_KEYS.PDD_MARAFON)) ? <button
                             onClick={() => {
                                 setStartWindMarafon(!startWindMarafon)
                                 startMarafon('ext')

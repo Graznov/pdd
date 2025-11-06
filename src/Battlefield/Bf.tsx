@@ -13,15 +13,16 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../store/backErrorSlise.ts";
+import {STORAGE_KEYS} from "../store/constants.ts";
 
 const cx = classNames.bind(styles);
 
-function cleanLS(){
-    localStorage.removeItem('PDD_accessToken')
-    localStorage.removeItem('PDD_examTicket')
-    localStorage.removeItem('PDD_id')
-    localStorage.removeItem('PDD_marafon')
-}
+// function cleanLS(){
+//     localStorage.removeItem('PDD_accessToken')
+//     localStorage.removeItem('PDD_examTicket')
+//     localStorage.removeItem('PDD_id')
+//     localStorage.removeItem('PDD_marafon')
+// }
 
 
 function Bf(){
@@ -56,12 +57,13 @@ function Bf(){
         console.log("%c"
             + `Bf.tsx\nupdate UserData`,
             "color:tomato;font-size:17px;");
-            const headersToken = localStorage.getItem('PDD_accessToken') || ''
+            // const headersToken = localStorage.getItem('PDD_accessToken') || ''
+            const headersToken = localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN) || ''
 
         // if(UserData.entrance){
 
             console.log('FETCH')
-        if(localStorage.getItem('PDD_accessToken')){
+        if(localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)){
             fetch(`http://localhost:3000/user/${localStorage.getItem('PDD_id')}`, {
                 method: 'GET', // Указываем метод GET
                 headers: {
@@ -98,7 +100,7 @@ function Bf(){
                     console.log(data)
 
                     if (data.accessToken) {
-                        localStorage.setItem('PDD_accessToken', data.accessToken)
+                        localStorage.setItem(STORAGE_KEYS.PDD_ACCESSTOKEN, data.accessToken)
                         dispatch(setUserName(data))
 
                         // dispatch(setErrorTitle('данные обновлены'));
@@ -118,7 +120,8 @@ function Bf(){
                     // localStorage.removeItem('PDD_examTicket')
                     // localStorage.removeItem('PDD_id')
                     // localStorage.removeItem('PDD_marafon')
-                    cleanLS()
+                    // cleanLS()
+                    STORAGE_KEYS.PDD_REMOVE_LS()
 
                     console.error('Fetch error:', error);
                     dispatch(setErrorTitle('Fetch error:'));

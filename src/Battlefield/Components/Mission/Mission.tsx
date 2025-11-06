@@ -28,6 +28,7 @@ import {
     setErrorTitle,
     setErrortWindWisible
 } from "../../../store/backErrorSlise.ts";
+import {STORAGE_KEYS} from "../../../store/constants.ts";
 
 
 const cx = classNames.bind(styles);
@@ -78,10 +79,13 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
     useEffect(() => {
 
-        if(localStorage.getItem('PDD_examTicket')){
+
+        // if(localStorage.getItem('PDD_examTicket')){
+        if(localStorage.getItem(STORAGE_KEYS.PDD_EXAM)){
             console.log('!!!!')
 
-            const storedData = localStorage.getItem('PDD_examTicket');
+            // const storedData = localStorage.getItem('PDD_examTicket');
+            const storedData = localStorage.getItem(STORAGE_KEYS.PDD_EXAM);
             const parsedData = storedData ? JSON.parse(storedData) : null;
             console.log(parsedData)
 
@@ -136,7 +140,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     credentials: "include",
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': localStorage.getItem('PDD_accessToken')!,
+                        // 'Authorization': localStorage.getItem('PDD_accessToken')!,
+                        'Authorization': localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)!,
                     },
                     body: JSON.stringify({ id: id, correct: isCorrect, wind: wind, yourResponse: index })
                 })
@@ -155,7 +160,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     .then((data) => {
                         if (data && data.accessToken) {
                             console.log('Данные получены', data);
-                            localStorage.setItem('PDD_accessToken', data.accessToken);
+                            // localStorage.setItem('PDD_accessToken', data.accessToken);
+                            localStorage.setItem(STORAGE_KEYS.PDD_ACCESSTOKEN, data.accessToken);
                         } else {
                             console.log('Бекенд вернул пустой ответ');
                             dispatch(setErrorTitle('Ok'));
@@ -168,10 +174,16 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         console.log(err)
                         console.log('Произошла ошибка:', err.message);
 
-                        localStorage.removeItem('PDD_accessToken')
-                        localStorage.removeItem('PDD_examTicket')
-                        localStorage.removeItem('PDD_id')
-                        localStorage.removeItem('PDD_marafon')
+                        // localStorage.removeItem('PDD_accessToken')
+                        // localStorage.removeItem('PDD_examTicket')
+                        // localStorage.removeItem('PDD_id')
+                        // localStorage.removeItem('PDD_marafon')
+
+                        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                        localStorage.removeItem(STORAGE_KEYS.PDD_EXAM)
+                        localStorage.removeItem(STORAGE_KEYS.PDD_ID)
+                        localStorage.removeItem(STORAGE_KEYS.PDD_MARAFON)
+
 
                         navigate('/login')
 
@@ -311,7 +323,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 credentials: "include",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('PDD_accessToken')!,
+                    // 'Authorization': localStorage.getItem('PDD_accessToken')!,
+                    'Authorization': localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)!,
                 },
                 body: JSON.stringify({id:id})
             })
@@ -321,8 +334,10 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                     if (!response.ok) {
                         if(response.status === 400){
                             console.log('TOKENS ERROR')
-                            localStorage.removeItem('PDD_accessToken')
-                            localStorage.removeItem('PDD_id')
+                            // localStorage.removeItem('PDD_accessToken')
+                            // localStorage.removeItem('PDD_id')
+                            localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN)
+                            localStorage.removeItem(STORAGE_KEYS.PDD_ID)
                             dispatch(resetUserData())
 
                             dispatch(setErrorTitle('Ошибка токена'));
@@ -359,7 +374,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 .then((data) => {
                     if (data && data.accessToken) {
                         console.log('Данные получены', data.accessToken);
-                        localStorage.setItem('PDD_accessToken', data.accessToken);
+                        // localStorage.setItem('PDD_accessToken', data.accessToken);
+                        localStorage.setItem(STORAGE_KEYS.PDD_ACCESSTOKEN, data.accessToken);
                     } else {
                         console.log('Нет accessToken в ответе');
                     }

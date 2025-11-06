@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {quest} from "./interface.ts";
+import {STORAGE_KEYS} from "./constants.ts";
 
 
 export interface marafonState {
@@ -13,8 +14,8 @@ export interface marafonState {
 
 let numberLocalStor:number = 0
 
-if(localStorage.getItem('PDD_marafon')){
-    const str  = localStorage.getItem('PDD_marafon')
+if(localStorage.getItem(STORAGE_KEYS.PDD_MARAFON)){
+    const str  = localStorage.getItem(STORAGE_KEYS.PDD_MARAFON)
     let strArr
     // if(typeof str === 'string'){
     //     strArr = JSON.parse(str)
@@ -107,7 +108,7 @@ const marafonSlice = createSlice({
 
             state.listQuests[state.activeQuest].status = (action.payload.isCorrect)?'green':'red'
 
-            localStorage.setItem('PDD_marafon', JSON.stringify(state.listQuests))
+            localStorage.setItem(STORAGE_KEYS.PDD_MARAFON, JSON.stringify(state.listQuests))
 
             console.log("%c" +
                 `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,

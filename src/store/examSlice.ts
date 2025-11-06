@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {quest} from "./interface.ts";
+import {STORAGE_KEYS} from "./constants.ts";
 // import {searcheState} from "./interface.ts";
 
 interface examState {
@@ -77,7 +78,7 @@ const examSlice = createSlice({
             //     `marafonSlice.ts\naction.payload: ${JSON.stringify(action.payload)}\nactiveQuest: ${state.activeQuest}\nred/green: ${state.red} / ${state.green}\nyourResp: ${state.listQuests[state.activeQuest].yourResponse}`,
             //     "color:orange;font-size:17px;");
             console.log(`examSlice.ts`)
-            localStorage.setItem("PDD_examTicket", JSON.stringify(state.examList))
+            localStorage.setItem(STORAGE_KEYS.PDD_EXAM, JSON.stringify(state.examList))
 
 
         },

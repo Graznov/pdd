@@ -17,6 +17,7 @@ import {
 } from "../../store/backErrorSlise.ts";
 import {resetExam} from "../../store/examSlice.ts";
 import {resetMarafon} from "../../store/marafonSlice.ts";
+import {STORAGE_KEYS} from "../../store/constants.ts";
 
 
 const cx = classNames.bind(styles);
@@ -43,9 +44,12 @@ let errorTimer:number|undefined
     const logOut = () => {
         console.log('Exit Account');
         clearTimeout(errorTimer)
-        localStorage.removeItem('PDD_accessToken');
-        localStorage.removeItem('PDD_marafon');
-        localStorage.removeItem('PDD_id');
+        // localStorage.removeItem('PDD_accessToken');
+        // localStorage.removeItem('PDD_marafon');
+        // localStorage.removeItem('PDD_id');
+        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+        localStorage.removeItem(STORAGE_KEYS.PDD_MARAFON);
+        localStorage.removeItem(STORAGE_KEYS.PDD_ID);
         dispatch(resetUserData())
         dispatch(resetExam())
         dispatch(resetMarafon())
@@ -96,7 +100,7 @@ let errorTimer:number|undefined
             credentials: 'include', // Важно для отправки/получения cookie
             headers: {
                 'Content-Type': 'application/json', // Устанавливаем заголовок Content-Type для указания типа данных
-                'Authorization': localStorage.getItem('PDD_accessToken')!, // Токен передаётся в заголовке
+                'Authorization': localStorage.getItem(STORAGE_KEYS.PDD_ACCESSTOKEN)!, // Токен передаётся в заголовке
             },
         })
             .then(response => {
@@ -108,8 +112,11 @@ let errorTimer:number|undefined
 
                         console.log(response.status)
                         dispatch(resetUserData())
-                        localStorage.removeItem('PDD_accessToken');
-                        localStorage.removeItem('PDD_id');
+                        // localStorage.removeItem('PDD_accessToken');
+                        // localStorage.removeItem('PDD_id');
+
+                        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                        localStorage.removeItem(STORAGE_KEYS.PDD_ID);
 
                         dispatch(setErrorTitle('Error...'));
                         dispatch(setErrorStatus(response.status));
@@ -125,8 +132,8 @@ let errorTimer:number|undefined
 
                     if(response.status === 200){
                         dispatch(resetUserData())
-                        localStorage.removeItem('PDD_accessToken');
-                        localStorage.removeItem('PDD_id');
+                        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                        localStorage.removeItem(STORAGE_KEYS.PDD_ID);
 
                         dispatch(setErrorTitle('The account is deleted'));
                         dispatch(setErrorStatus(response.status || 500));
@@ -149,8 +156,8 @@ let errorTimer:number|undefined
                 console.error('Ошибка:', error);
                 console.log(error)
                 dispatch(resetUserData())
-                localStorage.removeItem('PDD_accessToken');
-                localStorage.removeItem('PDD_id');
+                localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
+                localStorage.removeItem(STORAGE_KEYS.PDD_ID);
 
                 dispatch(setErrorTitle('Error...'));
                 dispatch(setErrorStatus(error.status || 500));
