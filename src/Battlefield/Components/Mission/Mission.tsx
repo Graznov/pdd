@@ -174,16 +174,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                         console.log(err)
                         console.log('Произошла ошибка:', err.message);
 
-                        // localStorage.removeItem('PDD_accessToken')
-                        // localStorage.removeItem('PDD_examTicket')
-                        // localStorage.removeItem('PDD_id')
-                        // localStorage.removeItem('PDD_marafon')
-
-                        localStorage.removeItem(STORAGE_KEYS.PDD_ACCESSTOKEN);
-                        localStorage.removeItem(STORAGE_KEYS.PDD_EXAM)
-                        localStorage.removeItem(STORAGE_KEYS.PDD_ID)
-                        localStorage.removeItem(STORAGE_KEYS.PDD_MARAFON)
-
+                        STORAGE_KEYS.PDD_REMOVE_LS()
 
                         navigate('/login')
 
