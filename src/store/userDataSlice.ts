@@ -81,8 +81,9 @@ const userDataSlice = createSlice({
             }
 
             if(!state.entrance){
-                localStorage.setItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS, state.examTiketsStatus)
+                localStorage.setItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS, JSON.stringify(state.examTiketsStatus))
             }
+            STORAGE_KEYS.PDD_REMOVE_EXAM_TICKET()
 
         }
 

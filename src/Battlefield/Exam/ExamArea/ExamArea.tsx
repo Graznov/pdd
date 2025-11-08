@@ -35,7 +35,7 @@ function ExamArea(){
     const neSdal = useAppSelector(state => state.examSlice.neSdal)
     const sdal = useAppSelector(state => state.examSlice.sdal)
     const tiketNumber = useAppSelector(state => state.examSlice.ticketNumber)
-    const entrance = useAppSelector(state => state.userDataSlice.entrance)
+    // const entrance = useAppSelector(state => state.userDataSlice.entrance)
 
     const [flag, setFlag] = useState(false)
 
@@ -67,13 +67,15 @@ function ExamArea(){
     // let res:string='none'
 
     useEffect(()=>{
-        if(neSdal && entrance){
+        // if(neSdal && entrance){
+        if(neSdal){
             // res = 'red'
             dispatch(setRedGreen({result:'nesdal', tiketNumber:tiketNumber}))
 
 
 
-        }else if(sdal && entrance){
+        // }else if(sdal && entrance){
+        }else if(sdal){
             // res = 'green'
             dispatch(setRedGreen({result:'sdal', tiketNumber:tiketNumber}))
         }
