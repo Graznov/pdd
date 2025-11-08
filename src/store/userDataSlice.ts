@@ -28,6 +28,10 @@ const userDataSlice = createSlice({
             state.examTiketsStatus = action.payload.examTiketsStatus
         },
 
+        setExamTikesStatus(state, action){
+            state.examTiketsStatus = action.payload
+        },
+
         resetUserData(state){
             state.userName = ''
             state.id = ''
@@ -69,15 +73,16 @@ const userDataSlice = createSlice({
         },
 
         setRedGreen(state, action){
+
             if(action.payload.result === 'sdal'){
                 state.examTiketsStatus[action.payload.tiketNumber].color = 'green'
             } else if (action.payload.result === 'nesdal'){
                 state.examTiketsStatus[action.payload.tiketNumber].color = 'red'
             }
 
-
-
-
+            if(!state.entrance){
+                localStorage.setItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS, state.examTiketsStatus)
+            }
 
         }
 
@@ -89,6 +94,7 @@ const userDataSlice = createSlice({
 
 export const {
     setUserName,
+    setExamTikesStatus,
     resetUserData,
     pushSelectedQuestion,
     pushError,

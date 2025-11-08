@@ -204,6 +204,8 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
 
         if(wind==='exam'){
 
+
+
             console.log('#####\n', "EXAM", '\n', 'red: ', red, '\n', 'green: ', green, '\n#####')
 
             if(red+green+1===20 && red<3) {

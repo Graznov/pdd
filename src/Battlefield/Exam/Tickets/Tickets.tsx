@@ -6,6 +6,9 @@ import {setWind} from "../../../store/styleSlise.ts";
 import {setExamActiveQuest, setExamList, setGreen, setRed, setTiketNumber} from "../../../store/examSlice.ts";
 import {useAppDispatch, useAppSelector} from "../../../store/hooks.ts";
 import examList from "../../../../pdd_russia/questions/A_B/tickets/allTickets.json";
+import {STORAGE_KEYS} from "../../../store/constants.ts";
+import {setExamTikesStatus} from "../../../store/userDataSlice.ts";
+import {useEffect} from "react";
 // import {STORAGE_KEYS} from "../../../store/constants.ts";
 
 const cx = classNames.bind(styles);
@@ -33,15 +36,29 @@ function Tickets(){
 
     const UserData = useAppSelector(state => state.userDataSlice)
 
+    console.log(UserData)
+
     const allExamQwest = examList
 
     console.log(allExamQwest[0])
 
-    if(!UserData.entrance){
-        console.log('NOT ENTERED')
 
+    useEffect(()=>{
+        if(!UserData.entrance && !localStorage.getItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS)){
 
-    }
+            console.log('NOT ENTERED')
+
+            const allExamTicketsNoEnteredArr: {color: string;}[] = Array.from({ length: 40 },() => ({ color: 'none' }));
+            localStorage.setItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS, JSON.stringify(allExamTicketsNoEnteredArr))
+            dispatch(setExamTikesStatus(allExamTicketsNoEnteredArr))
+
+        } else if (!UserData.entrance && localStorage.getItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS)){
+            const stored = localStorage.getItem(STORAGE_KEYS.PDD_EXAM_NO_ENTERED_ALL_TICKETS)
+            if(stored) {
+                dispatch(setExamTikesStatus(JSON.parse(stored)))
+            }
+        }
+    },[UserData.entrance, dispatch])
 
     function setTicket (e:number) {
 
@@ -64,6 +81,8 @@ function Tickets(){
 
     console.log(allExamQwest[0])
 
+    console.log('UserData.examTiketsStatus:\n', UserData.examTiketsStatus[0])
+
     return (
         <div className={cx('exam_tickets_btnArea', {
 
@@ -83,8 +102,12 @@ function Tickets(){
                         to={`/examticket/ticket`}
                         key={e[0].ticket_number}
                         className={cx('exam_tickets_btnArea_btn', {
-                            'exam_tickets_btnArea_RED':((UserData.userName.length)?UserData.examTiketsStatus[ind].color==='red':''),
-                            'exam_tickets_btnArea_GREEN':((UserData.userName.length)?UserData.examTiketsStatus[ind].color==='green':'')
+                            // 'exam_tickets_btnArea_RED':((UserData.userName.length)?UserData.examTiketsStatus[ind].color==='red':''),
+                            // 'exam_tickets_btnArea_GREEN':((UserData.userName.length)?UserData.examTiketsStatus[ind].color==='green':''),
+
+                            'exam_tickets_btnArea_RED':(UserData.examTiketsStatus.length)?UserData.examTiketsStatus[ind].color==='red' : '',
+                            'exam_tickets_btnArea_GREEN':(UserData.examTiketsStatus.length)?UserData.examTiketsStatus[ind].color==='green':'',
+                            // 'exam_tickets_btnArea_RED': ((!UserData.entrance)? )
                         })}
                     >
                         {e[0].ticket_number}
