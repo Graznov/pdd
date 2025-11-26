@@ -35,7 +35,7 @@ const cx = classNames.bind(styles);
 
 let number :number = 0
 
-function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_category, ticket_number, topic, response}: quest) {
+function Mission({title, answers, answer_tip, correct_answer, id, image, question, ticket_number, topic, response}: quest) {
 
     // console.log(response)
     const dispatch = useAppDispatch()
@@ -462,7 +462,7 @@ function Mission({title, answers, answer_tip, correct_answer, id, image, questio
                 })}
                 onClick={() => setResponseWind(false)}>
                 <div className={cx('mission_responseWind_topic')}>
-                    <div>{ticket_category}</div>
+                    {/*<div>{ticket_category}</div>*/}
                     <div>{topic}</div>
                     {/*<div>{id}</div>*/}
                 </div>

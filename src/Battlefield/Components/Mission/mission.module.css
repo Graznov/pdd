@@ -173,6 +173,21 @@
 
 @media screen and (min-width:320px) and (max-width:500px) {
 
+    .mission_responseWind_visible{
+        width: 80%;
+
+        .mission_responseWind_tip{
+            font-size: 23px;
+        }
+
+        .mission_responseWind_topic{
+            font-size: 27px;
+        }
+
+        .mission_responseWind_correct{
+            font-size: 17px;
+        }
+    }
     .mission {
         .mission_title{
             font-size: 1.3rem;
