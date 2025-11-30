@@ -169,12 +169,15 @@ function Bf(){
 
                         <div className={cx('header_User', 'header_btnArea')}>
                             <NavLink
+
                                 to={(UserData.entrance)?'/userdata':'/login'}
+
                                 onClick={()=>{
                                     if(!UserData.entrance) dispatch(setWind('user'))
                                 }}
                                 className={cx('header_User_Name')}>
                                 {name}
+
                             </NavLink>
                             {/*<img width='41px' src="https://images.icon-icons.com/10/PNG/256/user_person_customer_man_1532.png" alt="Photo"/>*/}
                         </div>
@@ -185,8 +188,15 @@ function Bf(){
                 <main>
                     <div className={cx('content')}>
 
-                        <Outlet/>
+                        {
+                            // (wind===null)?<div className={cx('bikeGirl')}><img  src="https://github.com/Graznov/pdd/raw/master/public/1744092027827.jpg" alt="bike"/></div>:<Outlet/>
+                            (wind===null)?<div className={cx('bikeGirl')}>
+                                <img  src="https://xix-nv.gosuslugi.ru/netcat_files/48/190/1968592_0M6JH6CDJE924SR1E6FQ5XWE6X.png" alt="bike"/>
+                            </div>:<Outlet/>
+                        }
 
+
+                        {/*<Outlet/>*/}
 
                     </div>
                 </main>
