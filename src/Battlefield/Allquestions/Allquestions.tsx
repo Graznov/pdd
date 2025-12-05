@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import styles from './allquestions.module.css';
 import Mission from "../Components/Mission/Mission.tsx";
 import {props_mission, quest} from "../../store/interface.ts";
-// import * as All from "../../../pdd_russia/questions/A_B/All/all.json"
 import All from "../../../pdd_russia/questions/A_B/All/all.json"
 import {useAppDispatch, useAppSelector} from "../../store/hooks.ts";
 import {resetMarafon, setActiveQwest, setColorNumbers, setListQuest} from "../../store/marafonSlice.ts";
