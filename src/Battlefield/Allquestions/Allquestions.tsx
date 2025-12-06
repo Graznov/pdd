@@ -79,13 +79,27 @@ function Allquestions(){
 
             } else if(e==='ext'){
                 console.log('prodolzh')
-                // const strList = localStorage.getItem('PDD_marafon')
                 const strList = localStorage.getItem(STORAGE_KEYS.PDD_MARAFON)
                 const objList = (typeof strList === 'string') ? JSON.parse(strList) : []
-                // dispatch(setListQuest(JSON.parse(localStorage.getItem('PDD_marafon'))))
                 dispatch(setListQuest(objList))
 
+                let red = 0
+                let green = 0
 
+                objList.forEach((e:quest, i:number) => {
+
+                    if((e.response && !activeQwest)) dispatch((setActiveQwest(i+1)))
+
+                    if(e.status==='red'){
+                        red++
+                    } else if (e.status==='green'){
+                        green++
+                    }
+
+                })
+
+                dispatch(setColorNumbers({red:red, green:green}))
+                
             }
         } else {
 
