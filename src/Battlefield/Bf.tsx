@@ -188,15 +188,16 @@ function Bf(){
                 <main>
                     <div className={cx('content')}>
 
-                        {
-                            // (wind===null)?<div className={cx('bikeGirl')}><img  src="https://github.com/Graznov/pdd/raw/master/public/1744092027827.jpg" alt="bike"/></div>:<Outlet/>
-                            (wind===null)?<div className={cx('bikeGirl')}>
-                                <img  src="https://xix-nv.gosuslugi.ru/netcat_files/48/190/1968592_0M6JH6CDJE924SR1E6FQ5XWE6X.png" alt="bike"/>
-                            </div>:<Outlet/>
-                        }
+                        {/*{*/}
+                        {/*    // (wind===null)?<div className={cx('bikeGirl')}><img  src="https://github.com/Graznov/pdd/raw/master/public/1744092027827.jpg" alt="bike"/></div>:<Outlet/>*/}
+                            {/*(wind===null)?<div className={cx('bikeGirl')}>*/}
+                                {/*<img  src="https://xix-nv.gosuslugi.ru/netcat_files/48/190/1968592_0M6JH6CDJE924SR1E6FQ5XWE6X.png" alt="bike"/>*/}
+                                {/*<img  src="https://github.com/Graznov/pdd/raw/master/public/1744092027827.jpg" alt="bike"/>*/}
+                            {/*</div>:<Outlet/>*/}
+                        {/*}*/}
 
 
-                        {/*<Outlet/>*/}
+                        <Outlet/>
 
                     </div>
                 </main>
